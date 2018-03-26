@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.UserQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `username` as "username",
+    `password` as "password",
+    `gender` as "gender",
+    `birthday` as "birthday",
+    `register_time` as "register_time",
+    `last_login_time` as "last_login_time",
+    `last_login_ip` as "last_login_ip",
+    `user_level_id` as "user_level_id",
+    `nickname` as "nickname",
+    `mobile` as "mobile",
+    `register_ip` as "register_ip",
+    `avatar` as "avatar",
+    `weixin_openid` as "weixin_openid"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="username != null and username != ''">
+      and `username` = #{username}
+    </if>
+    <if test="usernameLeftLike != null and usernameLeftLike != ''"> 
+      and `username` like CONCAT(#{usernameLeftLike}, '%')
+    </if>
+    <if test="usernameRightLike != null and usernameRightLike != ''"> 
+      and `username` like CONCAT('%', #{usernameRightLike})
+    </if>
+    <if test="usernameLike != null and usernameLike != ''"> 
+      and `username` like CONCAT('%', #{usernameLike}, '%')
+    </if>
+    <if test="usernameNotEquals != null and usernameNotEquals != ''"> 
+      and `username` <![CDATA[ <> ]]> #{usernameNotEquals}
+    </if>
+    <if test="usernameIns != null">
+      <foreach collection="usernameIns" item="obj" open="and (" close=")" separator="or">
+        `username` = #{obj}
+      </foreach>
+    </if>
+    <if test="usernameNotIns != null">
+      <foreach collection="usernameNotIns" item="obj" open="and (" close=")" separator="and">
+        `username` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="password != null and password != ''">
+      and `password` = #{password}
+    </if>
+    <if test="passwordLeftLike != null and passwordLeftLike != ''"> 
+      and `password` like CONCAT(#{passwordLeftLike}, '%')
+    </if>
+    <if test="passwordRightLike != null and passwordRightLike != ''"> 
+      and `password` like CONCAT('%', #{passwordRightLike})
+    </if>
+    <if test="passwordLike != null and passwordLike != ''"> 
+      and `password` like CONCAT('%', #{passwordLike}, '%')
+    </if>
+    <if test="passwordNotEquals != null and passwordNotEquals != ''"> 
+      and `password` <![CDATA[ <> ]]> #{passwordNotEquals}
+    </if>
+    <if test="passwordIns != null">
+      <foreach collection="passwordIns" item="obj" open="and (" close=")" separator="or">
+        `password` = #{obj}
+      </foreach>
+    </if>
+    <if test="passwordNotIns != null">
+      <foreach collection="passwordNotIns" item="obj" open="and (" close=")" separator="and">
+        `password` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="gender != null">
+      and `gender` = #{gender}
+    </if>
+    <if test="genderGreaterThan != null"> 
+      and `gender` <![CDATA[ > ]]> #{genderGreaterThan}
+    </if>
+    <if test="genderGreaterEqual != null"> 
+      and `gender` <![CDATA[ >= ]]> #{genderGreaterEqual}
+    </if>
+    <if test="genderLessThan != null"> 
+      and `gender` <![CDATA[ < ]]> #{genderLessThan}
+    </if>
+    <if test="genderLessEqual != null"> 
+      and `gender` <![CDATA[ <= ]]> #{genderLessEqual}
+    </if>
+    <if test="genderNotEquals != null and genderNotEquals != ''"> 
+      and `gender` <![CDATA[ <> ]]> #{genderNotEquals}
+    </if>
+    <if test="genderIns != null">
+      <foreach collection="genderIns" item="obj" open="and (" close=")" separator="or">
+        `gender` = #{obj}
+      </foreach>
+    </if>
+    <if test="genderNotIns != null">
+      <foreach collection="genderNotIns" item="obj" open="and (" close=")" separator="and">
+        `gender` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="birthday != null">
+      and `birthday` = #{birthday}
+    </if>
+    <if test="birthdayGreaterThan != null"> 
+      and `birthday` <![CDATA[ > ]]> #{birthdayGreaterThan}
+    </if>
+    <if test="birthdayGreaterEqual != null"> 
+      and `birthday` <![CDATA[ >= ]]> #{birthdayGreaterEqual}
+    </if>
+    <if test="birthdayLessThan != null"> 
+      and `birthday` <![CDATA[ < ]]> #{birthdayLessThan}
+    </if>
+    <if test="birthdayLessEqual != null"> 
+      and `birthday` <![CDATA[ <= ]]> #{birthdayLessEqual}
+    </if>
+    <if test="birthdayNotEquals != null and birthdayNotEquals != ''"> 
+      and `birthday` <![CDATA[ <> ]]> #{birthdayNotEquals}
+    </if>
+    <if test="birthdayIns != null">
+      <foreach collection="birthdayIns" item="obj" open="and (" close=")" separator="or">
+        `birthday` = #{obj}
+      </foreach>
+    </if>
+    <if test="birthdayNotIns != null">
+      <foreach collection="birthdayNotIns" item="obj" open="and (" close=")" separator="and">
+        `birthday` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="register_time != null">
+      and `register_time` = #{register_time}
+    </if>
+    <if test="register_timeGreaterThan != null"> 
+      and `register_time` <![CDATA[ > ]]> #{register_timeGreaterThan}
+    </if>
+    <if test="register_timeGreaterEqual != null"> 
+      and `register_time` <![CDATA[ >= ]]> #{register_timeGreaterEqual}
+    </if>
+    <if test="register_timeLessThan != null"> 
+      and `register_time` <![CDATA[ < ]]> #{register_timeLessThan}
+    </if>
+    <if test="register_timeLessEqual != null"> 
+      and `register_time` <![CDATA[ <= ]]> #{register_timeLessEqual}
+    </if>
+    <if test="register_timeNotEquals != null and register_timeNotEquals != ''"> 
+      and `register_time` <![CDATA[ <> ]]> #{register_timeNotEquals}
+    </if>
+    <if test="register_timeIns != null">
+      <foreach collection="register_timeIns" item="obj" open="and (" close=")" separator="or">
+        `register_time` = #{obj}
+      </foreach>
+    </if>
+    <if test="register_timeNotIns != null">
+      <foreach collection="register_timeNotIns" item="obj" open="and (" close=")" separator="and">
+        `register_time` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="last_login_time != null">
+      and `last_login_time` = #{last_login_time}
+    </if>
+    <if test="last_login_timeGreaterThan != null"> 
+      and `last_login_time` <![CDATA[ > ]]> #{last_login_timeGreaterThan}
+    </if>
+    <if test="last_login_timeGreaterEqual != null"> 
+      and `last_login_time` <![CDATA[ >= ]]> #{last_login_timeGreaterEqual}
+    </if>
+    <if test="last_login_timeLessThan != null"> 
+      and `last_login_time` <![CDATA[ < ]]> #{last_login_timeLessThan}
+    </if>
+    <if test="last_login_timeLessEqual != null"> 
+      and `last_login_time` <![CDATA[ <= ]]> #{last_login_timeLessEqual}
+    </if>
+    <if test="last_login_timeNotEquals != null and last_login_timeNotEquals != ''"> 
+      and `last_login_time` <![CDATA[ <> ]]> #{last_login_timeNotEquals}
+    </if>
+    <if test="last_login_timeIns != null">
+      <foreach collection="last_login_timeIns" item="obj" open="and (" close=")" separator="or">
+        `last_login_time` = #{obj}
+      </foreach>
+    </if>
+    <if test="last_login_timeNotIns != null">
+      <foreach collection="last_login_timeNotIns" item="obj" open="and (" close=")" separator="and">
+        `last_login_time` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="last_login_ip != null and last_login_ip != ''">
+      and `last_login_ip` = #{last_login_ip}
+    </if>
+    <if test="last_login_ipLeftLike != null and last_login_ipLeftLike != ''"> 
+      and `last_login_ip` like CONCAT(#{last_login_ipLeftLike}, '%')
+    </if>
+    <if test="last_login_ipRightLike != null and last_login_ipRightLike != ''"> 
+      and `last_login_ip` like CONCAT('%', #{last_login_ipRightLike})
+    </if>
+    <if test="last_login_ipLike != null and last_login_ipLike != ''"> 
+      and `last_login_ip` like CONCAT('%', #{last_login_ipLike}, '%')
+    </if>
+    <if test="last_login_ipNotEquals != null and last_login_ipNotEquals != ''"> 
+      and `last_login_ip` <![CDATA[ <> ]]> #{last_login_ipNotEquals}
+    </if>
+    <if test="last_login_ipIns != null">
+      <foreach collection="last_login_ipIns" item="obj" open="and (" close=")" separator="or">
+        `last_login_ip` = #{obj}
+      </foreach>
+    </if>
+    <if test="last_login_ipNotIns != null">
+      <foreach collection="last_login_ipNotIns" item="obj" open="and (" close=")" separator="and">
+        `last_login_ip` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="user_level_id != null">
+      and `user_level_id` = #{user_level_id}
+    </if>
+    <if test="user_level_idGreaterThan != null"> 
+      and `user_level_id` <![CDATA[ > ]]> #{user_level_idGreaterThan}
+    </if>
+    <if test="user_level_idGreaterEqual != null"> 
+      and `user_level_id` <![CDATA[ >= ]]> #{user_level_idGreaterEqual}
+    </if>
+    <if test="user_level_idLessThan != null"> 
+      and `user_level_id` <![CDATA[ < ]]> #{user_level_idLessThan}
+    </if>
+    <if test="user_level_idLessEqual != null"> 
+      and `user_level_id` <![CDATA[ <= ]]> #{user_level_idLessEqual}
+    </if>
+    <if test="user_level_idNotEquals != null and user_level_idNotEquals != ''"> 
+      and `user_level_id` <![CDATA[ <> ]]> #{user_level_idNotEquals}
+    </if>
+    <if test="user_level_idIns != null">
+      <foreach collection="user_level_idIns" item="obj" open="and (" close=")" separator="or">
+        `user_level_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="user_level_idNotIns != null">
+      <foreach collection="user_level_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `user_level_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="nickname != null and nickname != ''">
+      and `nickname` = #{nickname}
+    </if>
+    <if test="nicknameLeftLike != null and nicknameLeftLike != ''"> 
+      and `nickname` like CONCAT(#{nicknameLeftLike}, '%')
+    </if>
+    <if test="nicknameRightLike != null and nicknameRightLike != ''"> 
+      and `nickname` like CONCAT('%', #{nicknameRightLike})
+    </if>
+    <if test="nicknameLike != null and nicknameLike != ''"> 
+      and `nickname` like CONCAT('%', #{nicknameLike}, '%')
+    </if>
+    <if test="nicknameNotEquals != null and nicknameNotEquals != ''"> 
+      and `nickname` <![CDATA[ <> ]]> #{nicknameNotEquals}
+    </if>
+    <if test="nicknameIns != null">
+      <foreach collection="nicknameIns" item="obj" open="and (" close=")" separator="or">
+        `nickname` = #{obj}
+      </foreach>
+    </if>
+    <if test="nicknameNotIns != null">
+      <foreach collection="nicknameNotIns" item="obj" open="and (" close=")" separator="and">
+        `nickname` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="mobile != null and mobile != ''">
+      and `mobile` = #{mobile}
+    </if>
+    <if test="mobileLeftLike != null and mobileLeftLike != ''"> 
+      and `mobile` like CONCAT(#{mobileLeftLike}, '%')
+    </if>
+    <if test="mobileRightLike != null and mobileRightLike != ''"> 
+      and `mobile` like CONCAT('%', #{mobileRightLike})
+    </if>
+    <if test="mobileLike != null and mobileLike != ''"> 
+      and `mobile` like CONCAT('%', #{mobileLike}, '%')
+    </if>
+    <if test="mobileNotEquals != null and mobileNotEquals != ''"> 
+      and `mobile` <![CDATA[ <> ]]> #{mobileNotEquals}
+    </if>
+    <if test="mobileIns != null">
+      <foreach collection="mobileIns" item="obj" open="and (" close=")" separator="or">
+        `mobile` = #{obj}
+      </foreach>
+    </if>
+    <if test="mobileNotIns != null">
+      <foreach collection="mobileNotIns" item="obj" open="and (" close=")" separator="and">
+        `mobile` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="register_ip != null and register_ip != ''">
+      and `register_ip` = #{register_ip}
+    </if>
+    <if test="register_ipLeftLike != null and register_ipLeftLike != ''"> 
+      and `register_ip` like CONCAT(#{register_ipLeftLike}, '%')
+    </if>
+    <if test="register_ipRightLike != null and register_ipRightLike != ''"> 
+      and `register_ip` like CONCAT('%', #{register_ipRightLike})
+    </if>
+    <if test="register_ipLike != null and register_ipLike != ''"> 
+      and `register_ip` like CONCAT('%', #{register_ipLike}, '%')
+    </if>
+    <if test="register_ipNotEquals != null and register_ipNotEquals != ''"> 
+      and `register_ip` <![CDATA[ <> ]]> #{register_ipNotEquals}
+    </if>
+    <if test="register_ipIns != null">
+      <foreach collection="register_ipIns" item="obj" open="and (" close=")" separator="or">
+        `register_ip` = #{obj}
+      </foreach>
+    </if>
+    <if test="register_ipNotIns != null">
+      <foreach collection="register_ipNotIns" item="obj" open="and (" close=")" separator="and">
+        `register_ip` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="avatar != null and avatar != ''">
+      and `avatar` = #{avatar}
+    </if>
+    <if test="avatarLeftLike != null and avatarLeftLike != ''"> 
+      and `avatar` like CONCAT(#{avatarLeftLike}, '%')
+    </if>
+    <if test="avatarRightLike != null and avatarRightLike != ''"> 
+      and `avatar` like CONCAT('%', #{avatarRightLike})
+    </if>
+    <if test="avatarLike != null and avatarLike != ''"> 
+      and `avatar` like CONCAT('%', #{avatarLike}, '%')
+    </if>
+    <if test="avatarNotEquals != null and avatarNotEquals != ''"> 
+      and `avatar` <![CDATA[ <> ]]> #{avatarNotEquals}
+    </if>
+    <if test="avatarIns != null">
+      <foreach collection="avatarIns" item="obj" open="and (" close=")" separator="or">
+        `avatar` = #{obj}
+      </foreach>
+    </if>
+    <if test="avatarNotIns != null">
+      <foreach collection="avatarNotIns" item="obj" open="and (" close=")" separator="and">
+        `avatar` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="weixin_openid != null and weixin_openid != ''">
+      and `weixin_openid` = #{weixin_openid}
+    </if>
+    <if test="weixin_openidLeftLike != null and weixin_openidLeftLike != ''"> 
+      and `weixin_openid` like CONCAT(#{weixin_openidLeftLike}, '%')
+    </if>
+    <if test="weixin_openidRightLike != null and weixin_openidRightLike != ''"> 
+      and `weixin_openid` like CONCAT('%', #{weixin_openidRightLike})
+    </if>
+    <if test="weixin_openidLike != null and weixin_openidLike != ''"> 
+      and `weixin_openid` like CONCAT('%', #{weixin_openidLike}, '%')
+    </if>
+    <if test="weixin_openidNotEquals != null and weixin_openidNotEquals != ''"> 
+      and `weixin_openid` <![CDATA[ <> ]]> #{weixin_openidNotEquals}
+    </if>
+    <if test="weixin_openidIns != null">
+      <foreach collection="weixin_openidIns" item="obj" open="and (" close=")" separator="or">
+        `weixin_openid` = #{obj}
+      </foreach>
+    </if>
+    <if test="weixin_openidNotIns != null">
+      <foreach collection="weixin_openidNotIns" item="obj" open="and (" close=")" separator="and">
+        `weixin_openid` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.User">
+    select
+      <include refid="columns" />
+    from `nideshop_user`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

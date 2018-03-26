@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.CommentBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `type_id` as "type_id",
+    `value_id` as "value_id",
+    `content` as "content",
+    `add_time` as "add_time",
+    `status` as "status",
+    `user_id` as "user_id",
+    `new_content` as "new_content"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="type_id != null"> 
+      and `type_id` = #{type_id}
+    </if>
+    <if test="value_id != null"> 
+      and `value_id` = #{value_id}
+    </if>
+    <if test="content != null and content != ''"> 
+      and `content` = #{content}
+    </if>
+    <if test="add_time != null"> 
+      and `add_time` = #{add_time}
+    </if>
+    <if test="status != null"> 
+      and `status` = #{status}
+    </if>
+    <if test="user_id != null"> 
+      and `user_id` = #{user_id}
+    </if>
+    <if test="new_content != null and new_content != ''"> 
+      and `new_content` = #{new_content}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.Comment">
+    select 
+      <include refid="columns" />
+    from `nideshop_comment`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_comment` (
+      `id`,
+      `type_id`,
+      `value_id`,
+      `content`,
+      `add_time`,
+      `status`,
+      `user_id`,
+      `new_content`
+    ) values (
+      #{id},
+      #{type_id},
+      #{value_id},
+      #{content},
+      #{add_time},
+      #{status},
+      #{user_id},
+      #{new_content}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_comment` (
+      `id`,
+      `type_id`,
+      `value_id`,
+      `content`,
+      `add_time`,
+      `status`,
+      `user_id`,
+      `new_content`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.type_id},
+      #{obj.value_id},
+      #{obj.content},
+      #{obj.add_time},
+      #{obj.status},
+      #{obj.user_id},
+      #{obj.new_content}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_comment`
+    <set>
+        `type_id` = #{type_id},
+        `value_id` = #{value_id},
+        `content` = #{content},
+        `add_time` = #{add_time},
+        `status` = #{status},
+        `user_id` = #{user_id},
+        `new_content` = #{new_content},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_comment`
+    <set>
+      <if test="type_id != null"> 
+        `type_id` = #{type_id},
+      </if>
+      <if test="value_id != null"> 
+        `value_id` = #{value_id},
+      </if>
+      <if test="content != null"> 
+        `content` = #{content},
+      </if>
+      <if test="add_time != null"> 
+        `add_time` = #{add_time},
+      </if>
+      <if test="status != null"> 
+        `status` = #{status},
+      </if>
+      <if test="user_id != null"> 
+        `user_id` = #{user_id},
+      </if>
+      <if test="new_content != null"> 
+        `new_content` = #{new_content},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_comment` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_comment`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Comment">
+    select
+      <include refid="columns" />
+    from `nideshop_comment`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.AttributeCategoryQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `name` as "name",
+    `enabled` as "enabled"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="name != null and name != ''">
+      and `name` = #{name}
+    </if>
+    <if test="nameLeftLike != null and nameLeftLike != ''"> 
+      and `name` like CONCAT(#{nameLeftLike}, '%')
+    </if>
+    <if test="nameRightLike != null and nameRightLike != ''"> 
+      and `name` like CONCAT('%', #{nameRightLike})
+    </if>
+    <if test="nameLike != null and nameLike != ''"> 
+      and `name` like CONCAT('%', #{nameLike}, '%')
+    </if>
+    <if test="nameNotEquals != null and nameNotEquals != ''"> 
+      and `name` <![CDATA[ <> ]]> #{nameNotEquals}
+    </if>
+    <if test="nameIns != null">
+      <foreach collection="nameIns" item="obj" open="and (" close=")" separator="or">
+        `name` = #{obj}
+      </foreach>
+    </if>
+    <if test="nameNotIns != null">
+      <foreach collection="nameNotIns" item="obj" open="and (" close=")" separator="and">
+        `name` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="enabled != null">
+      and `enabled` = #{enabled}
+    </if>
+    <if test="enabledGreaterThan != null"> 
+      and `enabled` <![CDATA[ > ]]> #{enabledGreaterThan}
+    </if>
+    <if test="enabledGreaterEqual != null"> 
+      and `enabled` <![CDATA[ >= ]]> #{enabledGreaterEqual}
+    </if>
+    <if test="enabledLessThan != null"> 
+      and `enabled` <![CDATA[ < ]]> #{enabledLessThan}
+    </if>
+    <if test="enabledLessEqual != null"> 
+      and `enabled` <![CDATA[ <= ]]> #{enabledLessEqual}
+    </if>
+    <if test="enabledNotEquals != null and enabledNotEquals != ''"> 
+      and `enabled` <![CDATA[ <> ]]> #{enabledNotEquals}
+    </if>
+    <if test="enabledIns != null">
+      <foreach collection="enabledIns" item="obj" open="and (" close=")" separator="or">
+        `enabled` = #{obj}
+      </foreach>
+    </if>
+    <if test="enabledNotIns != null">
+      <foreach collection="enabledNotIns" item="obj" open="and (" close=")" separator="and">
+        `enabled` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.AttributeCategory">
+    select
+      <include refid="columns" />
+    from `nideshop_attribute_category`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

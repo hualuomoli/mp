@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.api.comment.mapper.CommentMapper">
+  
+  <select id="count" resultType="java.util.HashMap">
+    SELECT
+      count(9) AS "allCount",
+      count(pic_url) AS "hasPicCount"
+    FROM nideshop_comment c
+    LEFT JOIN nideshop_comment_picture cp ON c.id = cp.comment_id
+    WHERE 1 = 1
+    AND c.type_id = #{type_id}
+    AND c.value_id = #{value_id}
+  </select>
+  
+  <select id="list" resultType="cn.hualuomoli.mp.nideshop.api.comment.entity.ApiComment">
+    SELECT
+      c.id AS "id",
+      c.type_id AS "type_id",
+      c.value_id AS "value_id",
+      c.content AS "content",
+      c.add_time AS "add_time",
+      u.username AS "user_info.username",
+      u.nickname AS "user_info.nickname",
+      u.avatar AS "user_info.avatar",
+      cp.pic_url AS "pic_url"
+    FROM
+      nideshop_comment c
+    LEFT JOIN nideshop_user u ON c.user_id = u.id
+    <if test="showType == null or showType != 1">
+    LEFT JOIN nideshop_comment_picture cp ON c.id = cp.comment_id
+    </if>
+    <if test="showType != null and showType == 1">
+    INNER JOIN nideshop_comment_picture cp ON c.id = cp.comment_id
+    </if>
+    WHERE 1 = 1
+    AND c.type_id = #{type_id}
+    AND c.value_id = #{value_id}
+  </select>
+  
+</mapper>

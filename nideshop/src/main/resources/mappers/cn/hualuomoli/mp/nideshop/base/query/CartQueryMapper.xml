@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.CartQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `user_id` as "user_id",
+    `session_id` as "session_id",
+    `goods_id` as "goods_id",
+    `goods_sn` as "goods_sn",
+    `product_id` as "product_id",
+    `goods_name` as "goods_name",
+    `market_price` as "market_price",
+    `retail_price` as "retail_price",
+    `number` as "number",
+    `goods_specifition_name_value` as "goods_specifition_name_value",
+    `goods_specifition_ids` as "goods_specifition_ids",
+    `checked` as "checked",
+    `list_pic_url` as "list_pic_url"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="user_id != null">
+      and `user_id` = #{user_id}
+    </if>
+    <if test="user_idGreaterThan != null"> 
+      and `user_id` <![CDATA[ > ]]> #{user_idGreaterThan}
+    </if>
+    <if test="user_idGreaterEqual != null"> 
+      and `user_id` <![CDATA[ >= ]]> #{user_idGreaterEqual}
+    </if>
+    <if test="user_idLessThan != null"> 
+      and `user_id` <![CDATA[ < ]]> #{user_idLessThan}
+    </if>
+    <if test="user_idLessEqual != null"> 
+      and `user_id` <![CDATA[ <= ]]> #{user_idLessEqual}
+    </if>
+    <if test="user_idNotEquals != null and user_idNotEquals != ''"> 
+      and `user_id` <![CDATA[ <> ]]> #{user_idNotEquals}
+    </if>
+    <if test="user_idIns != null">
+      <foreach collection="user_idIns" item="obj" open="and (" close=")" separator="or">
+        `user_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="user_idNotIns != null">
+      <foreach collection="user_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `user_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="session_id != null and session_id != ''">
+      and `session_id` = #{session_id}
+    </if>
+    <if test="session_idLeftLike != null and session_idLeftLike != ''"> 
+      and `session_id` like CONCAT(#{session_idLeftLike}, '%')
+    </if>
+    <if test="session_idRightLike != null and session_idRightLike != ''"> 
+      and `session_id` like CONCAT('%', #{session_idRightLike})
+    </if>
+    <if test="session_idLike != null and session_idLike != ''"> 
+      and `session_id` like CONCAT('%', #{session_idLike}, '%')
+    </if>
+    <if test="session_idNotEquals != null and session_idNotEquals != ''"> 
+      and `session_id` <![CDATA[ <> ]]> #{session_idNotEquals}
+    </if>
+    <if test="session_idIns != null">
+      <foreach collection="session_idIns" item="obj" open="and (" close=")" separator="or">
+        `session_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="session_idNotIns != null">
+      <foreach collection="session_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `session_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="goods_id != null">
+      and `goods_id` = #{goods_id}
+    </if>
+    <if test="goods_idGreaterThan != null"> 
+      and `goods_id` <![CDATA[ > ]]> #{goods_idGreaterThan}
+    </if>
+    <if test="goods_idGreaterEqual != null"> 
+      and `goods_id` <![CDATA[ >= ]]> #{goods_idGreaterEqual}
+    </if>
+    <if test="goods_idLessThan != null"> 
+      and `goods_id` <![CDATA[ < ]]> #{goods_idLessThan}
+    </if>
+    <if test="goods_idLessEqual != null"> 
+      and `goods_id` <![CDATA[ <= ]]> #{goods_idLessEqual}
+    </if>
+    <if test="goods_idNotEquals != null and goods_idNotEquals != ''"> 
+      and `goods_id` <![CDATA[ <> ]]> #{goods_idNotEquals}
+    </if>
+    <if test="goods_idIns != null">
+      <foreach collection="goods_idIns" item="obj" open="and (" close=")" separator="or">
+        `goods_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="goods_idNotIns != null">
+      <foreach collection="goods_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `goods_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="goods_sn != null and goods_sn != ''">
+      and `goods_sn` = #{goods_sn}
+    </if>
+    <if test="goods_snLeftLike != null and goods_snLeftLike != ''"> 
+      and `goods_sn` like CONCAT(#{goods_snLeftLike}, '%')
+    </if>
+    <if test="goods_snRightLike != null and goods_snRightLike != ''"> 
+      and `goods_sn` like CONCAT('%', #{goods_snRightLike})
+    </if>
+    <if test="goods_snLike != null and goods_snLike != ''"> 
+      and `goods_sn` like CONCAT('%', #{goods_snLike}, '%')
+    </if>
+    <if test="goods_snNotEquals != null and goods_snNotEquals != ''"> 
+      and `goods_sn` <![CDATA[ <> ]]> #{goods_snNotEquals}
+    </if>
+    <if test="goods_snIns != null">
+      <foreach collection="goods_snIns" item="obj" open="and (" close=")" separator="or">
+        `goods_sn` = #{obj}
+      </foreach>
+    </if>
+    <if test="goods_snNotIns != null">
+      <foreach collection="goods_snNotIns" item="obj" open="and (" close=")" separator="and">
+        `goods_sn` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="product_id != null">
+      and `product_id` = #{product_id}
+    </if>
+    <if test="product_idGreaterThan != null"> 
+      and `product_id` <![CDATA[ > ]]> #{product_idGreaterThan}
+    </if>
+    <if test="product_idGreaterEqual != null"> 
+      and `product_id` <![CDATA[ >= ]]> #{product_idGreaterEqual}
+    </if>
+    <if test="product_idLessThan != null"> 
+      and `product_id` <![CDATA[ < ]]> #{product_idLessThan}
+    </if>
+    <if test="product_idLessEqual != null"> 
+      and `product_id` <![CDATA[ <= ]]> #{product_idLessEqual}
+    </if>
+    <if test="product_idNotEquals != null and product_idNotEquals != ''"> 
+      and `product_id` <![CDATA[ <> ]]> #{product_idNotEquals}
+    </if>
+    <if test="product_idIns != null">
+      <foreach collection="product_idIns" item="obj" open="and (" close=")" separator="or">
+        `product_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="product_idNotIns != null">
+      <foreach collection="product_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `product_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="goods_name != null and goods_name != ''">
+      and `goods_name` = #{goods_name}
+    </if>
+    <if test="goods_nameLeftLike != null and goods_nameLeftLike != ''"> 
+      and `goods_name` like CONCAT(#{goods_nameLeftLike}, '%')
+    </if>
+    <if test="goods_nameRightLike != null and goods_nameRightLike != ''"> 
+      and `goods_name` like CONCAT('%', #{goods_nameRightLike})
+    </if>
+    <if test="goods_nameLike != null and goods_nameLike != ''"> 
+      and `goods_name` like CONCAT('%', #{goods_nameLike}, '%')
+    </if>
+    <if test="goods_nameNotEquals != null and goods_nameNotEquals != ''"> 
+      and `goods_name` <![CDATA[ <> ]]> #{goods_nameNotEquals}
+    </if>
+    <if test="goods_nameIns != null">
+      <foreach collection="goods_nameIns" item="obj" open="and (" close=")" separator="or">
+        `goods_name` = #{obj}
+      </foreach>
+    </if>
+    <if test="goods_nameNotIns != null">
+      <foreach collection="goods_nameNotIns" item="obj" open="and (" close=")" separator="and">
+        `goods_name` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="market_price != null">
+      and `market_price` = #{market_price}
+    </if>
+    <if test="market_priceGreaterThan != null"> 
+      and `market_price` <![CDATA[ > ]]> #{market_priceGreaterThan}
+    </if>
+    <if test="market_priceGreaterEqual != null"> 
+      and `market_price` <![CDATA[ >= ]]> #{market_priceGreaterEqual}
+    </if>
+    <if test="market_priceLessThan != null"> 
+      and `market_price` <![CDATA[ < ]]> #{market_priceLessThan}
+    </if>
+    <if test="market_priceLessEqual != null"> 
+      and `market_price` <![CDATA[ <= ]]> #{market_priceLessEqual}
+    </if>
+    <if test="market_priceNotEquals != null and market_priceNotEquals != ''"> 
+      and `market_price` <![CDATA[ <> ]]> #{market_priceNotEquals}
+    </if>
+    <if test="market_priceIns != null">
+      <foreach collection="market_priceIns" item="obj" open="and (" close=")" separator="or">
+        `market_price` = #{obj}
+      </foreach>
+    </if>
+    <if test="market_priceNotIns != null">
+      <foreach collection="market_priceNotIns" item="obj" open="and (" close=")" separator="and">
+        `market_price` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="retail_price != null">
+      and `retail_price` = #{retail_price}
+    </if>
+    <if test="retail_priceGreaterThan != null"> 
+      and `retail_price` <![CDATA[ > ]]> #{retail_priceGreaterThan}
+    </if>
+    <if test="retail_priceGreaterEqual != null"> 
+      and `retail_price` <![CDATA[ >= ]]> #{retail_priceGreaterEqual}
+    </if>
+    <if test="retail_priceLessThan != null"> 
+      and `retail_price` <![CDATA[ < ]]> #{retail_priceLessThan}
+    </if>
+    <if test="retail_priceLessEqual != null"> 
+      and `retail_price` <![CDATA[ <= ]]> #{retail_priceLessEqual}
+    </if>
+    <if test="retail_priceNotEquals != null and retail_priceNotEquals != ''"> 
+      and `retail_price` <![CDATA[ <> ]]> #{retail_priceNotEquals}
+    </if>
+    <if test="retail_priceIns != null">
+      <foreach collection="retail_priceIns" item="obj" open="and (" close=")" separator="or">
+        `retail_price` = #{obj}
+      </foreach>
+    </if>
+    <if test="retail_priceNotIns != null">
+      <foreach collection="retail_priceNotIns" item="obj" open="and (" close=")" separator="and">
+        `retail_price` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="number != null">
+      and `number` = #{number}
+    </if>
+    <if test="numberGreaterThan != null"> 
+      and `number` <![CDATA[ > ]]> #{numberGreaterThan}
+    </if>
+    <if test="numberGreaterEqual != null"> 
+      and `number` <![CDATA[ >= ]]> #{numberGreaterEqual}
+    </if>
+    <if test="numberLessThan != null"> 
+      and `number` <![CDATA[ < ]]> #{numberLessThan}
+    </if>
+    <if test="numberLessEqual != null"> 
+      and `number` <![CDATA[ <= ]]> #{numberLessEqual}
+    </if>
+    <if test="numberNotEquals != null and numberNotEquals != ''"> 
+      and `number` <![CDATA[ <> ]]> #{numberNotEquals}
+    </if>
+    <if test="numberIns != null">
+      <foreach collection="numberIns" item="obj" open="and (" close=")" separator="or">
+        `number` = #{obj}
+      </foreach>
+    </if>
+    <if test="numberNotIns != null">
+      <foreach collection="numberNotIns" item="obj" open="and (" close=")" separator="and">
+        `number` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="goods_specifition_name_value != null and goods_specifition_name_value != ''">
+      and `goods_specifition_name_value` = #{goods_specifition_name_value}
+    </if>
+    <if test="goods_specifition_name_valueLeftLike != null and goods_specifition_name_valueLeftLike != ''"> 
+      and `goods_specifition_name_value` like CONCAT(#{goods_specifition_name_valueLeftLike}, '%')
+    </if>
+    <if test="goods_specifition_name_valueRightLike != null and goods_specifition_name_valueRightLike != ''"> 
+      and `goods_specifition_name_value` like CONCAT('%', #{goods_specifition_name_valueRightLike})
+    </if>
+    <if test="goods_specifition_name_valueLike != null and goods_specifition_name_valueLike != ''"> 
+      and `goods_specifition_name_value` like CONCAT('%', #{goods_specifition_name_valueLike}, '%')
+    </if>
+    <if test="goods_specifition_name_valueNotEquals != null and goods_specifition_name_valueNotEquals != ''"> 
+      and `goods_specifition_name_value` <![CDATA[ <> ]]> #{goods_specifition_name_valueNotEquals}
+    </if>
+    <if test="goods_specifition_name_valueIns != null">
+      <foreach collection="goods_specifition_name_valueIns" item="obj" open="and (" close=")" separator="or">
+        `goods_specifition_name_value` = #{obj}
+      </foreach>
+    </if>
+    <if test="goods_specifition_name_valueNotIns != null">
+      <foreach collection="goods_specifition_name_valueNotIns" item="obj" open="and (" close=")" separator="and">
+        `goods_specifition_name_value` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="goods_specifition_ids != null and goods_specifition_ids != ''">
+      and `goods_specifition_ids` = #{goods_specifition_ids}
+    </if>
+    <if test="goods_specifition_idsLeftLike != null and goods_specifition_idsLeftLike != ''"> 
+      and `goods_specifition_ids` like CONCAT(#{goods_specifition_idsLeftLike}, '%')
+    </if>
+    <if test="goods_specifition_idsRightLike != null and goods_specifition_idsRightLike != ''"> 
+      and `goods_specifition_ids` like CONCAT('%', #{goods_specifition_idsRightLike})
+    </if>
+    <if test="goods_specifition_idsLike != null and goods_specifition_idsLike != ''"> 
+      and `goods_specifition_ids` like CONCAT('%', #{goods_specifition_idsLike}, '%')
+    </if>
+    <if test="goods_specifition_idsNotEquals != null and goods_specifition_idsNotEquals != ''"> 
+      and `goods_specifition_ids` <![CDATA[ <> ]]> #{goods_specifition_idsNotEquals}
+    </if>
+    <if test="goods_specifition_idsIns != null">
+      <foreach collection="goods_specifition_idsIns" item="obj" open="and (" close=")" separator="or">
+        `goods_specifition_ids` = #{obj}
+      </foreach>
+    </if>
+    <if test="goods_specifition_idsNotIns != null">
+      <foreach collection="goods_specifition_idsNotIns" item="obj" open="and (" close=")" separator="and">
+        `goods_specifition_ids` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="checked != null">
+      and `checked` = #{checked}
+    </if>
+    <if test="checkedGreaterThan != null"> 
+      and `checked` <![CDATA[ > ]]> #{checkedGreaterThan}
+    </if>
+    <if test="checkedGreaterEqual != null"> 
+      and `checked` <![CDATA[ >= ]]> #{checkedGreaterEqual}
+    </if>
+    <if test="checkedLessThan != null"> 
+      and `checked` <![CDATA[ < ]]> #{checkedLessThan}
+    </if>
+    <if test="checkedLessEqual != null"> 
+      and `checked` <![CDATA[ <= ]]> #{checkedLessEqual}
+    </if>
+    <if test="checkedNotEquals != null and checkedNotEquals != ''"> 
+      and `checked` <![CDATA[ <> ]]> #{checkedNotEquals}
+    </if>
+    <if test="checkedIns != null">
+      <foreach collection="checkedIns" item="obj" open="and (" close=")" separator="or">
+        `checked` = #{obj}
+      </foreach>
+    </if>
+    <if test="checkedNotIns != null">
+      <foreach collection="checkedNotIns" item="obj" open="and (" close=")" separator="and">
+        `checked` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="list_pic_url != null and list_pic_url != ''">
+      and `list_pic_url` = #{list_pic_url}
+    </if>
+    <if test="list_pic_urlLeftLike != null and list_pic_urlLeftLike != ''"> 
+      and `list_pic_url` like CONCAT(#{list_pic_urlLeftLike}, '%')
+    </if>
+    <if test="list_pic_urlRightLike != null and list_pic_urlRightLike != ''"> 
+      and `list_pic_url` like CONCAT('%', #{list_pic_urlRightLike})
+    </if>
+    <if test="list_pic_urlLike != null and list_pic_urlLike != ''"> 
+      and `list_pic_url` like CONCAT('%', #{list_pic_urlLike}, '%')
+    </if>
+    <if test="list_pic_urlNotEquals != null and list_pic_urlNotEquals != ''"> 
+      and `list_pic_url` <![CDATA[ <> ]]> #{list_pic_urlNotEquals}
+    </if>
+    <if test="list_pic_urlIns != null">
+      <foreach collection="list_pic_urlIns" item="obj" open="and (" close=")" separator="or">
+        `list_pic_url` = #{obj}
+      </foreach>
+    </if>
+    <if test="list_pic_urlNotIns != null">
+      <foreach collection="list_pic_urlNotIns" item="obj" open="and (" close=")" separator="and">
+        `list_pic_url` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Cart">
+    select
+      <include refid="columns" />
+    from `nideshop_cart`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

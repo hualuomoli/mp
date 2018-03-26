@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.FootprintQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `user_id` as "user_id",
+    `goods_id` as "goods_id",
+    `add_time` as "add_time"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="user_id != null">
+      and `user_id` = #{user_id}
+    </if>
+    <if test="user_idGreaterThan != null"> 
+      and `user_id` <![CDATA[ > ]]> #{user_idGreaterThan}
+    </if>
+    <if test="user_idGreaterEqual != null"> 
+      and `user_id` <![CDATA[ >= ]]> #{user_idGreaterEqual}
+    </if>
+    <if test="user_idLessThan != null"> 
+      and `user_id` <![CDATA[ < ]]> #{user_idLessThan}
+    </if>
+    <if test="user_idLessEqual != null"> 
+      and `user_id` <![CDATA[ <= ]]> #{user_idLessEqual}
+    </if>
+    <if test="user_idNotEquals != null and user_idNotEquals != ''"> 
+      and `user_id` <![CDATA[ <> ]]> #{user_idNotEquals}
+    </if>
+    <if test="user_idIns != null">
+      <foreach collection="user_idIns" item="obj" open="and (" close=")" separator="or">
+        `user_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="user_idNotIns != null">
+      <foreach collection="user_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `user_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="goods_id != null">
+      and `goods_id` = #{goods_id}
+    </if>
+    <if test="goods_idGreaterThan != null"> 
+      and `goods_id` <![CDATA[ > ]]> #{goods_idGreaterThan}
+    </if>
+    <if test="goods_idGreaterEqual != null"> 
+      and `goods_id` <![CDATA[ >= ]]> #{goods_idGreaterEqual}
+    </if>
+    <if test="goods_idLessThan != null"> 
+      and `goods_id` <![CDATA[ < ]]> #{goods_idLessThan}
+    </if>
+    <if test="goods_idLessEqual != null"> 
+      and `goods_id` <![CDATA[ <= ]]> #{goods_idLessEqual}
+    </if>
+    <if test="goods_idNotEquals != null and goods_idNotEquals != ''"> 
+      and `goods_id` <![CDATA[ <> ]]> #{goods_idNotEquals}
+    </if>
+    <if test="goods_idIns != null">
+      <foreach collection="goods_idIns" item="obj" open="and (" close=")" separator="or">
+        `goods_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="goods_idNotIns != null">
+      <foreach collection="goods_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `goods_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="add_time != null">
+      and `add_time` = #{add_time}
+    </if>
+    <if test="add_timeGreaterThan != null"> 
+      and `add_time` <![CDATA[ > ]]> #{add_timeGreaterThan}
+    </if>
+    <if test="add_timeGreaterEqual != null"> 
+      and `add_time` <![CDATA[ >= ]]> #{add_timeGreaterEqual}
+    </if>
+    <if test="add_timeLessThan != null"> 
+      and `add_time` <![CDATA[ < ]]> #{add_timeLessThan}
+    </if>
+    <if test="add_timeLessEqual != null"> 
+      and `add_time` <![CDATA[ <= ]]> #{add_timeLessEqual}
+    </if>
+    <if test="add_timeNotEquals != null and add_timeNotEquals != ''"> 
+      and `add_time` <![CDATA[ <> ]]> #{add_timeNotEquals}
+    </if>
+    <if test="add_timeIns != null">
+      <foreach collection="add_timeIns" item="obj" open="and (" close=")" separator="or">
+        `add_time` = #{obj}
+      </foreach>
+    </if>
+    <if test="add_timeNotIns != null">
+      <foreach collection="add_timeNotIns" item="obj" open="and (" close=")" separator="and">
+        `add_time` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Footprint">
+    select
+      <include refid="columns" />
+    from `nideshop_footprint`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

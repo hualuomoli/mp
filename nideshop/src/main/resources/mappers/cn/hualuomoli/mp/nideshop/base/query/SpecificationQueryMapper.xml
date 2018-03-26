@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.SpecificationQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `name` as "name",
+    `sort_order` as "sort_order"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="name != null and name != ''">
+      and `name` = #{name}
+    </if>
+    <if test="nameLeftLike != null and nameLeftLike != ''"> 
+      and `name` like CONCAT(#{nameLeftLike}, '%')
+    </if>
+    <if test="nameRightLike != null and nameRightLike != ''"> 
+      and `name` like CONCAT('%', #{nameRightLike})
+    </if>
+    <if test="nameLike != null and nameLike != ''"> 
+      and `name` like CONCAT('%', #{nameLike}, '%')
+    </if>
+    <if test="nameNotEquals != null and nameNotEquals != ''"> 
+      and `name` <![CDATA[ <> ]]> #{nameNotEquals}
+    </if>
+    <if test="nameIns != null">
+      <foreach collection="nameIns" item="obj" open="and (" close=")" separator="or">
+        `name` = #{obj}
+      </foreach>
+    </if>
+    <if test="nameNotIns != null">
+      <foreach collection="nameNotIns" item="obj" open="and (" close=")" separator="and">
+        `name` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="sort_order != null">
+      and `sort_order` = #{sort_order}
+    </if>
+    <if test="sort_orderGreaterThan != null"> 
+      and `sort_order` <![CDATA[ > ]]> #{sort_orderGreaterThan}
+    </if>
+    <if test="sort_orderGreaterEqual != null"> 
+      and `sort_order` <![CDATA[ >= ]]> #{sort_orderGreaterEqual}
+    </if>
+    <if test="sort_orderLessThan != null"> 
+      and `sort_order` <![CDATA[ < ]]> #{sort_orderLessThan}
+    </if>
+    <if test="sort_orderLessEqual != null"> 
+      and `sort_order` <![CDATA[ <= ]]> #{sort_orderLessEqual}
+    </if>
+    <if test="sort_orderNotEquals != null and sort_orderNotEquals != ''"> 
+      and `sort_order` <![CDATA[ <> ]]> #{sort_orderNotEquals}
+    </if>
+    <if test="sort_orderIns != null">
+      <foreach collection="sort_orderIns" item="obj" open="and (" close=")" separator="or">
+        `sort_order` = #{obj}
+      </foreach>
+    </if>
+    <if test="sort_orderNotIns != null">
+      <foreach collection="sort_orderNotIns" item="obj" open="and (" close=")" separator="and">
+        `sort_order` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Specification">
+    select
+      <include refid="columns" />
+    from `nideshop_specification`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

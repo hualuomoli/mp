@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.TopicCategoryQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `title` as "title",
+    `pic_url` as "pic_url"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="title != null and title != ''">
+      and `title` = #{title}
+    </if>
+    <if test="titleLeftLike != null and titleLeftLike != ''"> 
+      and `title` like CONCAT(#{titleLeftLike}, '%')
+    </if>
+    <if test="titleRightLike != null and titleRightLike != ''"> 
+      and `title` like CONCAT('%', #{titleRightLike})
+    </if>
+    <if test="titleLike != null and titleLike != ''"> 
+      and `title` like CONCAT('%', #{titleLike}, '%')
+    </if>
+    <if test="titleNotEquals != null and titleNotEquals != ''"> 
+      and `title` <![CDATA[ <> ]]> #{titleNotEquals}
+    </if>
+    <if test="titleIns != null">
+      <foreach collection="titleIns" item="obj" open="and (" close=")" separator="or">
+        `title` = #{obj}
+      </foreach>
+    </if>
+    <if test="titleNotIns != null">
+      <foreach collection="titleNotIns" item="obj" open="and (" close=")" separator="and">
+        `title` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="pic_url != null and pic_url != ''">
+      and `pic_url` = #{pic_url}
+    </if>
+    <if test="pic_urlLeftLike != null and pic_urlLeftLike != ''"> 
+      and `pic_url` like CONCAT(#{pic_urlLeftLike}, '%')
+    </if>
+    <if test="pic_urlRightLike != null and pic_urlRightLike != ''"> 
+      and `pic_url` like CONCAT('%', #{pic_urlRightLike})
+    </if>
+    <if test="pic_urlLike != null and pic_urlLike != ''"> 
+      and `pic_url` like CONCAT('%', #{pic_urlLike}, '%')
+    </if>
+    <if test="pic_urlNotEquals != null and pic_urlNotEquals != ''"> 
+      and `pic_url` <![CDATA[ <> ]]> #{pic_urlNotEquals}
+    </if>
+    <if test="pic_urlIns != null">
+      <foreach collection="pic_urlIns" item="obj" open="and (" close=")" separator="or">
+        `pic_url` = #{obj}
+      </foreach>
+    </if>
+    <if test="pic_urlNotIns != null">
+      <foreach collection="pic_urlNotIns" item="obj" open="and (" close=")" separator="and">
+        `pic_url` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.TopicCategory">
+    select
+      <include refid="columns" />
+    from `nideshop_topic_category`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

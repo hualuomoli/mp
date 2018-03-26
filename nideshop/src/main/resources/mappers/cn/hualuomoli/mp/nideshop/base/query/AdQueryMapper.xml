@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.AdQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `ad_position_id` as "ad_position_id",
+    `media_type` as "media_type",
+    `name` as "name",
+    `link` as "link",
+    `image_url` as "image_url",
+    `content` as "content",
+    `end_time` as "end_time",
+    `enabled` as "enabled"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="ad_position_id != null">
+      and `ad_position_id` = #{ad_position_id}
+    </if>
+    <if test="ad_position_idGreaterThan != null"> 
+      and `ad_position_id` <![CDATA[ > ]]> #{ad_position_idGreaterThan}
+    </if>
+    <if test="ad_position_idGreaterEqual != null"> 
+      and `ad_position_id` <![CDATA[ >= ]]> #{ad_position_idGreaterEqual}
+    </if>
+    <if test="ad_position_idLessThan != null"> 
+      and `ad_position_id` <![CDATA[ < ]]> #{ad_position_idLessThan}
+    </if>
+    <if test="ad_position_idLessEqual != null"> 
+      and `ad_position_id` <![CDATA[ <= ]]> #{ad_position_idLessEqual}
+    </if>
+    <if test="ad_position_idNotEquals != null and ad_position_idNotEquals != ''"> 
+      and `ad_position_id` <![CDATA[ <> ]]> #{ad_position_idNotEquals}
+    </if>
+    <if test="ad_position_idIns != null">
+      <foreach collection="ad_position_idIns" item="obj" open="and (" close=")" separator="or">
+        `ad_position_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="ad_position_idNotIns != null">
+      <foreach collection="ad_position_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `ad_position_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="media_type != null">
+      and `media_type` = #{media_type}
+    </if>
+    <if test="media_typeGreaterThan != null"> 
+      and `media_type` <![CDATA[ > ]]> #{media_typeGreaterThan}
+    </if>
+    <if test="media_typeGreaterEqual != null"> 
+      and `media_type` <![CDATA[ >= ]]> #{media_typeGreaterEqual}
+    </if>
+    <if test="media_typeLessThan != null"> 
+      and `media_type` <![CDATA[ < ]]> #{media_typeLessThan}
+    </if>
+    <if test="media_typeLessEqual != null"> 
+      and `media_type` <![CDATA[ <= ]]> #{media_typeLessEqual}
+    </if>
+    <if test="media_typeNotEquals != null and media_typeNotEquals != ''"> 
+      and `media_type` <![CDATA[ <> ]]> #{media_typeNotEquals}
+    </if>
+    <if test="media_typeIns != null">
+      <foreach collection="media_typeIns" item="obj" open="and (" close=")" separator="or">
+        `media_type` = #{obj}
+      </foreach>
+    </if>
+    <if test="media_typeNotIns != null">
+      <foreach collection="media_typeNotIns" item="obj" open="and (" close=")" separator="and">
+        `media_type` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="name != null and name != ''">
+      and `name` = #{name}
+    </if>
+    <if test="nameLeftLike != null and nameLeftLike != ''"> 
+      and `name` like CONCAT(#{nameLeftLike}, '%')
+    </if>
+    <if test="nameRightLike != null and nameRightLike != ''"> 
+      and `name` like CONCAT('%', #{nameRightLike})
+    </if>
+    <if test="nameLike != null and nameLike != ''"> 
+      and `name` like CONCAT('%', #{nameLike}, '%')
+    </if>
+    <if test="nameNotEquals != null and nameNotEquals != ''"> 
+      and `name` <![CDATA[ <> ]]> #{nameNotEquals}
+    </if>
+    <if test="nameIns != null">
+      <foreach collection="nameIns" item="obj" open="and (" close=")" separator="or">
+        `name` = #{obj}
+      </foreach>
+    </if>
+    <if test="nameNotIns != null">
+      <foreach collection="nameNotIns" item="obj" open="and (" close=")" separator="and">
+        `name` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="link != null and link != ''">
+      and `link` = #{link}
+    </if>
+    <if test="linkLeftLike != null and linkLeftLike != ''"> 
+      and `link` like CONCAT(#{linkLeftLike}, '%')
+    </if>
+    <if test="linkRightLike != null and linkRightLike != ''"> 
+      and `link` like CONCAT('%', #{linkRightLike})
+    </if>
+    <if test="linkLike != null and linkLike != ''"> 
+      and `link` like CONCAT('%', #{linkLike}, '%')
+    </if>
+    <if test="linkNotEquals != null and linkNotEquals != ''"> 
+      and `link` <![CDATA[ <> ]]> #{linkNotEquals}
+    </if>
+    <if test="linkIns != null">
+      <foreach collection="linkIns" item="obj" open="and (" close=")" separator="or">
+        `link` = #{obj}
+      </foreach>
+    </if>
+    <if test="linkNotIns != null">
+      <foreach collection="linkNotIns" item="obj" open="and (" close=")" separator="and">
+        `link` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="image_url != null and image_url != ''">
+      and `image_url` = #{image_url}
+    </if>
+    <if test="image_urlLeftLike != null and image_urlLeftLike != ''"> 
+      and `image_url` like CONCAT(#{image_urlLeftLike}, '%')
+    </if>
+    <if test="image_urlRightLike != null and image_urlRightLike != ''"> 
+      and `image_url` like CONCAT('%', #{image_urlRightLike})
+    </if>
+    <if test="image_urlLike != null and image_urlLike != ''"> 
+      and `image_url` like CONCAT('%', #{image_urlLike}, '%')
+    </if>
+    <if test="image_urlNotEquals != null and image_urlNotEquals != ''"> 
+      and `image_url` <![CDATA[ <> ]]> #{image_urlNotEquals}
+    </if>
+    <if test="image_urlIns != null">
+      <foreach collection="image_urlIns" item="obj" open="and (" close=")" separator="or">
+        `image_url` = #{obj}
+      </foreach>
+    </if>
+    <if test="image_urlNotIns != null">
+      <foreach collection="image_urlNotIns" item="obj" open="and (" close=")" separator="and">
+        `image_url` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="content != null and content != ''">
+      and `content` = #{content}
+    </if>
+    <if test="contentLeftLike != null and contentLeftLike != ''"> 
+      and `content` like CONCAT(#{contentLeftLike}, '%')
+    </if>
+    <if test="contentRightLike != null and contentRightLike != ''"> 
+      and `content` like CONCAT('%', #{contentRightLike})
+    </if>
+    <if test="contentLike != null and contentLike != ''"> 
+      and `content` like CONCAT('%', #{contentLike}, '%')
+    </if>
+    <if test="contentNotEquals != null and contentNotEquals != ''"> 
+      and `content` <![CDATA[ <> ]]> #{contentNotEquals}
+    </if>
+    <if test="contentIns != null">
+      <foreach collection="contentIns" item="obj" open="and (" close=")" separator="or">
+        `content` = #{obj}
+      </foreach>
+    </if>
+    <if test="contentNotIns != null">
+      <foreach collection="contentNotIns" item="obj" open="and (" close=")" separator="and">
+        `content` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="end_time != null">
+      and `end_time` = #{end_time}
+    </if>
+    <if test="end_timeGreaterThan != null"> 
+      and `end_time` <![CDATA[ > ]]> #{end_timeGreaterThan}
+    </if>
+    <if test="end_timeGreaterEqual != null"> 
+      and `end_time` <![CDATA[ >= ]]> #{end_timeGreaterEqual}
+    </if>
+    <if test="end_timeLessThan != null"> 
+      and `end_time` <![CDATA[ < ]]> #{end_timeLessThan}
+    </if>
+    <if test="end_timeLessEqual != null"> 
+      and `end_time` <![CDATA[ <= ]]> #{end_timeLessEqual}
+    </if>
+    <if test="end_timeNotEquals != null and end_timeNotEquals != ''"> 
+      and `end_time` <![CDATA[ <> ]]> #{end_timeNotEquals}
+    </if>
+    <if test="end_timeIns != null">
+      <foreach collection="end_timeIns" item="obj" open="and (" close=")" separator="or">
+        `end_time` = #{obj}
+      </foreach>
+    </if>
+    <if test="end_timeNotIns != null">
+      <foreach collection="end_timeNotIns" item="obj" open="and (" close=")" separator="and">
+        `end_time` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="enabled != null">
+      and `enabled` = #{enabled}
+    </if>
+    <if test="enabledGreaterThan != null"> 
+      and `enabled` <![CDATA[ > ]]> #{enabledGreaterThan}
+    </if>
+    <if test="enabledGreaterEqual != null"> 
+      and `enabled` <![CDATA[ >= ]]> #{enabledGreaterEqual}
+    </if>
+    <if test="enabledLessThan != null"> 
+      and `enabled` <![CDATA[ < ]]> #{enabledLessThan}
+    </if>
+    <if test="enabledLessEqual != null"> 
+      and `enabled` <![CDATA[ <= ]]> #{enabledLessEqual}
+    </if>
+    <if test="enabledNotEquals != null and enabledNotEquals != ''"> 
+      and `enabled` <![CDATA[ <> ]]> #{enabledNotEquals}
+    </if>
+    <if test="enabledIns != null">
+      <foreach collection="enabledIns" item="obj" open="and (" close=")" separator="or">
+        `enabled` = #{obj}
+      </foreach>
+    </if>
+    <if test="enabledNotIns != null">
+      <foreach collection="enabledNotIns" item="obj" open="and (" close=")" separator="and">
+        `enabled` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Ad">
+    select
+      <include refid="columns" />
+    from `nideshop_ad`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

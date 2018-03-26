@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.FeedbackBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `msg_id` as "msg_id",
+    `parent_id` as "parent_id",
+    `user_id` as "user_id",
+    `user_name` as "user_name",
+    `user_email` as "user_email",
+    `msg_title` as "msg_title",
+    `msg_type` as "msg_type",
+    `msg_status` as "msg_status",
+    `msg_content` as "msg_content",
+    `msg_time` as "msg_time",
+    `message_img` as "message_img",
+    `order_id` as "order_id",
+    `msg_area` as "msg_area"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="msg_id != null"> 
+      and `msg_id` = #{msg_id}
+    </if>
+    <if test="parent_id != null"> 
+      and `parent_id` = #{parent_id}
+    </if>
+    <if test="user_id != null"> 
+      and `user_id` = #{user_id}
+    </if>
+    <if test="user_name != null and user_name != ''"> 
+      and `user_name` = #{user_name}
+    </if>
+    <if test="user_email != null and user_email != ''"> 
+      and `user_email` = #{user_email}
+    </if>
+    <if test="msg_title != null and msg_title != ''"> 
+      and `msg_title` = #{msg_title}
+    </if>
+    <if test="msg_type != null"> 
+      and `msg_type` = #{msg_type}
+    </if>
+    <if test="msg_status != null"> 
+      and `msg_status` = #{msg_status}
+    </if>
+    <if test="msg_content != null and msg_content != ''"> 
+      and `msg_content` = #{msg_content}
+    </if>
+    <if test="msg_time != null"> 
+      and `msg_time` = #{msg_time}
+    </if>
+    <if test="message_img != null and message_img != ''"> 
+      and `message_img` = #{message_img}
+    </if>
+    <if test="order_id != null"> 
+      and `order_id` = #{order_id}
+    </if>
+    <if test="msg_area != null"> 
+      and `msg_area` = #{msg_area}
+    </if>
+  </sql>
+  
+  <!-- 根据主键msg_id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.Feedback">
+    select 
+      <include refid="columns" />
+    from `nideshop_feedback`
+    where `msg_id` =  #{msg_id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_feedback` (
+      `msg_id`,
+      `parent_id`,
+      `user_id`,
+      `user_name`,
+      `user_email`,
+      `msg_title`,
+      `msg_type`,
+      `msg_status`,
+      `msg_content`,
+      `msg_time`,
+      `message_img`,
+      `order_id`,
+      `msg_area`
+    ) values (
+      #{msg_id},
+      #{parent_id},
+      #{user_id},
+      #{user_name},
+      #{user_email},
+      #{msg_title},
+      #{msg_type},
+      #{msg_status},
+      #{msg_content},
+      #{msg_time},
+      #{message_img},
+      #{order_id},
+      #{msg_area}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_feedback` (
+      `msg_id`,
+      `parent_id`,
+      `user_id`,
+      `user_name`,
+      `user_email`,
+      `msg_title`,
+      `msg_type`,
+      `msg_status`,
+      `msg_content`,
+      `msg_time`,
+      `message_img`,
+      `order_id`,
+      `msg_area`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.msg_id},
+      #{obj.parent_id},
+      #{obj.user_id},
+      #{obj.user_name},
+      #{obj.user_email},
+      #{obj.msg_title},
+      #{obj.msg_type},
+      #{obj.msg_status},
+      #{obj.msg_content},
+      #{obj.msg_time},
+      #{obj.message_img},
+      #{obj.order_id},
+      #{obj.msg_area}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_feedback`
+    <set>
+        `parent_id` = #{parent_id},
+        `user_id` = #{user_id},
+        `user_name` = #{user_name},
+        `user_email` = #{user_email},
+        `msg_title` = #{msg_title},
+        `msg_type` = #{msg_type},
+        `msg_status` = #{msg_status},
+        `msg_content` = #{msg_content},
+        `msg_time` = #{msg_time},
+        `message_img` = #{message_img},
+        `order_id` = #{order_id},
+        `msg_area` = #{msg_area},
+    </set>
+    where msg_id =  #{msg_id}
+  </update>
+
+  <!-- 根据主键msg_id修改 -->
+  <update id="updateByMsg_id">
+    update `nideshop_feedback`
+    <set>
+      <if test="parent_id != null"> 
+        `parent_id` = #{parent_id},
+      </if>
+      <if test="user_id != null"> 
+        `user_id` = #{user_id},
+      </if>
+      <if test="user_name != null"> 
+        `user_name` = #{user_name},
+      </if>
+      <if test="user_email != null"> 
+        `user_email` = #{user_email},
+      </if>
+      <if test="msg_title != null"> 
+        `msg_title` = #{msg_title},
+      </if>
+      <if test="msg_type != null"> 
+        `msg_type` = #{msg_type},
+      </if>
+      <if test="msg_status != null"> 
+        `msg_status` = #{msg_status},
+      </if>
+      <if test="msg_content != null"> 
+        `msg_content` = #{msg_content},
+      </if>
+      <if test="msg_time != null"> 
+        `msg_time` = #{msg_time},
+      </if>
+      <if test="message_img != null"> 
+        `message_img` = #{message_img},
+      </if>
+      <if test="order_id != null"> 
+        `order_id` = #{order_id},
+      </if>
+      <if test="msg_area != null"> 
+        `msg_area` = #{msg_area},
+      </if>
+    </set>
+    where msg_id =  #{msg_id}
+  </update>
+
+  
+  <!-- 根据主键msg_id删除 -->
+  <delete id="delete">
+    delete from `nideshop_feedback` where msg_id =  #{msg_id}
+  </delete>
+  
+
+  <!-- 根据主键msg_id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_feedback`
+    <where>
+      <foreach collection="msg_ids" item="msg_id" separator="or">
+        msg_id =  #{msg_id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Feedback">
+    select
+      <include refid="columns" />
+    from `nideshop_feedback`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

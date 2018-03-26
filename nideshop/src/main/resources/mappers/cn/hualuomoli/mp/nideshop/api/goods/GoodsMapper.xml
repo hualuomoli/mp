@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.api.goods.mapper.GoodsMapper">
+  
+  <select id="findCategory" resultType="cn.hualuomoli.mp.nideshop.api.goods.entity.ApiGoodsFilterCategory">
+    SELECT
+      pc.id as "id",
+      pc.`name` as "name"
+    FROM nideshop_category pc
+    INNER JOIN nideshop_category c ON pc.id = c.parent_id
+    INNER JOIN nideshop_goods g ON c.id = g.category_id
+    WHERE 1 = 1
+    <if test="is_new != null">
+      AND g.is_new = #{is_new}
+    </if>
+    <if test="is_hot != null">
+      AND g.is_hot = #{is_hot}
+    </if>
+    <if test="brand_id != null">
+      AND g.brand_id = #{brand_id}
+    </if>
+    <if test="keyword != null">
+      AND g.name like concat('%', #{keyword}, '%')
+    </if>
+    GROUP BY pc.id, pc.`name`
+  </select>
+  
+  <select id="findGoods" resultType="cn.hualuomoli.mp.nideshop.api.goods.entity.ApiGoods">
+    SELECT
+      g.id as "id",
+      g.`name` as "name",
+      g.list_pic_url as "list_pic_url",
+      g.retail_price as "retail_price"
+    FROM JOIN nideshop_goods g
+    WHERE 1 = 1
+    <if test="is_new != null">
+      AND g.is_new = #{is_new}
+    </if>
+    <if test="is_hot != null">
+      AND g.is_hot = #{is_hot}
+    </if>
+    <if test="brand_id != null">
+      AND g.brand_id = #{brand_id}
+    </if>
+    <if test="keyword != null">
+      AND g.name like concat('%', #{keyword}, '%')
+    </if>
+    <if test="category_id != null and category_id != 0">
+      AND g.category_id in (select id from nideshop_category c where c.parent_id = #{#{category_id}})
+    </if>
+  </select>
+  
+  <select id="findGoodsAttribute" resultType="java.util.HashMap">
+    SELECT
+      a.`name` AS "name",
+      ga.`value` AS "value"
+    FROM nideshop_goods_attribute ga
+    LEFT JOIN nideshop_attribute a ON ga.attribute_id = a.id
+    WHERE 1 = 1
+    AND ga.goods_id = #{goods_id}
+    ORDER BY ga.id ASC
+  </select>
+  
+  <select id="findGoodsComment" resultType="cn.hualuomoli.mp.nideshop.api.goods.entity.ApiGoodsComment">
+     SELECT
+      c.content AS "content",
+      c.add_time AS "add_time",
+      u.nickname AS "nickname",
+      u.avatar AS "avatar",
+      cp.id AS "pic_list.id",
+      cp.comment_id AS "pic_list.comment_id",
+      cp.pic_url AS "pic_list.pic_url",
+      cp.sort_order AS "pic_list.sort_order"
+    FROM
+      nideshop_comment c
+    LEFT JOIN nideshop_user u ON c.user_id = u.id
+    LEFT JOIN nideshop_comment_picture cp ON cp.comment_id = c.id
+    WHERE 1 = 1
+    AND c.goods_id = #{goods_id}
+  </select>
+  
+</mapper>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.GoodsGalleryBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `goods_id` as "goods_id",
+    `img_url` as "img_url",
+    `img_desc` as "img_desc",
+    `sort_order` as "sort_order"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="goods_id != null"> 
+      and `goods_id` = #{goods_id}
+    </if>
+    <if test="img_url != null and img_url != ''"> 
+      and `img_url` = #{img_url}
+    </if>
+    <if test="img_desc != null and img_desc != ''"> 
+      and `img_desc` = #{img_desc}
+    </if>
+    <if test="sort_order != null"> 
+      and `sort_order` = #{sort_order}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.GoodsGallery">
+    select 
+      <include refid="columns" />
+    from `nideshop_goods_gallery`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_goods_gallery` (
+      `id`,
+      `goods_id`,
+      `img_url`,
+      `img_desc`,
+      `sort_order`
+    ) values (
+      #{id},
+      #{goods_id},
+      #{img_url},
+      #{img_desc},
+      #{sort_order}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_goods_gallery` (
+      `id`,
+      `goods_id`,
+      `img_url`,
+      `img_desc`,
+      `sort_order`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.goods_id},
+      #{obj.img_url},
+      #{obj.img_desc},
+      #{obj.sort_order}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_goods_gallery`
+    <set>
+        `goods_id` = #{goods_id},
+        `img_url` = #{img_url},
+        `img_desc` = #{img_desc},
+        `sort_order` = #{sort_order},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_goods_gallery`
+    <set>
+      <if test="goods_id != null"> 
+        `goods_id` = #{goods_id},
+      </if>
+      <if test="img_url != null"> 
+        `img_url` = #{img_url},
+      </if>
+      <if test="img_desc != null"> 
+        `img_desc` = #{img_desc},
+      </if>
+      <if test="sort_order != null"> 
+        `sort_order` = #{sort_order},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_goods_gallery` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_goods_gallery`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.GoodsGallery">
+    select
+      <include refid="columns" />
+    from `nideshop_goods_gallery`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.api.cart.mapper.CartMapper">
+  
+  <select id="find" resultType="cn.hualuomoli.mp.nideshop.api.cart.entity.ApiCart">
+    select
+      c.`id` as "id",
+      c.`user_id` as "user_id",
+      c.`session_id` as "session_id",
+      c.`goods_id` as "goods_id",
+      c.`goods_sn` as "goods_sn",
+      c.`product_id` as "product_id",
+      c.`goods_name` as "goods_name",
+      c.`market_price` as "market_price",
+      c.`retail_price` as "retail_price",
+      c.`number` as "number",
+      c.`goods_specifition_name_value` as "goods_specifition_name_value",
+      c.`goods_specifition_ids` as "goods_specifition_ids",
+      c.`checked` as "checked",
+      g.`list_pic_url` as "list_pic_url"
+    from nideshop_cart c
+    inner join nideshop_goods g on c.goods_id = g.id
+    where 1 = 1
+    and c.user_id = #{user_id}
+    and c.session_id = 1
+  </select>
+  
+  <select id="statistic">
+    SELECT
+      count(c.checked) goodsCount,
+      sum(checked) AS checkedGoodsCount,
+      sum(c.retail_price * c.number) AS goodsAmount,
+      sum(c.retail_price * c.number * c.checked) AS checkedGoodsAmount
+    FROM nideshop_cart c
+    where 1 = 1
+    and c.user_id = #{user_id}
+    and c.session_id = 1
+  </select>
+  
+  <update id="incrementCart">
+    update nideshop_cart 
+    set number = number + #{number}
+    where 1 = 1
+    and id = #{cart_id}
+  </update>
+  
+  <update id="decreaseCart">
+    update nideshop_cart 
+    set number = number - #{number}
+    where 1 = 1
+    and id = #{cart_id}
+    and number <![CDATA[ >= ]]> #{number}
+  </update>
+  
+  <update id="decreaseProduct">
+    update nideshop_product
+    set goods_number = goods_number - #{number}
+    where 1 = 1
+    and id = #{product_id}
+    and goods_number <![CDATA[ >= ]]> #{number}
+  </update>
+  
+  <select id="findGoodsSpecifitionNames" resultType="java.lang.String">
+    select `value`
+    from nideshop_goods_specification
+    where 1 = 1
+    <foreach collection="goods_specifition_ids" open="and (" close=")" separator="or" item="goods_specifition_id">
+    id = #{goods_specifition_id}
+    </foreach>
+  </select>
+  
+  <update id="checked">
+    update nideshop_cart 
+    set checked = #{isChecked}
+    where 1 = 1
+    <foreach collection="product_ids" open="and (" close=")" separator="or" index="product_id">
+      and product_id = #{product_id}
+    </foreach>
+  </update>
+  
+  <delete id="delete">
+    delete from nideshop_cart
+    where 1 = 1
+    <foreach collection="product_ids" open="and (" close=")" separator="or" index="product_id">
+      and product_id = #{product_id}
+    </foreach>
+  </delete>
+  
+</mapper>

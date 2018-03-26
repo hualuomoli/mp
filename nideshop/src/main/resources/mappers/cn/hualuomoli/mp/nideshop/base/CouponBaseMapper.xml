@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.CouponBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `name` as "name",
+    `type_money` as "type_money",
+    `send_type` as "send_type",
+    `min_amount` as "min_amount",
+    `max_amount` as "max_amount",
+    `send_start_date` as "send_start_date",
+    `send_end_date` as "send_end_date",
+    `use_start_date` as "use_start_date",
+    `use_end_date` as "use_end_date",
+    `min_goods_amount` as "min_goods_amount"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="name != null and name != ''"> 
+      and `name` = #{name}
+    </if>
+    <if test="type_money != null"> 
+      and `type_money` = #{type_money}
+    </if>
+    <if test="send_type != null"> 
+      and `send_type` = #{send_type}
+    </if>
+    <if test="min_amount != null"> 
+      and `min_amount` = #{min_amount}
+    </if>
+    <if test="max_amount != null"> 
+      and `max_amount` = #{max_amount}
+    </if>
+    <if test="send_start_date != null"> 
+      and `send_start_date` = #{send_start_date}
+    </if>
+    <if test="send_end_date != null"> 
+      and `send_end_date` = #{send_end_date}
+    </if>
+    <if test="use_start_date != null"> 
+      and `use_start_date` = #{use_start_date}
+    </if>
+    <if test="use_end_date != null"> 
+      and `use_end_date` = #{use_end_date}
+    </if>
+    <if test="min_goods_amount != null"> 
+      and `min_goods_amount` = #{min_goods_amount}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.Coupon">
+    select 
+      <include refid="columns" />
+    from `nideshop_coupon`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_coupon` (
+      `id`,
+      `name`,
+      `type_money`,
+      `send_type`,
+      `min_amount`,
+      `max_amount`,
+      `send_start_date`,
+      `send_end_date`,
+      `use_start_date`,
+      `use_end_date`,
+      `min_goods_amount`
+    ) values (
+      #{id},
+      #{name},
+      #{type_money},
+      #{send_type},
+      #{min_amount},
+      #{max_amount},
+      #{send_start_date},
+      #{send_end_date},
+      #{use_start_date},
+      #{use_end_date},
+      #{min_goods_amount}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_coupon` (
+      `id`,
+      `name`,
+      `type_money`,
+      `send_type`,
+      `min_amount`,
+      `max_amount`,
+      `send_start_date`,
+      `send_end_date`,
+      `use_start_date`,
+      `use_end_date`,
+      `min_goods_amount`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.name},
+      #{obj.type_money},
+      #{obj.send_type},
+      #{obj.min_amount},
+      #{obj.max_amount},
+      #{obj.send_start_date},
+      #{obj.send_end_date},
+      #{obj.use_start_date},
+      #{obj.use_end_date},
+      #{obj.min_goods_amount}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_coupon`
+    <set>
+        `name` = #{name},
+        `type_money` = #{type_money},
+        `send_type` = #{send_type},
+        `min_amount` = #{min_amount},
+        `max_amount` = #{max_amount},
+        `send_start_date` = #{send_start_date},
+        `send_end_date` = #{send_end_date},
+        `use_start_date` = #{use_start_date},
+        `use_end_date` = #{use_end_date},
+        `min_goods_amount` = #{min_goods_amount},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_coupon`
+    <set>
+      <if test="name != null"> 
+        `name` = #{name},
+      </if>
+      <if test="type_money != null"> 
+        `type_money` = #{type_money},
+      </if>
+      <if test="send_type != null"> 
+        `send_type` = #{send_type},
+      </if>
+      <if test="min_amount != null"> 
+        `min_amount` = #{min_amount},
+      </if>
+      <if test="max_amount != null"> 
+        `max_amount` = #{max_amount},
+      </if>
+      <if test="send_start_date != null"> 
+        `send_start_date` = #{send_start_date},
+      </if>
+      <if test="send_end_date != null"> 
+        `send_end_date` = #{send_end_date},
+      </if>
+      <if test="use_start_date != null"> 
+        `use_start_date` = #{use_start_date},
+      </if>
+      <if test="use_end_date != null"> 
+        `use_end_date` = #{use_end_date},
+      </if>
+      <if test="min_goods_amount != null"> 
+        `min_goods_amount` = #{min_goods_amount},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_coupon` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_coupon`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Coupon">
+    select
+      <include refid="columns" />
+    from `nideshop_coupon`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

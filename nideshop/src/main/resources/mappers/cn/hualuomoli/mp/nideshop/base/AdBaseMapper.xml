@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.AdBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `ad_position_id` as "ad_position_id",
+    `media_type` as "media_type",
+    `name` as "name",
+    `link` as "link",
+    `image_url` as "image_url",
+    `content` as "content",
+    `end_time` as "end_time",
+    `enabled` as "enabled"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="ad_position_id != null"> 
+      and `ad_position_id` = #{ad_position_id}
+    </if>
+    <if test="media_type != null"> 
+      and `media_type` = #{media_type}
+    </if>
+    <if test="name != null and name != ''"> 
+      and `name` = #{name}
+    </if>
+    <if test="link != null and link != ''"> 
+      and `link` = #{link}
+    </if>
+    <if test="image_url != null and image_url != ''"> 
+      and `image_url` = #{image_url}
+    </if>
+    <if test="content != null and content != ''"> 
+      and `content` = #{content}
+    </if>
+    <if test="end_time != null"> 
+      and `end_time` = #{end_time}
+    </if>
+    <if test="enabled != null"> 
+      and `enabled` = #{enabled}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.Ad">
+    select 
+      <include refid="columns" />
+    from `nideshop_ad`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_ad` (
+      `id`,
+      `ad_position_id`,
+      `media_type`,
+      `name`,
+      `link`,
+      `image_url`,
+      `content`,
+      `end_time`,
+      `enabled`
+    ) values (
+      #{id},
+      #{ad_position_id},
+      #{media_type},
+      #{name},
+      #{link},
+      #{image_url},
+      #{content},
+      #{end_time},
+      #{enabled}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_ad` (
+      `id`,
+      `ad_position_id`,
+      `media_type`,
+      `name`,
+      `link`,
+      `image_url`,
+      `content`,
+      `end_time`,
+      `enabled`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.ad_position_id},
+      #{obj.media_type},
+      #{obj.name},
+      #{obj.link},
+      #{obj.image_url},
+      #{obj.content},
+      #{obj.end_time},
+      #{obj.enabled}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_ad`
+    <set>
+        `ad_position_id` = #{ad_position_id},
+        `media_type` = #{media_type},
+        `name` = #{name},
+        `link` = #{link},
+        `image_url` = #{image_url},
+        `content` = #{content},
+        `end_time` = #{end_time},
+        `enabled` = #{enabled},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_ad`
+    <set>
+      <if test="ad_position_id != null"> 
+        `ad_position_id` = #{ad_position_id},
+      </if>
+      <if test="media_type != null"> 
+        `media_type` = #{media_type},
+      </if>
+      <if test="name != null"> 
+        `name` = #{name},
+      </if>
+      <if test="link != null"> 
+        `link` = #{link},
+      </if>
+      <if test="image_url != null"> 
+        `image_url` = #{image_url},
+      </if>
+      <if test="content != null"> 
+        `content` = #{content},
+      </if>
+      <if test="end_time != null"> 
+        `end_time` = #{end_time},
+      </if>
+      <if test="enabled != null"> 
+        `enabled` = #{enabled},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_ad` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_ad`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Ad">
+    select
+      <include refid="columns" />
+    from `nideshop_ad`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

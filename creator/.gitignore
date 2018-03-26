@@ -1,0 +1,12 @@
+/**/target
+/**/.project
+/**/.classpath
+/**/.settings
+/**/pom.xml.versionsBackup
+/**/bin
+/**/*.log
+/**/*.epoch
+/**/*.lck
+/**/.idea
+/**/*.iml
+/**/node_modules

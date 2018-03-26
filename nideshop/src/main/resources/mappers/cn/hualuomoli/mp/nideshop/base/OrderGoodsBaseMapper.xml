@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.OrderGoodsBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `order_id` as "order_id",
+    `goods_id` as "goods_id",
+    `goods_name` as "goods_name",
+    `goods_sn` as "goods_sn",
+    `product_id` as "product_id",
+    `number` as "number",
+    `market_price` as "market_price",
+    `retail_price` as "retail_price",
+    `goods_specifition_name_value` as "goods_specifition_name_value",
+    `is_real` as "is_real",
+    `goods_specifition_ids` as "goods_specifition_ids",
+    `list_pic_url` as "list_pic_url"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="order_id != null"> 
+      and `order_id` = #{order_id}
+    </if>
+    <if test="goods_id != null"> 
+      and `goods_id` = #{goods_id}
+    </if>
+    <if test="goods_name != null and goods_name != ''"> 
+      and `goods_name` = #{goods_name}
+    </if>
+    <if test="goods_sn != null and goods_sn != ''"> 
+      and `goods_sn` = #{goods_sn}
+    </if>
+    <if test="product_id != null"> 
+      and `product_id` = #{product_id}
+    </if>
+    <if test="number != null"> 
+      and `number` = #{number}
+    </if>
+    <if test="market_price != null"> 
+      and `market_price` = #{market_price}
+    </if>
+    <if test="retail_price != null"> 
+      and `retail_price` = #{retail_price}
+    </if>
+    <if test="goods_specifition_name_value != null and goods_specifition_name_value != ''"> 
+      and `goods_specifition_name_value` = #{goods_specifition_name_value}
+    </if>
+    <if test="is_real != null"> 
+      and `is_real` = #{is_real}
+    </if>
+    <if test="goods_specifition_ids != null and goods_specifition_ids != ''"> 
+      and `goods_specifition_ids` = #{goods_specifition_ids}
+    </if>
+    <if test="list_pic_url != null and list_pic_url != ''"> 
+      and `list_pic_url` = #{list_pic_url}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.OrderGoods">
+    select 
+      <include refid="columns" />
+    from `nideshop_order_goods`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_order_goods` (
+      `id`,
+      `order_id`,
+      `goods_id`,
+      `goods_name`,
+      `goods_sn`,
+      `product_id`,
+      `number`,
+      `market_price`,
+      `retail_price`,
+      `goods_specifition_name_value`,
+      `is_real`,
+      `goods_specifition_ids`,
+      `list_pic_url`
+    ) values (
+      #{id},
+      #{order_id},
+      #{goods_id},
+      #{goods_name},
+      #{goods_sn},
+      #{product_id},
+      #{number},
+      #{market_price},
+      #{retail_price},
+      #{goods_specifition_name_value},
+      #{is_real},
+      #{goods_specifition_ids},
+      #{list_pic_url}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_order_goods` (
+      `id`,
+      `order_id`,
+      `goods_id`,
+      `goods_name`,
+      `goods_sn`,
+      `product_id`,
+      `number`,
+      `market_price`,
+      `retail_price`,
+      `goods_specifition_name_value`,
+      `is_real`,
+      `goods_specifition_ids`,
+      `list_pic_url`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.order_id},
+      #{obj.goods_id},
+      #{obj.goods_name},
+      #{obj.goods_sn},
+      #{obj.product_id},
+      #{obj.number},
+      #{obj.market_price},
+      #{obj.retail_price},
+      #{obj.goods_specifition_name_value},
+      #{obj.is_real},
+      #{obj.goods_specifition_ids},
+      #{obj.list_pic_url}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_order_goods`
+    <set>
+        `order_id` = #{order_id},
+        `goods_id` = #{goods_id},
+        `goods_name` = #{goods_name},
+        `goods_sn` = #{goods_sn},
+        `product_id` = #{product_id},
+        `number` = #{number},
+        `market_price` = #{market_price},
+        `retail_price` = #{retail_price},
+        `goods_specifition_name_value` = #{goods_specifition_name_value},
+        `is_real` = #{is_real},
+        `goods_specifition_ids` = #{goods_specifition_ids},
+        `list_pic_url` = #{list_pic_url},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_order_goods`
+    <set>
+      <if test="order_id != null"> 
+        `order_id` = #{order_id},
+      </if>
+      <if test="goods_id != null"> 
+        `goods_id` = #{goods_id},
+      </if>
+      <if test="goods_name != null"> 
+        `goods_name` = #{goods_name},
+      </if>
+      <if test="goods_sn != null"> 
+        `goods_sn` = #{goods_sn},
+      </if>
+      <if test="product_id != null"> 
+        `product_id` = #{product_id},
+      </if>
+      <if test="number != null"> 
+        `number` = #{number},
+      </if>
+      <if test="market_price != null"> 
+        `market_price` = #{market_price},
+      </if>
+      <if test="retail_price != null"> 
+        `retail_price` = #{retail_price},
+      </if>
+      <if test="goods_specifition_name_value != null"> 
+        `goods_specifition_name_value` = #{goods_specifition_name_value},
+      </if>
+      <if test="is_real != null"> 
+        `is_real` = #{is_real},
+      </if>
+      <if test="goods_specifition_ids != null"> 
+        `goods_specifition_ids` = #{goods_specifition_ids},
+      </if>
+      <if test="list_pic_url != null"> 
+        `list_pic_url` = #{list_pic_url},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_order_goods` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_order_goods`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.OrderGoods">
+    select
+      <include refid="columns" />
+    from `nideshop_order_goods`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

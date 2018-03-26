@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.UserCouponQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `coupon_id` as "coupon_id",
+    `coupon_number` as "coupon_number",
+    `user_id` as "user_id",
+    `used_time` as "used_time",
+    `order_id` as "order_id"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="coupon_id != null">
+      and `coupon_id` = #{coupon_id}
+    </if>
+    <if test="coupon_idGreaterThan != null"> 
+      and `coupon_id` <![CDATA[ > ]]> #{coupon_idGreaterThan}
+    </if>
+    <if test="coupon_idGreaterEqual != null"> 
+      and `coupon_id` <![CDATA[ >= ]]> #{coupon_idGreaterEqual}
+    </if>
+    <if test="coupon_idLessThan != null"> 
+      and `coupon_id` <![CDATA[ < ]]> #{coupon_idLessThan}
+    </if>
+    <if test="coupon_idLessEqual != null"> 
+      and `coupon_id` <![CDATA[ <= ]]> #{coupon_idLessEqual}
+    </if>
+    <if test="coupon_idNotEquals != null and coupon_idNotEquals != ''"> 
+      and `coupon_id` <![CDATA[ <> ]]> #{coupon_idNotEquals}
+    </if>
+    <if test="coupon_idIns != null">
+      <foreach collection="coupon_idIns" item="obj" open="and (" close=")" separator="or">
+        `coupon_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="coupon_idNotIns != null">
+      <foreach collection="coupon_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `coupon_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="coupon_number != null and coupon_number != ''">
+      and `coupon_number` = #{coupon_number}
+    </if>
+    <if test="coupon_numberLeftLike != null and coupon_numberLeftLike != ''"> 
+      and `coupon_number` like CONCAT(#{coupon_numberLeftLike}, '%')
+    </if>
+    <if test="coupon_numberRightLike != null and coupon_numberRightLike != ''"> 
+      and `coupon_number` like CONCAT('%', #{coupon_numberRightLike})
+    </if>
+    <if test="coupon_numberLike != null and coupon_numberLike != ''"> 
+      and `coupon_number` like CONCAT('%', #{coupon_numberLike}, '%')
+    </if>
+    <if test="coupon_numberNotEquals != null and coupon_numberNotEquals != ''"> 
+      and `coupon_number` <![CDATA[ <> ]]> #{coupon_numberNotEquals}
+    </if>
+    <if test="coupon_numberIns != null">
+      <foreach collection="coupon_numberIns" item="obj" open="and (" close=")" separator="or">
+        `coupon_number` = #{obj}
+      </foreach>
+    </if>
+    <if test="coupon_numberNotIns != null">
+      <foreach collection="coupon_numberNotIns" item="obj" open="and (" close=")" separator="and">
+        `coupon_number` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="user_id != null">
+      and `user_id` = #{user_id}
+    </if>
+    <if test="user_idGreaterThan != null"> 
+      and `user_id` <![CDATA[ > ]]> #{user_idGreaterThan}
+    </if>
+    <if test="user_idGreaterEqual != null"> 
+      and `user_id` <![CDATA[ >= ]]> #{user_idGreaterEqual}
+    </if>
+    <if test="user_idLessThan != null"> 
+      and `user_id` <![CDATA[ < ]]> #{user_idLessThan}
+    </if>
+    <if test="user_idLessEqual != null"> 
+      and `user_id` <![CDATA[ <= ]]> #{user_idLessEqual}
+    </if>
+    <if test="user_idNotEquals != null and user_idNotEquals != ''"> 
+      and `user_id` <![CDATA[ <> ]]> #{user_idNotEquals}
+    </if>
+    <if test="user_idIns != null">
+      <foreach collection="user_idIns" item="obj" open="and (" close=")" separator="or">
+        `user_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="user_idNotIns != null">
+      <foreach collection="user_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `user_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="used_time != null">
+      and `used_time` = #{used_time}
+    </if>
+    <if test="used_timeGreaterThan != null"> 
+      and `used_time` <![CDATA[ > ]]> #{used_timeGreaterThan}
+    </if>
+    <if test="used_timeGreaterEqual != null"> 
+      and `used_time` <![CDATA[ >= ]]> #{used_timeGreaterEqual}
+    </if>
+    <if test="used_timeLessThan != null"> 
+      and `used_time` <![CDATA[ < ]]> #{used_timeLessThan}
+    </if>
+    <if test="used_timeLessEqual != null"> 
+      and `used_time` <![CDATA[ <= ]]> #{used_timeLessEqual}
+    </if>
+    <if test="used_timeNotEquals != null and used_timeNotEquals != ''"> 
+      and `used_time` <![CDATA[ <> ]]> #{used_timeNotEquals}
+    </if>
+    <if test="used_timeIns != null">
+      <foreach collection="used_timeIns" item="obj" open="and (" close=")" separator="or">
+        `used_time` = #{obj}
+      </foreach>
+    </if>
+    <if test="used_timeNotIns != null">
+      <foreach collection="used_timeNotIns" item="obj" open="and (" close=")" separator="and">
+        `used_time` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="order_id != null">
+      and `order_id` = #{order_id}
+    </if>
+    <if test="order_idGreaterThan != null"> 
+      and `order_id` <![CDATA[ > ]]> #{order_idGreaterThan}
+    </if>
+    <if test="order_idGreaterEqual != null"> 
+      and `order_id` <![CDATA[ >= ]]> #{order_idGreaterEqual}
+    </if>
+    <if test="order_idLessThan != null"> 
+      and `order_id` <![CDATA[ < ]]> #{order_idLessThan}
+    </if>
+    <if test="order_idLessEqual != null"> 
+      and `order_id` <![CDATA[ <= ]]> #{order_idLessEqual}
+    </if>
+    <if test="order_idNotEquals != null and order_idNotEquals != ''"> 
+      and `order_id` <![CDATA[ <> ]]> #{order_idNotEquals}
+    </if>
+    <if test="order_idIns != null">
+      <foreach collection="order_idIns" item="obj" open="and (" close=")" separator="or">
+        `order_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="order_idNotIns != null">
+      <foreach collection="order_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `order_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.UserCoupon">
+    select
+      <include refid="columns" />
+    from `nideshop_user_coupon`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

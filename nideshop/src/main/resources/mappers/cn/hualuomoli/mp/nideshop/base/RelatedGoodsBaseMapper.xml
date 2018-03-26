@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.RelatedGoodsBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `goods_id` as "goods_id",
+    `related_goods_id` as "related_goods_id"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="goods_id != null"> 
+      and `goods_id` = #{goods_id}
+    </if>
+    <if test="related_goods_id != null"> 
+      and `related_goods_id` = #{related_goods_id}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.RelatedGoods">
+    select 
+      <include refid="columns" />
+    from `nideshop_related_goods`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_related_goods` (
+      `id`,
+      `goods_id`,
+      `related_goods_id`
+    ) values (
+      #{id},
+      #{goods_id},
+      #{related_goods_id}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_related_goods` (
+      `id`,
+      `goods_id`,
+      `related_goods_id`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.goods_id},
+      #{obj.related_goods_id}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_related_goods`
+    <set>
+        `goods_id` = #{goods_id},
+        `related_goods_id` = #{related_goods_id},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_related_goods`
+    <set>
+      <if test="goods_id != null"> 
+        `goods_id` = #{goods_id},
+      </if>
+      <if test="related_goods_id != null"> 
+        `related_goods_id` = #{related_goods_id},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_related_goods` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_related_goods`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.RelatedGoods">
+    select
+      <include refid="columns" />
+    from `nideshop_related_goods`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

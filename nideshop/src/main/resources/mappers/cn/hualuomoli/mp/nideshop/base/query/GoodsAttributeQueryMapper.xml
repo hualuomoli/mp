@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.GoodsAttributeQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `goods_id` as "goods_id",
+    `attribute_id` as "attribute_id",
+    `value` as "value"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="goods_id != null">
+      and `goods_id` = #{goods_id}
+    </if>
+    <if test="goods_idGreaterThan != null"> 
+      and `goods_id` <![CDATA[ > ]]> #{goods_idGreaterThan}
+    </if>
+    <if test="goods_idGreaterEqual != null"> 
+      and `goods_id` <![CDATA[ >= ]]> #{goods_idGreaterEqual}
+    </if>
+    <if test="goods_idLessThan != null"> 
+      and `goods_id` <![CDATA[ < ]]> #{goods_idLessThan}
+    </if>
+    <if test="goods_idLessEqual != null"> 
+      and `goods_id` <![CDATA[ <= ]]> #{goods_idLessEqual}
+    </if>
+    <if test="goods_idNotEquals != null and goods_idNotEquals != ''"> 
+      and `goods_id` <![CDATA[ <> ]]> #{goods_idNotEquals}
+    </if>
+    <if test="goods_idIns != null">
+      <foreach collection="goods_idIns" item="obj" open="and (" close=")" separator="or">
+        `goods_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="goods_idNotIns != null">
+      <foreach collection="goods_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `goods_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="attribute_id != null">
+      and `attribute_id` = #{attribute_id}
+    </if>
+    <if test="attribute_idGreaterThan != null"> 
+      and `attribute_id` <![CDATA[ > ]]> #{attribute_idGreaterThan}
+    </if>
+    <if test="attribute_idGreaterEqual != null"> 
+      and `attribute_id` <![CDATA[ >= ]]> #{attribute_idGreaterEqual}
+    </if>
+    <if test="attribute_idLessThan != null"> 
+      and `attribute_id` <![CDATA[ < ]]> #{attribute_idLessThan}
+    </if>
+    <if test="attribute_idLessEqual != null"> 
+      and `attribute_id` <![CDATA[ <= ]]> #{attribute_idLessEqual}
+    </if>
+    <if test="attribute_idNotEquals != null and attribute_idNotEquals != ''"> 
+      and `attribute_id` <![CDATA[ <> ]]> #{attribute_idNotEquals}
+    </if>
+    <if test="attribute_idIns != null">
+      <foreach collection="attribute_idIns" item="obj" open="and (" close=")" separator="or">
+        `attribute_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="attribute_idNotIns != null">
+      <foreach collection="attribute_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `attribute_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="value != null and value != ''">
+      and `value` = #{value}
+    </if>
+    <if test="valueLeftLike != null and valueLeftLike != ''"> 
+      and `value` like CONCAT(#{valueLeftLike}, '%')
+    </if>
+    <if test="valueRightLike != null and valueRightLike != ''"> 
+      and `value` like CONCAT('%', #{valueRightLike})
+    </if>
+    <if test="valueLike != null and valueLike != ''"> 
+      and `value` like CONCAT('%', #{valueLike}, '%')
+    </if>
+    <if test="valueNotEquals != null and valueNotEquals != ''"> 
+      and `value` <![CDATA[ <> ]]> #{valueNotEquals}
+    </if>
+    <if test="valueIns != null">
+      <foreach collection="valueIns" item="obj" open="and (" close=")" separator="or">
+        `value` = #{obj}
+      </foreach>
+    </if>
+    <if test="valueNotIns != null">
+      <foreach collection="valueNotIns" item="obj" open="and (" close=")" separator="and">
+        `value` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.GoodsAttribute">
+    select
+      <include refid="columns" />
+    from `nideshop_goods_attribute`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

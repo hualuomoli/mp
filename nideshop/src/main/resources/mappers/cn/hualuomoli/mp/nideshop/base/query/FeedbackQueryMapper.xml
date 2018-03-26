@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.FeedbackQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `msg_id` as "msg_id",
+    `parent_id` as "parent_id",
+    `user_id` as "user_id",
+    `user_name` as "user_name",
+    `user_email` as "user_email",
+    `msg_title` as "msg_title",
+    `msg_type` as "msg_type",
+    `msg_status` as "msg_status",
+    `msg_content` as "msg_content",
+    `msg_time` as "msg_time",
+    `message_img` as "message_img",
+    `order_id` as "order_id",
+    `msg_area` as "msg_area"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="parent_id != null">
+      and `parent_id` = #{parent_id}
+    </if>
+    <if test="parent_idGreaterThan != null"> 
+      and `parent_id` <![CDATA[ > ]]> #{parent_idGreaterThan}
+    </if>
+    <if test="parent_idGreaterEqual != null"> 
+      and `parent_id` <![CDATA[ >= ]]> #{parent_idGreaterEqual}
+    </if>
+    <if test="parent_idLessThan != null"> 
+      and `parent_id` <![CDATA[ < ]]> #{parent_idLessThan}
+    </if>
+    <if test="parent_idLessEqual != null"> 
+      and `parent_id` <![CDATA[ <= ]]> #{parent_idLessEqual}
+    </if>
+    <if test="parent_idNotEquals != null and parent_idNotEquals != ''"> 
+      and `parent_id` <![CDATA[ <> ]]> #{parent_idNotEquals}
+    </if>
+    <if test="parent_idIns != null">
+      <foreach collection="parent_idIns" item="obj" open="and (" close=")" separator="or">
+        `parent_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="parent_idNotIns != null">
+      <foreach collection="parent_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `parent_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="user_id != null">
+      and `user_id` = #{user_id}
+    </if>
+    <if test="user_idGreaterThan != null"> 
+      and `user_id` <![CDATA[ > ]]> #{user_idGreaterThan}
+    </if>
+    <if test="user_idGreaterEqual != null"> 
+      and `user_id` <![CDATA[ >= ]]> #{user_idGreaterEqual}
+    </if>
+    <if test="user_idLessThan != null"> 
+      and `user_id` <![CDATA[ < ]]> #{user_idLessThan}
+    </if>
+    <if test="user_idLessEqual != null"> 
+      and `user_id` <![CDATA[ <= ]]> #{user_idLessEqual}
+    </if>
+    <if test="user_idNotEquals != null and user_idNotEquals != ''"> 
+      and `user_id` <![CDATA[ <> ]]> #{user_idNotEquals}
+    </if>
+    <if test="user_idIns != null">
+      <foreach collection="user_idIns" item="obj" open="and (" close=")" separator="or">
+        `user_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="user_idNotIns != null">
+      <foreach collection="user_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `user_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="user_name != null and user_name != ''">
+      and `user_name` = #{user_name}
+    </if>
+    <if test="user_nameLeftLike != null and user_nameLeftLike != ''"> 
+      and `user_name` like CONCAT(#{user_nameLeftLike}, '%')
+    </if>
+    <if test="user_nameRightLike != null and user_nameRightLike != ''"> 
+      and `user_name` like CONCAT('%', #{user_nameRightLike})
+    </if>
+    <if test="user_nameLike != null and user_nameLike != ''"> 
+      and `user_name` like CONCAT('%', #{user_nameLike}, '%')
+    </if>
+    <if test="user_nameNotEquals != null and user_nameNotEquals != ''"> 
+      and `user_name` <![CDATA[ <> ]]> #{user_nameNotEquals}
+    </if>
+    <if test="user_nameIns != null">
+      <foreach collection="user_nameIns" item="obj" open="and (" close=")" separator="or">
+        `user_name` = #{obj}
+      </foreach>
+    </if>
+    <if test="user_nameNotIns != null">
+      <foreach collection="user_nameNotIns" item="obj" open="and (" close=")" separator="and">
+        `user_name` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="user_email != null and user_email != ''">
+      and `user_email` = #{user_email}
+    </if>
+    <if test="user_emailLeftLike != null and user_emailLeftLike != ''"> 
+      and `user_email` like CONCAT(#{user_emailLeftLike}, '%')
+    </if>
+    <if test="user_emailRightLike != null and user_emailRightLike != ''"> 
+      and `user_email` like CONCAT('%', #{user_emailRightLike})
+    </if>
+    <if test="user_emailLike != null and user_emailLike != ''"> 
+      and `user_email` like CONCAT('%', #{user_emailLike}, '%')
+    </if>
+    <if test="user_emailNotEquals != null and user_emailNotEquals != ''"> 
+      and `user_email` <![CDATA[ <> ]]> #{user_emailNotEquals}
+    </if>
+    <if test="user_emailIns != null">
+      <foreach collection="user_emailIns" item="obj" open="and (" close=")" separator="or">
+        `user_email` = #{obj}
+      </foreach>
+    </if>
+    <if test="user_emailNotIns != null">
+      <foreach collection="user_emailNotIns" item="obj" open="and (" close=")" separator="and">
+        `user_email` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="msg_title != null and msg_title != ''">
+      and `msg_title` = #{msg_title}
+    </if>
+    <if test="msg_titleLeftLike != null and msg_titleLeftLike != ''"> 
+      and `msg_title` like CONCAT(#{msg_titleLeftLike}, '%')
+    </if>
+    <if test="msg_titleRightLike != null and msg_titleRightLike != ''"> 
+      and `msg_title` like CONCAT('%', #{msg_titleRightLike})
+    </if>
+    <if test="msg_titleLike != null and msg_titleLike != ''"> 
+      and `msg_title` like CONCAT('%', #{msg_titleLike}, '%')
+    </if>
+    <if test="msg_titleNotEquals != null and msg_titleNotEquals != ''"> 
+      and `msg_title` <![CDATA[ <> ]]> #{msg_titleNotEquals}
+    </if>
+    <if test="msg_titleIns != null">
+      <foreach collection="msg_titleIns" item="obj" open="and (" close=")" separator="or">
+        `msg_title` = #{obj}
+      </foreach>
+    </if>
+    <if test="msg_titleNotIns != null">
+      <foreach collection="msg_titleNotIns" item="obj" open="and (" close=")" separator="and">
+        `msg_title` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="msg_type != null">
+      and `msg_type` = #{msg_type}
+    </if>
+    <if test="msg_typeGreaterThan != null"> 
+      and `msg_type` <![CDATA[ > ]]> #{msg_typeGreaterThan}
+    </if>
+    <if test="msg_typeGreaterEqual != null"> 
+      and `msg_type` <![CDATA[ >= ]]> #{msg_typeGreaterEqual}
+    </if>
+    <if test="msg_typeLessThan != null"> 
+      and `msg_type` <![CDATA[ < ]]> #{msg_typeLessThan}
+    </if>
+    <if test="msg_typeLessEqual != null"> 
+      and `msg_type` <![CDATA[ <= ]]> #{msg_typeLessEqual}
+    </if>
+    <if test="msg_typeNotEquals != null and msg_typeNotEquals != ''"> 
+      and `msg_type` <![CDATA[ <> ]]> #{msg_typeNotEquals}
+    </if>
+    <if test="msg_typeIns != null">
+      <foreach collection="msg_typeIns" item="obj" open="and (" close=")" separator="or">
+        `msg_type` = #{obj}
+      </foreach>
+    </if>
+    <if test="msg_typeNotIns != null">
+      <foreach collection="msg_typeNotIns" item="obj" open="and (" close=")" separator="and">
+        `msg_type` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="msg_status != null">
+      and `msg_status` = #{msg_status}
+    </if>
+    <if test="msg_statusGreaterThan != null"> 
+      and `msg_status` <![CDATA[ > ]]> #{msg_statusGreaterThan}
+    </if>
+    <if test="msg_statusGreaterEqual != null"> 
+      and `msg_status` <![CDATA[ >= ]]> #{msg_statusGreaterEqual}
+    </if>
+    <if test="msg_statusLessThan != null"> 
+      and `msg_status` <![CDATA[ < ]]> #{msg_statusLessThan}
+    </if>
+    <if test="msg_statusLessEqual != null"> 
+      and `msg_status` <![CDATA[ <= ]]> #{msg_statusLessEqual}
+    </if>
+    <if test="msg_statusNotEquals != null and msg_statusNotEquals != ''"> 
+      and `msg_status` <![CDATA[ <> ]]> #{msg_statusNotEquals}
+    </if>
+    <if test="msg_statusIns != null">
+      <foreach collection="msg_statusIns" item="obj" open="and (" close=")" separator="or">
+        `msg_status` = #{obj}
+      </foreach>
+    </if>
+    <if test="msg_statusNotIns != null">
+      <foreach collection="msg_statusNotIns" item="obj" open="and (" close=")" separator="and">
+        `msg_status` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="msg_content != null and msg_content != ''">
+      and `msg_content` = #{msg_content}
+    </if>
+    <if test="msg_contentLeftLike != null and msg_contentLeftLike != ''"> 
+      and `msg_content` like CONCAT(#{msg_contentLeftLike}, '%')
+    </if>
+    <if test="msg_contentRightLike != null and msg_contentRightLike != ''"> 
+      and `msg_content` like CONCAT('%', #{msg_contentRightLike})
+    </if>
+    <if test="msg_contentLike != null and msg_contentLike != ''"> 
+      and `msg_content` like CONCAT('%', #{msg_contentLike}, '%')
+    </if>
+    <if test="msg_contentNotEquals != null and msg_contentNotEquals != ''"> 
+      and `msg_content` <![CDATA[ <> ]]> #{msg_contentNotEquals}
+    </if>
+    <if test="msg_contentIns != null">
+      <foreach collection="msg_contentIns" item="obj" open="and (" close=")" separator="or">
+        `msg_content` = #{obj}
+      </foreach>
+    </if>
+    <if test="msg_contentNotIns != null">
+      <foreach collection="msg_contentNotIns" item="obj" open="and (" close=")" separator="and">
+        `msg_content` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="msg_time != null">
+      and `msg_time` = #{msg_time}
+    </if>
+    <if test="msg_timeGreaterThan != null"> 
+      and `msg_time` <![CDATA[ > ]]> #{msg_timeGreaterThan}
+    </if>
+    <if test="msg_timeGreaterEqual != null"> 
+      and `msg_time` <![CDATA[ >= ]]> #{msg_timeGreaterEqual}
+    </if>
+    <if test="msg_timeLessThan != null"> 
+      and `msg_time` <![CDATA[ < ]]> #{msg_timeLessThan}
+    </if>
+    <if test="msg_timeLessEqual != null"> 
+      and `msg_time` <![CDATA[ <= ]]> #{msg_timeLessEqual}
+    </if>
+    <if test="msg_timeNotEquals != null and msg_timeNotEquals != ''"> 
+      and `msg_time` <![CDATA[ <> ]]> #{msg_timeNotEquals}
+    </if>
+    <if test="msg_timeIns != null">
+      <foreach collection="msg_timeIns" item="obj" open="and (" close=")" separator="or">
+        `msg_time` = #{obj}
+      </foreach>
+    </if>
+    <if test="msg_timeNotIns != null">
+      <foreach collection="msg_timeNotIns" item="obj" open="and (" close=")" separator="and">
+        `msg_time` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="message_img != null and message_img != ''">
+      and `message_img` = #{message_img}
+    </if>
+    <if test="message_imgLeftLike != null and message_imgLeftLike != ''"> 
+      and `message_img` like CONCAT(#{message_imgLeftLike}, '%')
+    </if>
+    <if test="message_imgRightLike != null and message_imgRightLike != ''"> 
+      and `message_img` like CONCAT('%', #{message_imgRightLike})
+    </if>
+    <if test="message_imgLike != null and message_imgLike != ''"> 
+      and `message_img` like CONCAT('%', #{message_imgLike}, '%')
+    </if>
+    <if test="message_imgNotEquals != null and message_imgNotEquals != ''"> 
+      and `message_img` <![CDATA[ <> ]]> #{message_imgNotEquals}
+    </if>
+    <if test="message_imgIns != null">
+      <foreach collection="message_imgIns" item="obj" open="and (" close=")" separator="or">
+        `message_img` = #{obj}
+      </foreach>
+    </if>
+    <if test="message_imgNotIns != null">
+      <foreach collection="message_imgNotIns" item="obj" open="and (" close=")" separator="and">
+        `message_img` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="order_id != null">
+      and `order_id` = #{order_id}
+    </if>
+    <if test="order_idGreaterThan != null"> 
+      and `order_id` <![CDATA[ > ]]> #{order_idGreaterThan}
+    </if>
+    <if test="order_idGreaterEqual != null"> 
+      and `order_id` <![CDATA[ >= ]]> #{order_idGreaterEqual}
+    </if>
+    <if test="order_idLessThan != null"> 
+      and `order_id` <![CDATA[ < ]]> #{order_idLessThan}
+    </if>
+    <if test="order_idLessEqual != null"> 
+      and `order_id` <![CDATA[ <= ]]> #{order_idLessEqual}
+    </if>
+    <if test="order_idNotEquals != null and order_idNotEquals != ''"> 
+      and `order_id` <![CDATA[ <> ]]> #{order_idNotEquals}
+    </if>
+    <if test="order_idIns != null">
+      <foreach collection="order_idIns" item="obj" open="and (" close=")" separator="or">
+        `order_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="order_idNotIns != null">
+      <foreach collection="order_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `order_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="msg_area != null">
+      and `msg_area` = #{msg_area}
+    </if>
+    <if test="msg_areaGreaterThan != null"> 
+      and `msg_area` <![CDATA[ > ]]> #{msg_areaGreaterThan}
+    </if>
+    <if test="msg_areaGreaterEqual != null"> 
+      and `msg_area` <![CDATA[ >= ]]> #{msg_areaGreaterEqual}
+    </if>
+    <if test="msg_areaLessThan != null"> 
+      and `msg_area` <![CDATA[ < ]]> #{msg_areaLessThan}
+    </if>
+    <if test="msg_areaLessEqual != null"> 
+      and `msg_area` <![CDATA[ <= ]]> #{msg_areaLessEqual}
+    </if>
+    <if test="msg_areaNotEquals != null and msg_areaNotEquals != ''"> 
+      and `msg_area` <![CDATA[ <> ]]> #{msg_areaNotEquals}
+    </if>
+    <if test="msg_areaIns != null">
+      <foreach collection="msg_areaIns" item="obj" open="and (" close=")" separator="or">
+        `msg_area` = #{obj}
+      </foreach>
+    </if>
+    <if test="msg_areaNotIns != null">
+      <foreach collection="msg_areaNotIns" item="obj" open="and (" close=")" separator="and">
+        `msg_area` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Feedback">
+    select
+      <include refid="columns" />
+    from `nideshop_feedback`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

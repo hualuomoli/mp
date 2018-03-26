@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.AddressBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `name` as "name",
+    `user_id` as "user_id",
+    `country_id` as "country_id",
+    `province_id` as "province_id",
+    `city_id` as "city_id",
+    `district_id` as "district_id",
+    `address` as "address",
+    `mobile` as "mobile",
+    `is_default` as "is_default"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="name != null and name != ''"> 
+      and `name` = #{name}
+    </if>
+    <if test="user_id != null"> 
+      and `user_id` = #{user_id}
+    </if>
+    <if test="country_id != null"> 
+      and `country_id` = #{country_id}
+    </if>
+    <if test="province_id != null"> 
+      and `province_id` = #{province_id}
+    </if>
+    <if test="city_id != null"> 
+      and `city_id` = #{city_id}
+    </if>
+    <if test="district_id != null"> 
+      and `district_id` = #{district_id}
+    </if>
+    <if test="address != null and address != ''"> 
+      and `address` = #{address}
+    </if>
+    <if test="mobile != null and mobile != ''"> 
+      and `mobile` = #{mobile}
+    </if>
+    <if test="is_default != null"> 
+      and `is_default` = #{is_default}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.Address">
+    select 
+      <include refid="columns" />
+    from `nideshop_address`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_address` (
+      `id`,
+      `name`,
+      `user_id`,
+      `country_id`,
+      `province_id`,
+      `city_id`,
+      `district_id`,
+      `address`,
+      `mobile`,
+      `is_default`
+    ) values (
+      #{id},
+      #{name},
+      #{user_id},
+      #{country_id},
+      #{province_id},
+      #{city_id},
+      #{district_id},
+      #{address},
+      #{mobile},
+      #{is_default}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_address` (
+      `id`,
+      `name`,
+      `user_id`,
+      `country_id`,
+      `province_id`,
+      `city_id`,
+      `district_id`,
+      `address`,
+      `mobile`,
+      `is_default`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.name},
+      #{obj.user_id},
+      #{obj.country_id},
+      #{obj.province_id},
+      #{obj.city_id},
+      #{obj.district_id},
+      #{obj.address},
+      #{obj.mobile},
+      #{obj.is_default}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_address`
+    <set>
+        `name` = #{name},
+        `user_id` = #{user_id},
+        `country_id` = #{country_id},
+        `province_id` = #{province_id},
+        `city_id` = #{city_id},
+        `district_id` = #{district_id},
+        `address` = #{address},
+        `mobile` = #{mobile},
+        `is_default` = #{is_default},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_address`
+    <set>
+      <if test="name != null"> 
+        `name` = #{name},
+      </if>
+      <if test="user_id != null"> 
+        `user_id` = #{user_id},
+      </if>
+      <if test="country_id != null"> 
+        `country_id` = #{country_id},
+      </if>
+      <if test="province_id != null"> 
+        `province_id` = #{province_id},
+      </if>
+      <if test="city_id != null"> 
+        `city_id` = #{city_id},
+      </if>
+      <if test="district_id != null"> 
+        `district_id` = #{district_id},
+      </if>
+      <if test="address != null"> 
+        `address` = #{address},
+      </if>
+      <if test="mobile != null"> 
+        `mobile` = #{mobile},
+      </if>
+      <if test="is_default != null"> 
+        `is_default` = #{is_default},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_address` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_address`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Address">
+    select
+      <include refid="columns" />
+    from `nideshop_address`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

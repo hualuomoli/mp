@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.OrderBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `order_sn` as "order_sn",
+    `user_id` as "user_id",
+    `order_status` as "order_status",
+    `shipping_status` as "shipping_status",
+    `pay_status` as "pay_status",
+    `consignee` as "consignee",
+    `country` as "country",
+    `province` as "province",
+    `city` as "city",
+    `district` as "district",
+    `address` as "address",
+    `mobile` as "mobile",
+    `postscript` as "postscript",
+    `shipping_fee` as "shipping_fee",
+    `pay_name` as "pay_name",
+    `pay_id` as "pay_id",
+    `actual_price` as "actual_price",
+    `integral` as "integral",
+    `integral_money` as "integral_money",
+    `order_price` as "order_price",
+    `goods_price` as "goods_price",
+    `add_time` as "add_time",
+    `confirm_time` as "confirm_time",
+    `pay_time` as "pay_time",
+    `freight_price` as "freight_price",
+    `coupon_id` as "coupon_id",
+    `parent_id` as "parent_id",
+    `coupon_price` as "coupon_price",
+    `callback_status` as "callback_status"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="order_sn != null and order_sn != ''"> 
+      and `order_sn` = #{order_sn}
+    </if>
+    <if test="user_id != null"> 
+      and `user_id` = #{user_id}
+    </if>
+    <if test="order_status != null"> 
+      and `order_status` = #{order_status}
+    </if>
+    <if test="shipping_status != null"> 
+      and `shipping_status` = #{shipping_status}
+    </if>
+    <if test="pay_status != null"> 
+      and `pay_status` = #{pay_status}
+    </if>
+    <if test="consignee != null and consignee != ''"> 
+      and `consignee` = #{consignee}
+    </if>
+    <if test="country != null"> 
+      and `country` = #{country}
+    </if>
+    <if test="province != null"> 
+      and `province` = #{province}
+    </if>
+    <if test="city != null"> 
+      and `city` = #{city}
+    </if>
+    <if test="district != null"> 
+      and `district` = #{district}
+    </if>
+    <if test="address != null and address != ''"> 
+      and `address` = #{address}
+    </if>
+    <if test="mobile != null and mobile != ''"> 
+      and `mobile` = #{mobile}
+    </if>
+    <if test="postscript != null and postscript != ''"> 
+      and `postscript` = #{postscript}
+    </if>
+    <if test="shipping_fee != null"> 
+      and `shipping_fee` = #{shipping_fee}
+    </if>
+    <if test="pay_name != null and pay_name != ''"> 
+      and `pay_name` = #{pay_name}
+    </if>
+    <if test="pay_id != null"> 
+      and `pay_id` = #{pay_id}
+    </if>
+    <if test="actual_price != null"> 
+      and `actual_price` = #{actual_price}
+    </if>
+    <if test="integral != null"> 
+      and `integral` = #{integral}
+    </if>
+    <if test="integral_money != null"> 
+      and `integral_money` = #{integral_money}
+    </if>
+    <if test="order_price != null"> 
+      and `order_price` = #{order_price}
+    </if>
+    <if test="goods_price != null"> 
+      and `goods_price` = #{goods_price}
+    </if>
+    <if test="add_time != null"> 
+      and `add_time` = #{add_time}
+    </if>
+    <if test="confirm_time != null"> 
+      and `confirm_time` = #{confirm_time}
+    </if>
+    <if test="pay_time != null"> 
+      and `pay_time` = #{pay_time}
+    </if>
+    <if test="freight_price != null"> 
+      and `freight_price` = #{freight_price}
+    </if>
+    <if test="coupon_id != null"> 
+      and `coupon_id` = #{coupon_id}
+    </if>
+    <if test="parent_id != null"> 
+      and `parent_id` = #{parent_id}
+    </if>
+    <if test="coupon_price != null"> 
+      and `coupon_price` = #{coupon_price}
+    </if>
+    <if test="callback_status != null and callback_status != ''"> 
+      and `callback_status` = #{callback_status}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.Order">
+    select 
+      <include refid="columns" />
+    from `nideshop_order`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_order` (
+      `id`,
+      `order_sn`,
+      `user_id`,
+      `order_status`,
+      `shipping_status`,
+      `pay_status`,
+      `consignee`,
+      `country`,
+      `province`,
+      `city`,
+      `district`,
+      `address`,
+      `mobile`,
+      `postscript`,
+      `shipping_fee`,
+      `pay_name`,
+      `pay_id`,
+      `actual_price`,
+      `integral`,
+      `integral_money`,
+      `order_price`,
+      `goods_price`,
+      `add_time`,
+      `confirm_time`,
+      `pay_time`,
+      `freight_price`,
+      `coupon_id`,
+      `parent_id`,
+      `coupon_price`,
+      `callback_status`
+    ) values (
+      #{id},
+      #{order_sn},
+      #{user_id},
+      #{order_status},
+      #{shipping_status},
+      #{pay_status},
+      #{consignee},
+      #{country},
+      #{province},
+      #{city},
+      #{district},
+      #{address},
+      #{mobile},
+      #{postscript},
+      #{shipping_fee},
+      #{pay_name},
+      #{pay_id},
+      #{actual_price},
+      #{integral},
+      #{integral_money},
+      #{order_price},
+      #{goods_price},
+      #{add_time},
+      #{confirm_time},
+      #{pay_time},
+      #{freight_price},
+      #{coupon_id},
+      #{parent_id},
+      #{coupon_price},
+      #{callback_status}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_order` (
+      `id`,
+      `order_sn`,
+      `user_id`,
+      `order_status`,
+      `shipping_status`,
+      `pay_status`,
+      `consignee`,
+      `country`,
+      `province`,
+      `city`,
+      `district`,
+      `address`,
+      `mobile`,
+      `postscript`,
+      `shipping_fee`,
+      `pay_name`,
+      `pay_id`,
+      `actual_price`,
+      `integral`,
+      `integral_money`,
+      `order_price`,
+      `goods_price`,
+      `add_time`,
+      `confirm_time`,
+      `pay_time`,
+      `freight_price`,
+      `coupon_id`,
+      `parent_id`,
+      `coupon_price`,
+      `callback_status`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.order_sn},
+      #{obj.user_id},
+      #{obj.order_status},
+      #{obj.shipping_status},
+      #{obj.pay_status},
+      #{obj.consignee},
+      #{obj.country},
+      #{obj.province},
+      #{obj.city},
+      #{obj.district},
+      #{obj.address},
+      #{obj.mobile},
+      #{obj.postscript},
+      #{obj.shipping_fee},
+      #{obj.pay_name},
+      #{obj.pay_id},
+      #{obj.actual_price},
+      #{obj.integral},
+      #{obj.integral_money},
+      #{obj.order_price},
+      #{obj.goods_price},
+      #{obj.add_time},
+      #{obj.confirm_time},
+      #{obj.pay_time},
+      #{obj.freight_price},
+      #{obj.coupon_id},
+      #{obj.parent_id},
+      #{obj.coupon_price},
+      #{obj.callback_status}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_order`
+    <set>
+        `order_sn` = #{order_sn},
+        `user_id` = #{user_id},
+        `order_status` = #{order_status},
+        `shipping_status` = #{shipping_status},
+        `pay_status` = #{pay_status},
+        `consignee` = #{consignee},
+        `country` = #{country},
+        `province` = #{province},
+        `city` = #{city},
+        `district` = #{district},
+        `address` = #{address},
+        `mobile` = #{mobile},
+        `postscript` = #{postscript},
+        `shipping_fee` = #{shipping_fee},
+        `pay_name` = #{pay_name},
+        `pay_id` = #{pay_id},
+        `actual_price` = #{actual_price},
+        `integral` = #{integral},
+        `integral_money` = #{integral_money},
+        `order_price` = #{order_price},
+        `goods_price` = #{goods_price},
+        `add_time` = #{add_time},
+        `confirm_time` = #{confirm_time},
+        `pay_time` = #{pay_time},
+        `freight_price` = #{freight_price},
+        `coupon_id` = #{coupon_id},
+        `parent_id` = #{parent_id},
+        `coupon_price` = #{coupon_price},
+        `callback_status` = #{callback_status},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_order`
+    <set>
+      <if test="order_sn != null"> 
+        `order_sn` = #{order_sn},
+      </if>
+      <if test="user_id != null"> 
+        `user_id` = #{user_id},
+      </if>
+      <if test="order_status != null"> 
+        `order_status` = #{order_status},
+      </if>
+      <if test="shipping_status != null"> 
+        `shipping_status` = #{shipping_status},
+      </if>
+      <if test="pay_status != null"> 
+        `pay_status` = #{pay_status},
+      </if>
+      <if test="consignee != null"> 
+        `consignee` = #{consignee},
+      </if>
+      <if test="country != null"> 
+        `country` = #{country},
+      </if>
+      <if test="province != null"> 
+        `province` = #{province},
+      </if>
+      <if test="city != null"> 
+        `city` = #{city},
+      </if>
+      <if test="district != null"> 
+        `district` = #{district},
+      </if>
+      <if test="address != null"> 
+        `address` = #{address},
+      </if>
+      <if test="mobile != null"> 
+        `mobile` = #{mobile},
+      </if>
+      <if test="postscript != null"> 
+        `postscript` = #{postscript},
+      </if>
+      <if test="shipping_fee != null"> 
+        `shipping_fee` = #{shipping_fee},
+      </if>
+      <if test="pay_name != null"> 
+        `pay_name` = #{pay_name},
+      </if>
+      <if test="pay_id != null"> 
+        `pay_id` = #{pay_id},
+      </if>
+      <if test="actual_price != null"> 
+        `actual_price` = #{actual_price},
+      </if>
+      <if test="integral != null"> 
+        `integral` = #{integral},
+      </if>
+      <if test="integral_money != null"> 
+        `integral_money` = #{integral_money},
+      </if>
+      <if test="order_price != null"> 
+        `order_price` = #{order_price},
+      </if>
+      <if test="goods_price != null"> 
+        `goods_price` = #{goods_price},
+      </if>
+      <if test="add_time != null"> 
+        `add_time` = #{add_time},
+      </if>
+      <if test="confirm_time != null"> 
+        `confirm_time` = #{confirm_time},
+      </if>
+      <if test="pay_time != null"> 
+        `pay_time` = #{pay_time},
+      </if>
+      <if test="freight_price != null"> 
+        `freight_price` = #{freight_price},
+      </if>
+      <if test="coupon_id != null"> 
+        `coupon_id` = #{coupon_id},
+      </if>
+      <if test="parent_id != null"> 
+        `parent_id` = #{parent_id},
+      </if>
+      <if test="coupon_price != null"> 
+        `coupon_price` = #{coupon_price},
+      </if>
+      <if test="callback_status != null"> 
+        `callback_status` = #{callback_status},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_order` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_order`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Order">
+    select
+      <include refid="columns" />
+    from `nideshop_order`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

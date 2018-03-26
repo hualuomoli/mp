@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.AddressQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `name` as "name",
+    `user_id` as "user_id",
+    `country_id` as "country_id",
+    `province_id` as "province_id",
+    `city_id` as "city_id",
+    `district_id` as "district_id",
+    `address` as "address",
+    `mobile` as "mobile",
+    `is_default` as "is_default"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="name != null and name != ''">
+      and `name` = #{name}
+    </if>
+    <if test="nameLeftLike != null and nameLeftLike != ''"> 
+      and `name` like CONCAT(#{nameLeftLike}, '%')
+    </if>
+    <if test="nameRightLike != null and nameRightLike != ''"> 
+      and `name` like CONCAT('%', #{nameRightLike})
+    </if>
+    <if test="nameLike != null and nameLike != ''"> 
+      and `name` like CONCAT('%', #{nameLike}, '%')
+    </if>
+    <if test="nameNotEquals != null and nameNotEquals != ''"> 
+      and `name` <![CDATA[ <> ]]> #{nameNotEquals}
+    </if>
+    <if test="nameIns != null">
+      <foreach collection="nameIns" item="obj" open="and (" close=")" separator="or">
+        `name` = #{obj}
+      </foreach>
+    </if>
+    <if test="nameNotIns != null">
+      <foreach collection="nameNotIns" item="obj" open="and (" close=")" separator="and">
+        `name` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="user_id != null">
+      and `user_id` = #{user_id}
+    </if>
+    <if test="user_idGreaterThan != null"> 
+      and `user_id` <![CDATA[ > ]]> #{user_idGreaterThan}
+    </if>
+    <if test="user_idGreaterEqual != null"> 
+      and `user_id` <![CDATA[ >= ]]> #{user_idGreaterEqual}
+    </if>
+    <if test="user_idLessThan != null"> 
+      and `user_id` <![CDATA[ < ]]> #{user_idLessThan}
+    </if>
+    <if test="user_idLessEqual != null"> 
+      and `user_id` <![CDATA[ <= ]]> #{user_idLessEqual}
+    </if>
+    <if test="user_idNotEquals != null and user_idNotEquals != ''"> 
+      and `user_id` <![CDATA[ <> ]]> #{user_idNotEquals}
+    </if>
+    <if test="user_idIns != null">
+      <foreach collection="user_idIns" item="obj" open="and (" close=")" separator="or">
+        `user_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="user_idNotIns != null">
+      <foreach collection="user_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `user_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="country_id != null">
+      and `country_id` = #{country_id}
+    </if>
+    <if test="country_idGreaterThan != null"> 
+      and `country_id` <![CDATA[ > ]]> #{country_idGreaterThan}
+    </if>
+    <if test="country_idGreaterEqual != null"> 
+      and `country_id` <![CDATA[ >= ]]> #{country_idGreaterEqual}
+    </if>
+    <if test="country_idLessThan != null"> 
+      and `country_id` <![CDATA[ < ]]> #{country_idLessThan}
+    </if>
+    <if test="country_idLessEqual != null"> 
+      and `country_id` <![CDATA[ <= ]]> #{country_idLessEqual}
+    </if>
+    <if test="country_idNotEquals != null and country_idNotEquals != ''"> 
+      and `country_id` <![CDATA[ <> ]]> #{country_idNotEquals}
+    </if>
+    <if test="country_idIns != null">
+      <foreach collection="country_idIns" item="obj" open="and (" close=")" separator="or">
+        `country_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="country_idNotIns != null">
+      <foreach collection="country_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `country_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="province_id != null">
+      and `province_id` = #{province_id}
+    </if>
+    <if test="province_idGreaterThan != null"> 
+      and `province_id` <![CDATA[ > ]]> #{province_idGreaterThan}
+    </if>
+    <if test="province_idGreaterEqual != null"> 
+      and `province_id` <![CDATA[ >= ]]> #{province_idGreaterEqual}
+    </if>
+    <if test="province_idLessThan != null"> 
+      and `province_id` <![CDATA[ < ]]> #{province_idLessThan}
+    </if>
+    <if test="province_idLessEqual != null"> 
+      and `province_id` <![CDATA[ <= ]]> #{province_idLessEqual}
+    </if>
+    <if test="province_idNotEquals != null and province_idNotEquals != ''"> 
+      and `province_id` <![CDATA[ <> ]]> #{province_idNotEquals}
+    </if>
+    <if test="province_idIns != null">
+      <foreach collection="province_idIns" item="obj" open="and (" close=")" separator="or">
+        `province_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="province_idNotIns != null">
+      <foreach collection="province_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `province_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="city_id != null">
+      and `city_id` = #{city_id}
+    </if>
+    <if test="city_idGreaterThan != null"> 
+      and `city_id` <![CDATA[ > ]]> #{city_idGreaterThan}
+    </if>
+    <if test="city_idGreaterEqual != null"> 
+      and `city_id` <![CDATA[ >= ]]> #{city_idGreaterEqual}
+    </if>
+    <if test="city_idLessThan != null"> 
+      and `city_id` <![CDATA[ < ]]> #{city_idLessThan}
+    </if>
+    <if test="city_idLessEqual != null"> 
+      and `city_id` <![CDATA[ <= ]]> #{city_idLessEqual}
+    </if>
+    <if test="city_idNotEquals != null and city_idNotEquals != ''"> 
+      and `city_id` <![CDATA[ <> ]]> #{city_idNotEquals}
+    </if>
+    <if test="city_idIns != null">
+      <foreach collection="city_idIns" item="obj" open="and (" close=")" separator="or">
+        `city_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="city_idNotIns != null">
+      <foreach collection="city_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `city_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="district_id != null">
+      and `district_id` = #{district_id}
+    </if>
+    <if test="district_idGreaterThan != null"> 
+      and `district_id` <![CDATA[ > ]]> #{district_idGreaterThan}
+    </if>
+    <if test="district_idGreaterEqual != null"> 
+      and `district_id` <![CDATA[ >= ]]> #{district_idGreaterEqual}
+    </if>
+    <if test="district_idLessThan != null"> 
+      and `district_id` <![CDATA[ < ]]> #{district_idLessThan}
+    </if>
+    <if test="district_idLessEqual != null"> 
+      and `district_id` <![CDATA[ <= ]]> #{district_idLessEqual}
+    </if>
+    <if test="district_idNotEquals != null and district_idNotEquals != ''"> 
+      and `district_id` <![CDATA[ <> ]]> #{district_idNotEquals}
+    </if>
+    <if test="district_idIns != null">
+      <foreach collection="district_idIns" item="obj" open="and (" close=")" separator="or">
+        `district_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="district_idNotIns != null">
+      <foreach collection="district_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `district_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="address != null and address != ''">
+      and `address` = #{address}
+    </if>
+    <if test="addressLeftLike != null and addressLeftLike != ''"> 
+      and `address` like CONCAT(#{addressLeftLike}, '%')
+    </if>
+    <if test="addressRightLike != null and addressRightLike != ''"> 
+      and `address` like CONCAT('%', #{addressRightLike})
+    </if>
+    <if test="addressLike != null and addressLike != ''"> 
+      and `address` like CONCAT('%', #{addressLike}, '%')
+    </if>
+    <if test="addressNotEquals != null and addressNotEquals != ''"> 
+      and `address` <![CDATA[ <> ]]> #{addressNotEquals}
+    </if>
+    <if test="addressIns != null">
+      <foreach collection="addressIns" item="obj" open="and (" close=")" separator="or">
+        `address` = #{obj}
+      </foreach>
+    </if>
+    <if test="addressNotIns != null">
+      <foreach collection="addressNotIns" item="obj" open="and (" close=")" separator="and">
+        `address` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="mobile != null and mobile != ''">
+      and `mobile` = #{mobile}
+    </if>
+    <if test="mobileLeftLike != null and mobileLeftLike != ''"> 
+      and `mobile` like CONCAT(#{mobileLeftLike}, '%')
+    </if>
+    <if test="mobileRightLike != null and mobileRightLike != ''"> 
+      and `mobile` like CONCAT('%', #{mobileRightLike})
+    </if>
+    <if test="mobileLike != null and mobileLike != ''"> 
+      and `mobile` like CONCAT('%', #{mobileLike}, '%')
+    </if>
+    <if test="mobileNotEquals != null and mobileNotEquals != ''"> 
+      and `mobile` <![CDATA[ <> ]]> #{mobileNotEquals}
+    </if>
+    <if test="mobileIns != null">
+      <foreach collection="mobileIns" item="obj" open="and (" close=")" separator="or">
+        `mobile` = #{obj}
+      </foreach>
+    </if>
+    <if test="mobileNotIns != null">
+      <foreach collection="mobileNotIns" item="obj" open="and (" close=")" separator="and">
+        `mobile` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="is_default != null">
+      and `is_default` = #{is_default}
+    </if>
+    <if test="is_defaultGreaterThan != null"> 
+      and `is_default` <![CDATA[ > ]]> #{is_defaultGreaterThan}
+    </if>
+    <if test="is_defaultGreaterEqual != null"> 
+      and `is_default` <![CDATA[ >= ]]> #{is_defaultGreaterEqual}
+    </if>
+    <if test="is_defaultLessThan != null"> 
+      and `is_default` <![CDATA[ < ]]> #{is_defaultLessThan}
+    </if>
+    <if test="is_defaultLessEqual != null"> 
+      and `is_default` <![CDATA[ <= ]]> #{is_defaultLessEqual}
+    </if>
+    <if test="is_defaultNotEquals != null and is_defaultNotEquals != ''"> 
+      and `is_default` <![CDATA[ <> ]]> #{is_defaultNotEquals}
+    </if>
+    <if test="is_defaultIns != null">
+      <foreach collection="is_defaultIns" item="obj" open="and (" close=")" separator="or">
+        `is_default` = #{obj}
+      </foreach>
+    </if>
+    <if test="is_defaultNotIns != null">
+      <foreach collection="is_defaultNotIns" item="obj" open="and (" close=")" separator="and">
+        `is_default` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Address">
+    select
+      <include refid="columns" />
+    from `nideshop_address`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

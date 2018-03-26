@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.CollectQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `user_id` as "user_id",
+    `value_id` as "value_id",
+    `add_time` as "add_time",
+    `is_attention` as "is_attention",
+    `type_id` as "type_id"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="user_id != null">
+      and `user_id` = #{user_id}
+    </if>
+    <if test="user_idGreaterThan != null"> 
+      and `user_id` <![CDATA[ > ]]> #{user_idGreaterThan}
+    </if>
+    <if test="user_idGreaterEqual != null"> 
+      and `user_id` <![CDATA[ >= ]]> #{user_idGreaterEqual}
+    </if>
+    <if test="user_idLessThan != null"> 
+      and `user_id` <![CDATA[ < ]]> #{user_idLessThan}
+    </if>
+    <if test="user_idLessEqual != null"> 
+      and `user_id` <![CDATA[ <= ]]> #{user_idLessEqual}
+    </if>
+    <if test="user_idNotEquals != null and user_idNotEquals != ''"> 
+      and `user_id` <![CDATA[ <> ]]> #{user_idNotEquals}
+    </if>
+    <if test="user_idIns != null">
+      <foreach collection="user_idIns" item="obj" open="and (" close=")" separator="or">
+        `user_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="user_idNotIns != null">
+      <foreach collection="user_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `user_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="value_id != null">
+      and `value_id` = #{value_id}
+    </if>
+    <if test="value_idGreaterThan != null"> 
+      and `value_id` <![CDATA[ > ]]> #{value_idGreaterThan}
+    </if>
+    <if test="value_idGreaterEqual != null"> 
+      and `value_id` <![CDATA[ >= ]]> #{value_idGreaterEqual}
+    </if>
+    <if test="value_idLessThan != null"> 
+      and `value_id` <![CDATA[ < ]]> #{value_idLessThan}
+    </if>
+    <if test="value_idLessEqual != null"> 
+      and `value_id` <![CDATA[ <= ]]> #{value_idLessEqual}
+    </if>
+    <if test="value_idNotEquals != null and value_idNotEquals != ''"> 
+      and `value_id` <![CDATA[ <> ]]> #{value_idNotEquals}
+    </if>
+    <if test="value_idIns != null">
+      <foreach collection="value_idIns" item="obj" open="and (" close=")" separator="or">
+        `value_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="value_idNotIns != null">
+      <foreach collection="value_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `value_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="add_time != null">
+      and `add_time` = #{add_time}
+    </if>
+    <if test="add_timeGreaterThan != null"> 
+      and `add_time` <![CDATA[ > ]]> #{add_timeGreaterThan}
+    </if>
+    <if test="add_timeGreaterEqual != null"> 
+      and `add_time` <![CDATA[ >= ]]> #{add_timeGreaterEqual}
+    </if>
+    <if test="add_timeLessThan != null"> 
+      and `add_time` <![CDATA[ < ]]> #{add_timeLessThan}
+    </if>
+    <if test="add_timeLessEqual != null"> 
+      and `add_time` <![CDATA[ <= ]]> #{add_timeLessEqual}
+    </if>
+    <if test="add_timeNotEquals != null and add_timeNotEquals != ''"> 
+      and `add_time` <![CDATA[ <> ]]> #{add_timeNotEquals}
+    </if>
+    <if test="add_timeIns != null">
+      <foreach collection="add_timeIns" item="obj" open="and (" close=")" separator="or">
+        `add_time` = #{obj}
+      </foreach>
+    </if>
+    <if test="add_timeNotIns != null">
+      <foreach collection="add_timeNotIns" item="obj" open="and (" close=")" separator="and">
+        `add_time` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="is_attention != null">
+      and `is_attention` = #{is_attention}
+    </if>
+    <if test="is_attentionGreaterThan != null"> 
+      and `is_attention` <![CDATA[ > ]]> #{is_attentionGreaterThan}
+    </if>
+    <if test="is_attentionGreaterEqual != null"> 
+      and `is_attention` <![CDATA[ >= ]]> #{is_attentionGreaterEqual}
+    </if>
+    <if test="is_attentionLessThan != null"> 
+      and `is_attention` <![CDATA[ < ]]> #{is_attentionLessThan}
+    </if>
+    <if test="is_attentionLessEqual != null"> 
+      and `is_attention` <![CDATA[ <= ]]> #{is_attentionLessEqual}
+    </if>
+    <if test="is_attentionNotEquals != null and is_attentionNotEquals != ''"> 
+      and `is_attention` <![CDATA[ <> ]]> #{is_attentionNotEquals}
+    </if>
+    <if test="is_attentionIns != null">
+      <foreach collection="is_attentionIns" item="obj" open="and (" close=")" separator="or">
+        `is_attention` = #{obj}
+      </foreach>
+    </if>
+    <if test="is_attentionNotIns != null">
+      <foreach collection="is_attentionNotIns" item="obj" open="and (" close=")" separator="and">
+        `is_attention` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="type_id != null">
+      and `type_id` = #{type_id}
+    </if>
+    <if test="type_idGreaterThan != null"> 
+      and `type_id` <![CDATA[ > ]]> #{type_idGreaterThan}
+    </if>
+    <if test="type_idGreaterEqual != null"> 
+      and `type_id` <![CDATA[ >= ]]> #{type_idGreaterEqual}
+    </if>
+    <if test="type_idLessThan != null"> 
+      and `type_id` <![CDATA[ < ]]> #{type_idLessThan}
+    </if>
+    <if test="type_idLessEqual != null"> 
+      and `type_id` <![CDATA[ <= ]]> #{type_idLessEqual}
+    </if>
+    <if test="type_idNotEquals != null and type_idNotEquals != ''"> 
+      and `type_id` <![CDATA[ <> ]]> #{type_idNotEquals}
+    </if>
+    <if test="type_idIns != null">
+      <foreach collection="type_idIns" item="obj" open="and (" close=")" separator="or">
+        `type_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="type_idNotIns != null">
+      <foreach collection="type_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `type_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Collect">
+    select
+      <include refid="columns" />
+    from `nideshop_collect`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

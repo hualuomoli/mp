@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.api.collect.mapper.CollectMapper">
+  
+  <select id="find" resultType="cn.hualuomoli.mp.nideshop.api.collect.entity.ApiCollect">
+    SELECT
+      c.`id` AS "id",
+      c.`user_id` AS "user_id",
+      c.`value_id` AS "value_id",
+      c.`add_time` AS "add_time",
+      c.`is_attention` AS "is_attention",
+      c.`type_id` AS "type_id",
+      g.list_pic_url AS "list_pic_url",
+      g.goods_brief AS "goods_brief",
+      g.retail_price AS "retail_price"
+    FROM nideshop_collect c
+    INNER JOIN nideshop_goods g ON c.value_id = g.id
+    WHERE 1 = 1
+    AND c.user_id = #{user_id}
+    AND c.type_id = #{type_id}
+  </select>
+  
+</mapper>

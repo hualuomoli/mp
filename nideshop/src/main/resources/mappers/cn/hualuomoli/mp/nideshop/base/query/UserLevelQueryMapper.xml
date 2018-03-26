@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.UserLevelQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `name` as "name",
+    `description` as "description"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="name != null and name != ''">
+      and `name` = #{name}
+    </if>
+    <if test="nameLeftLike != null and nameLeftLike != ''"> 
+      and `name` like CONCAT(#{nameLeftLike}, '%')
+    </if>
+    <if test="nameRightLike != null and nameRightLike != ''"> 
+      and `name` like CONCAT('%', #{nameRightLike})
+    </if>
+    <if test="nameLike != null and nameLike != ''"> 
+      and `name` like CONCAT('%', #{nameLike}, '%')
+    </if>
+    <if test="nameNotEquals != null and nameNotEquals != ''"> 
+      and `name` <![CDATA[ <> ]]> #{nameNotEquals}
+    </if>
+    <if test="nameIns != null">
+      <foreach collection="nameIns" item="obj" open="and (" close=")" separator="or">
+        `name` = #{obj}
+      </foreach>
+    </if>
+    <if test="nameNotIns != null">
+      <foreach collection="nameNotIns" item="obj" open="and (" close=")" separator="and">
+        `name` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="description != null and description != ''">
+      and `description` = #{description}
+    </if>
+    <if test="descriptionLeftLike != null and descriptionLeftLike != ''"> 
+      and `description` like CONCAT(#{descriptionLeftLike}, '%')
+    </if>
+    <if test="descriptionRightLike != null and descriptionRightLike != ''"> 
+      and `description` like CONCAT('%', #{descriptionRightLike})
+    </if>
+    <if test="descriptionLike != null and descriptionLike != ''"> 
+      and `description` like CONCAT('%', #{descriptionLike}, '%')
+    </if>
+    <if test="descriptionNotEquals != null and descriptionNotEquals != ''"> 
+      and `description` <![CDATA[ <> ]]> #{descriptionNotEquals}
+    </if>
+    <if test="descriptionIns != null">
+      <foreach collection="descriptionIns" item="obj" open="and (" close=")" separator="or">
+        `description` = #{obj}
+      </foreach>
+    </if>
+    <if test="descriptionNotIns != null">
+      <foreach collection="descriptionNotIns" item="obj" open="and (" close=")" separator="and">
+        `description` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.UserLevel">
+    select
+      <include refid="columns" />
+    from `nideshop_user_level`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

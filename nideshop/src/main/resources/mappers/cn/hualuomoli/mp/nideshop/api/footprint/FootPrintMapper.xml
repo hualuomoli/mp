@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.api.footprint.mapper.FootPrintMapper">
+  
+  <select id="list" resultType="cn.hualuomoli.mp.nideshop.api.footprint.entity.ApiFootPrint">
+    SELECT
+      t.`id` AS "id",
+      t.`user_id` AS "user_id",
+      t.`goods_id` AS "goods_id",
+      t.`add_time` AS "add_time",
+      g.`name` AS "name",
+      g.list_pic_url AS "list_pic_url",
+      g.goods_brief AS "goods_brief",
+      g.retail_price AS "retail_price"
+    FROM
+      (SELECT
+          max(fp.`id`) AS "id",
+          fp.`user_id` AS "user_id",
+          fp.`goods_id` AS "goods_id",
+          max(fp.`add_time`) AS "add_time"
+        FROM nideshop_footprint fp
+        GROUP BY fp.user_id, fp.goods_id
+        ) t
+    LEFT JOIN nideshop_goods g ON t.goods_id = g.id
+    WHERE 1 = 1
+    AND c.user_id = #{user_id}
+  </select>
+  
+</mapper>

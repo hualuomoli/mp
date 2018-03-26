@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.BrandQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `name` as "name",
+    `list_pic_url` as "list_pic_url",
+    `simple_desc` as "simple_desc",
+    `pic_url` as "pic_url",
+    `sort_order` as "sort_order",
+    `is_show` as "is_show",
+    `floor_price` as "floor_price",
+    `app_list_pic_url` as "app_list_pic_url",
+    `is_new` as "is_new",
+    `new_pic_url` as "new_pic_url",
+    `new_sort_order` as "new_sort_order"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="name != null and name != ''">
+      and `name` = #{name}
+    </if>
+    <if test="nameLeftLike != null and nameLeftLike != ''"> 
+      and `name` like CONCAT(#{nameLeftLike}, '%')
+    </if>
+    <if test="nameRightLike != null and nameRightLike != ''"> 
+      and `name` like CONCAT('%', #{nameRightLike})
+    </if>
+    <if test="nameLike != null and nameLike != ''"> 
+      and `name` like CONCAT('%', #{nameLike}, '%')
+    </if>
+    <if test="nameNotEquals != null and nameNotEquals != ''"> 
+      and `name` <![CDATA[ <> ]]> #{nameNotEquals}
+    </if>
+    <if test="nameIns != null">
+      <foreach collection="nameIns" item="obj" open="and (" close=")" separator="or">
+        `name` = #{obj}
+      </foreach>
+    </if>
+    <if test="nameNotIns != null">
+      <foreach collection="nameNotIns" item="obj" open="and (" close=")" separator="and">
+        `name` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="list_pic_url != null and list_pic_url != ''">
+      and `list_pic_url` = #{list_pic_url}
+    </if>
+    <if test="list_pic_urlLeftLike != null and list_pic_urlLeftLike != ''"> 
+      and `list_pic_url` like CONCAT(#{list_pic_urlLeftLike}, '%')
+    </if>
+    <if test="list_pic_urlRightLike != null and list_pic_urlRightLike != ''"> 
+      and `list_pic_url` like CONCAT('%', #{list_pic_urlRightLike})
+    </if>
+    <if test="list_pic_urlLike != null and list_pic_urlLike != ''"> 
+      and `list_pic_url` like CONCAT('%', #{list_pic_urlLike}, '%')
+    </if>
+    <if test="list_pic_urlNotEquals != null and list_pic_urlNotEquals != ''"> 
+      and `list_pic_url` <![CDATA[ <> ]]> #{list_pic_urlNotEquals}
+    </if>
+    <if test="list_pic_urlIns != null">
+      <foreach collection="list_pic_urlIns" item="obj" open="and (" close=")" separator="or">
+        `list_pic_url` = #{obj}
+      </foreach>
+    </if>
+    <if test="list_pic_urlNotIns != null">
+      <foreach collection="list_pic_urlNotIns" item="obj" open="and (" close=")" separator="and">
+        `list_pic_url` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="simple_desc != null and simple_desc != ''">
+      and `simple_desc` = #{simple_desc}
+    </if>
+    <if test="simple_descLeftLike != null and simple_descLeftLike != ''"> 
+      and `simple_desc` like CONCAT(#{simple_descLeftLike}, '%')
+    </if>
+    <if test="simple_descRightLike != null and simple_descRightLike != ''"> 
+      and `simple_desc` like CONCAT('%', #{simple_descRightLike})
+    </if>
+    <if test="simple_descLike != null and simple_descLike != ''"> 
+      and `simple_desc` like CONCAT('%', #{simple_descLike}, '%')
+    </if>
+    <if test="simple_descNotEquals != null and simple_descNotEquals != ''"> 
+      and `simple_desc` <![CDATA[ <> ]]> #{simple_descNotEquals}
+    </if>
+    <if test="simple_descIns != null">
+      <foreach collection="simple_descIns" item="obj" open="and (" close=")" separator="or">
+        `simple_desc` = #{obj}
+      </foreach>
+    </if>
+    <if test="simple_descNotIns != null">
+      <foreach collection="simple_descNotIns" item="obj" open="and (" close=")" separator="and">
+        `simple_desc` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="pic_url != null and pic_url != ''">
+      and `pic_url` = #{pic_url}
+    </if>
+    <if test="pic_urlLeftLike != null and pic_urlLeftLike != ''"> 
+      and `pic_url` like CONCAT(#{pic_urlLeftLike}, '%')
+    </if>
+    <if test="pic_urlRightLike != null and pic_urlRightLike != ''"> 
+      and `pic_url` like CONCAT('%', #{pic_urlRightLike})
+    </if>
+    <if test="pic_urlLike != null and pic_urlLike != ''"> 
+      and `pic_url` like CONCAT('%', #{pic_urlLike}, '%')
+    </if>
+    <if test="pic_urlNotEquals != null and pic_urlNotEquals != ''"> 
+      and `pic_url` <![CDATA[ <> ]]> #{pic_urlNotEquals}
+    </if>
+    <if test="pic_urlIns != null">
+      <foreach collection="pic_urlIns" item="obj" open="and (" close=")" separator="or">
+        `pic_url` = #{obj}
+      </foreach>
+    </if>
+    <if test="pic_urlNotIns != null">
+      <foreach collection="pic_urlNotIns" item="obj" open="and (" close=")" separator="and">
+        `pic_url` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="sort_order != null">
+      and `sort_order` = #{sort_order}
+    </if>
+    <if test="sort_orderGreaterThan != null"> 
+      and `sort_order` <![CDATA[ > ]]> #{sort_orderGreaterThan}
+    </if>
+    <if test="sort_orderGreaterEqual != null"> 
+      and `sort_order` <![CDATA[ >= ]]> #{sort_orderGreaterEqual}
+    </if>
+    <if test="sort_orderLessThan != null"> 
+      and `sort_order` <![CDATA[ < ]]> #{sort_orderLessThan}
+    </if>
+    <if test="sort_orderLessEqual != null"> 
+      and `sort_order` <![CDATA[ <= ]]> #{sort_orderLessEqual}
+    </if>
+    <if test="sort_orderNotEquals != null and sort_orderNotEquals != ''"> 
+      and `sort_order` <![CDATA[ <> ]]> #{sort_orderNotEquals}
+    </if>
+    <if test="sort_orderIns != null">
+      <foreach collection="sort_orderIns" item="obj" open="and (" close=")" separator="or">
+        `sort_order` = #{obj}
+      </foreach>
+    </if>
+    <if test="sort_orderNotIns != null">
+      <foreach collection="sort_orderNotIns" item="obj" open="and (" close=")" separator="and">
+        `sort_order` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="is_show != null">
+      and `is_show` = #{is_show}
+    </if>
+    <if test="is_showGreaterThan != null"> 
+      and `is_show` <![CDATA[ > ]]> #{is_showGreaterThan}
+    </if>
+    <if test="is_showGreaterEqual != null"> 
+      and `is_show` <![CDATA[ >= ]]> #{is_showGreaterEqual}
+    </if>
+    <if test="is_showLessThan != null"> 
+      and `is_show` <![CDATA[ < ]]> #{is_showLessThan}
+    </if>
+    <if test="is_showLessEqual != null"> 
+      and `is_show` <![CDATA[ <= ]]> #{is_showLessEqual}
+    </if>
+    <if test="is_showNotEquals != null and is_showNotEquals != ''"> 
+      and `is_show` <![CDATA[ <> ]]> #{is_showNotEquals}
+    </if>
+    <if test="is_showIns != null">
+      <foreach collection="is_showIns" item="obj" open="and (" close=")" separator="or">
+        `is_show` = #{obj}
+      </foreach>
+    </if>
+    <if test="is_showNotIns != null">
+      <foreach collection="is_showNotIns" item="obj" open="and (" close=")" separator="and">
+        `is_show` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="floor_price != null">
+      and `floor_price` = #{floor_price}
+    </if>
+    <if test="floor_priceGreaterThan != null"> 
+      and `floor_price` <![CDATA[ > ]]> #{floor_priceGreaterThan}
+    </if>
+    <if test="floor_priceGreaterEqual != null"> 
+      and `floor_price` <![CDATA[ >= ]]> #{floor_priceGreaterEqual}
+    </if>
+    <if test="floor_priceLessThan != null"> 
+      and `floor_price` <![CDATA[ < ]]> #{floor_priceLessThan}
+    </if>
+    <if test="floor_priceLessEqual != null"> 
+      and `floor_price` <![CDATA[ <= ]]> #{floor_priceLessEqual}
+    </if>
+    <if test="floor_priceNotEquals != null and floor_priceNotEquals != ''"> 
+      and `floor_price` <![CDATA[ <> ]]> #{floor_priceNotEquals}
+    </if>
+    <if test="floor_priceIns != null">
+      <foreach collection="floor_priceIns" item="obj" open="and (" close=")" separator="or">
+        `floor_price` = #{obj}
+      </foreach>
+    </if>
+    <if test="floor_priceNotIns != null">
+      <foreach collection="floor_priceNotIns" item="obj" open="and (" close=")" separator="and">
+        `floor_price` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="app_list_pic_url != null and app_list_pic_url != ''">
+      and `app_list_pic_url` = #{app_list_pic_url}
+    </if>
+    <if test="app_list_pic_urlLeftLike != null and app_list_pic_urlLeftLike != ''"> 
+      and `app_list_pic_url` like CONCAT(#{app_list_pic_urlLeftLike}, '%')
+    </if>
+    <if test="app_list_pic_urlRightLike != null and app_list_pic_urlRightLike != ''"> 
+      and `app_list_pic_url` like CONCAT('%', #{app_list_pic_urlRightLike})
+    </if>
+    <if test="app_list_pic_urlLike != null and app_list_pic_urlLike != ''"> 
+      and `app_list_pic_url` like CONCAT('%', #{app_list_pic_urlLike}, '%')
+    </if>
+    <if test="app_list_pic_urlNotEquals != null and app_list_pic_urlNotEquals != ''"> 
+      and `app_list_pic_url` <![CDATA[ <> ]]> #{app_list_pic_urlNotEquals}
+    </if>
+    <if test="app_list_pic_urlIns != null">
+      <foreach collection="app_list_pic_urlIns" item="obj" open="and (" close=")" separator="or">
+        `app_list_pic_url` = #{obj}
+      </foreach>
+    </if>
+    <if test="app_list_pic_urlNotIns != null">
+      <foreach collection="app_list_pic_urlNotIns" item="obj" open="and (" close=")" separator="and">
+        `app_list_pic_url` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="is_new != null">
+      and `is_new` = #{is_new}
+    </if>
+    <if test="is_newGreaterThan != null"> 
+      and `is_new` <![CDATA[ > ]]> #{is_newGreaterThan}
+    </if>
+    <if test="is_newGreaterEqual != null"> 
+      and `is_new` <![CDATA[ >= ]]> #{is_newGreaterEqual}
+    </if>
+    <if test="is_newLessThan != null"> 
+      and `is_new` <![CDATA[ < ]]> #{is_newLessThan}
+    </if>
+    <if test="is_newLessEqual != null"> 
+      and `is_new` <![CDATA[ <= ]]> #{is_newLessEqual}
+    </if>
+    <if test="is_newNotEquals != null and is_newNotEquals != ''"> 
+      and `is_new` <![CDATA[ <> ]]> #{is_newNotEquals}
+    </if>
+    <if test="is_newIns != null">
+      <foreach collection="is_newIns" item="obj" open="and (" close=")" separator="or">
+        `is_new` = #{obj}
+      </foreach>
+    </if>
+    <if test="is_newNotIns != null">
+      <foreach collection="is_newNotIns" item="obj" open="and (" close=")" separator="and">
+        `is_new` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="new_pic_url != null and new_pic_url != ''">
+      and `new_pic_url` = #{new_pic_url}
+    </if>
+    <if test="new_pic_urlLeftLike != null and new_pic_urlLeftLike != ''"> 
+      and `new_pic_url` like CONCAT(#{new_pic_urlLeftLike}, '%')
+    </if>
+    <if test="new_pic_urlRightLike != null and new_pic_urlRightLike != ''"> 
+      and `new_pic_url` like CONCAT('%', #{new_pic_urlRightLike})
+    </if>
+    <if test="new_pic_urlLike != null and new_pic_urlLike != ''"> 
+      and `new_pic_url` like CONCAT('%', #{new_pic_urlLike}, '%')
+    </if>
+    <if test="new_pic_urlNotEquals != null and new_pic_urlNotEquals != ''"> 
+      and `new_pic_url` <![CDATA[ <> ]]> #{new_pic_urlNotEquals}
+    </if>
+    <if test="new_pic_urlIns != null">
+      <foreach collection="new_pic_urlIns" item="obj" open="and (" close=")" separator="or">
+        `new_pic_url` = #{obj}
+      </foreach>
+    </if>
+    <if test="new_pic_urlNotIns != null">
+      <foreach collection="new_pic_urlNotIns" item="obj" open="and (" close=")" separator="and">
+        `new_pic_url` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="new_sort_order != null">
+      and `new_sort_order` = #{new_sort_order}
+    </if>
+    <if test="new_sort_orderGreaterThan != null"> 
+      and `new_sort_order` <![CDATA[ > ]]> #{new_sort_orderGreaterThan}
+    </if>
+    <if test="new_sort_orderGreaterEqual != null"> 
+      and `new_sort_order` <![CDATA[ >= ]]> #{new_sort_orderGreaterEqual}
+    </if>
+    <if test="new_sort_orderLessThan != null"> 
+      and `new_sort_order` <![CDATA[ < ]]> #{new_sort_orderLessThan}
+    </if>
+    <if test="new_sort_orderLessEqual != null"> 
+      and `new_sort_order` <![CDATA[ <= ]]> #{new_sort_orderLessEqual}
+    </if>
+    <if test="new_sort_orderNotEquals != null and new_sort_orderNotEquals != ''"> 
+      and `new_sort_order` <![CDATA[ <> ]]> #{new_sort_orderNotEquals}
+    </if>
+    <if test="new_sort_orderIns != null">
+      <foreach collection="new_sort_orderIns" item="obj" open="and (" close=")" separator="or">
+        `new_sort_order` = #{obj}
+      </foreach>
+    </if>
+    <if test="new_sort_orderNotIns != null">
+      <foreach collection="new_sort_orderNotIns" item="obj" open="and (" close=")" separator="and">
+        `new_sort_order` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Brand">
+    select
+      <include refid="columns" />
+    from `nideshop_brand`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

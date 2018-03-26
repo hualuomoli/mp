@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.ProductQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `goods_id` as "goods_id",
+    `goods_specification_ids` as "goods_specification_ids",
+    `goods_sn` as "goods_sn",
+    `goods_number` as "goods_number",
+    `retail_price` as "retail_price"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="goods_id != null">
+      and `goods_id` = #{goods_id}
+    </if>
+    <if test="goods_idGreaterThan != null"> 
+      and `goods_id` <![CDATA[ > ]]> #{goods_idGreaterThan}
+    </if>
+    <if test="goods_idGreaterEqual != null"> 
+      and `goods_id` <![CDATA[ >= ]]> #{goods_idGreaterEqual}
+    </if>
+    <if test="goods_idLessThan != null"> 
+      and `goods_id` <![CDATA[ < ]]> #{goods_idLessThan}
+    </if>
+    <if test="goods_idLessEqual != null"> 
+      and `goods_id` <![CDATA[ <= ]]> #{goods_idLessEqual}
+    </if>
+    <if test="goods_idNotEquals != null and goods_idNotEquals != ''"> 
+      and `goods_id` <![CDATA[ <> ]]> #{goods_idNotEquals}
+    </if>
+    <if test="goods_idIns != null">
+      <foreach collection="goods_idIns" item="obj" open="and (" close=")" separator="or">
+        `goods_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="goods_idNotIns != null">
+      <foreach collection="goods_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `goods_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="goods_specification_ids != null and goods_specification_ids != ''">
+      and `goods_specification_ids` = #{goods_specification_ids}
+    </if>
+    <if test="goods_specification_idsLeftLike != null and goods_specification_idsLeftLike != ''"> 
+      and `goods_specification_ids` like CONCAT(#{goods_specification_idsLeftLike}, '%')
+    </if>
+    <if test="goods_specification_idsRightLike != null and goods_specification_idsRightLike != ''"> 
+      and `goods_specification_ids` like CONCAT('%', #{goods_specification_idsRightLike})
+    </if>
+    <if test="goods_specification_idsLike != null and goods_specification_idsLike != ''"> 
+      and `goods_specification_ids` like CONCAT('%', #{goods_specification_idsLike}, '%')
+    </if>
+    <if test="goods_specification_idsNotEquals != null and goods_specification_idsNotEquals != ''"> 
+      and `goods_specification_ids` <![CDATA[ <> ]]> #{goods_specification_idsNotEquals}
+    </if>
+    <if test="goods_specification_idsIns != null">
+      <foreach collection="goods_specification_idsIns" item="obj" open="and (" close=")" separator="or">
+        `goods_specification_ids` = #{obj}
+      </foreach>
+    </if>
+    <if test="goods_specification_idsNotIns != null">
+      <foreach collection="goods_specification_idsNotIns" item="obj" open="and (" close=")" separator="and">
+        `goods_specification_ids` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="goods_sn != null and goods_sn != ''">
+      and `goods_sn` = #{goods_sn}
+    </if>
+    <if test="goods_snLeftLike != null and goods_snLeftLike != ''"> 
+      and `goods_sn` like CONCAT(#{goods_snLeftLike}, '%')
+    </if>
+    <if test="goods_snRightLike != null and goods_snRightLike != ''"> 
+      and `goods_sn` like CONCAT('%', #{goods_snRightLike})
+    </if>
+    <if test="goods_snLike != null and goods_snLike != ''"> 
+      and `goods_sn` like CONCAT('%', #{goods_snLike}, '%')
+    </if>
+    <if test="goods_snNotEquals != null and goods_snNotEquals != ''"> 
+      and `goods_sn` <![CDATA[ <> ]]> #{goods_snNotEquals}
+    </if>
+    <if test="goods_snIns != null">
+      <foreach collection="goods_snIns" item="obj" open="and (" close=")" separator="or">
+        `goods_sn` = #{obj}
+      </foreach>
+    </if>
+    <if test="goods_snNotIns != null">
+      <foreach collection="goods_snNotIns" item="obj" open="and (" close=")" separator="and">
+        `goods_sn` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="goods_number != null">
+      and `goods_number` = #{goods_number}
+    </if>
+    <if test="goods_numberGreaterThan != null"> 
+      and `goods_number` <![CDATA[ > ]]> #{goods_numberGreaterThan}
+    </if>
+    <if test="goods_numberGreaterEqual != null"> 
+      and `goods_number` <![CDATA[ >= ]]> #{goods_numberGreaterEqual}
+    </if>
+    <if test="goods_numberLessThan != null"> 
+      and `goods_number` <![CDATA[ < ]]> #{goods_numberLessThan}
+    </if>
+    <if test="goods_numberLessEqual != null"> 
+      and `goods_number` <![CDATA[ <= ]]> #{goods_numberLessEqual}
+    </if>
+    <if test="goods_numberNotEquals != null and goods_numberNotEquals != ''"> 
+      and `goods_number` <![CDATA[ <> ]]> #{goods_numberNotEquals}
+    </if>
+    <if test="goods_numberIns != null">
+      <foreach collection="goods_numberIns" item="obj" open="and (" close=")" separator="or">
+        `goods_number` = #{obj}
+      </foreach>
+    </if>
+    <if test="goods_numberNotIns != null">
+      <foreach collection="goods_numberNotIns" item="obj" open="and (" close=")" separator="and">
+        `goods_number` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="retail_price != null">
+      and `retail_price` = #{retail_price}
+    </if>
+    <if test="retail_priceGreaterThan != null"> 
+      and `retail_price` <![CDATA[ > ]]> #{retail_priceGreaterThan}
+    </if>
+    <if test="retail_priceGreaterEqual != null"> 
+      and `retail_price` <![CDATA[ >= ]]> #{retail_priceGreaterEqual}
+    </if>
+    <if test="retail_priceLessThan != null"> 
+      and `retail_price` <![CDATA[ < ]]> #{retail_priceLessThan}
+    </if>
+    <if test="retail_priceLessEqual != null"> 
+      and `retail_price` <![CDATA[ <= ]]> #{retail_priceLessEqual}
+    </if>
+    <if test="retail_priceNotEquals != null and retail_priceNotEquals != ''"> 
+      and `retail_price` <![CDATA[ <> ]]> #{retail_priceNotEquals}
+    </if>
+    <if test="retail_priceIns != null">
+      <foreach collection="retail_priceIns" item="obj" open="and (" close=")" separator="or">
+        `retail_price` = #{obj}
+      </foreach>
+    </if>
+    <if test="retail_priceNotIns != null">
+      <foreach collection="retail_priceNotIns" item="obj" open="and (" close=")" separator="and">
+        `retail_price` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Product">
+    select
+      <include refid="columns" />
+    from `nideshop_product`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

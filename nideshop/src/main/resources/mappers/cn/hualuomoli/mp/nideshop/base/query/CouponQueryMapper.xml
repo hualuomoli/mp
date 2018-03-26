@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.CouponQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `name` as "name",
+    `type_money` as "type_money",
+    `send_type` as "send_type",
+    `min_amount` as "min_amount",
+    `max_amount` as "max_amount",
+    `send_start_date` as "send_start_date",
+    `send_end_date` as "send_end_date",
+    `use_start_date` as "use_start_date",
+    `use_end_date` as "use_end_date",
+    `min_goods_amount` as "min_goods_amount"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="name != null and name != ''">
+      and `name` = #{name}
+    </if>
+    <if test="nameLeftLike != null and nameLeftLike != ''"> 
+      and `name` like CONCAT(#{nameLeftLike}, '%')
+    </if>
+    <if test="nameRightLike != null and nameRightLike != ''"> 
+      and `name` like CONCAT('%', #{nameRightLike})
+    </if>
+    <if test="nameLike != null and nameLike != ''"> 
+      and `name` like CONCAT('%', #{nameLike}, '%')
+    </if>
+    <if test="nameNotEquals != null and nameNotEquals != ''"> 
+      and `name` <![CDATA[ <> ]]> #{nameNotEquals}
+    </if>
+    <if test="nameIns != null">
+      <foreach collection="nameIns" item="obj" open="and (" close=")" separator="or">
+        `name` = #{obj}
+      </foreach>
+    </if>
+    <if test="nameNotIns != null">
+      <foreach collection="nameNotIns" item="obj" open="and (" close=")" separator="and">
+        `name` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="type_money != null">
+      and `type_money` = #{type_money}
+    </if>
+    <if test="type_moneyGreaterThan != null"> 
+      and `type_money` <![CDATA[ > ]]> #{type_moneyGreaterThan}
+    </if>
+    <if test="type_moneyGreaterEqual != null"> 
+      and `type_money` <![CDATA[ >= ]]> #{type_moneyGreaterEqual}
+    </if>
+    <if test="type_moneyLessThan != null"> 
+      and `type_money` <![CDATA[ < ]]> #{type_moneyLessThan}
+    </if>
+    <if test="type_moneyLessEqual != null"> 
+      and `type_money` <![CDATA[ <= ]]> #{type_moneyLessEqual}
+    </if>
+    <if test="type_moneyNotEquals != null and type_moneyNotEquals != ''"> 
+      and `type_money` <![CDATA[ <> ]]> #{type_moneyNotEquals}
+    </if>
+    <if test="type_moneyIns != null">
+      <foreach collection="type_moneyIns" item="obj" open="and (" close=")" separator="or">
+        `type_money` = #{obj}
+      </foreach>
+    </if>
+    <if test="type_moneyNotIns != null">
+      <foreach collection="type_moneyNotIns" item="obj" open="and (" close=")" separator="and">
+        `type_money` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="send_type != null">
+      and `send_type` = #{send_type}
+    </if>
+    <if test="send_typeGreaterThan != null"> 
+      and `send_type` <![CDATA[ > ]]> #{send_typeGreaterThan}
+    </if>
+    <if test="send_typeGreaterEqual != null"> 
+      and `send_type` <![CDATA[ >= ]]> #{send_typeGreaterEqual}
+    </if>
+    <if test="send_typeLessThan != null"> 
+      and `send_type` <![CDATA[ < ]]> #{send_typeLessThan}
+    </if>
+    <if test="send_typeLessEqual != null"> 
+      and `send_type` <![CDATA[ <= ]]> #{send_typeLessEqual}
+    </if>
+    <if test="send_typeNotEquals != null and send_typeNotEquals != ''"> 
+      and `send_type` <![CDATA[ <> ]]> #{send_typeNotEquals}
+    </if>
+    <if test="send_typeIns != null">
+      <foreach collection="send_typeIns" item="obj" open="and (" close=")" separator="or">
+        `send_type` = #{obj}
+      </foreach>
+    </if>
+    <if test="send_typeNotIns != null">
+      <foreach collection="send_typeNotIns" item="obj" open="and (" close=")" separator="and">
+        `send_type` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="min_amount != null">
+      and `min_amount` = #{min_amount}
+    </if>
+    <if test="min_amountGreaterThan != null"> 
+      and `min_amount` <![CDATA[ > ]]> #{min_amountGreaterThan}
+    </if>
+    <if test="min_amountGreaterEqual != null"> 
+      and `min_amount` <![CDATA[ >= ]]> #{min_amountGreaterEqual}
+    </if>
+    <if test="min_amountLessThan != null"> 
+      and `min_amount` <![CDATA[ < ]]> #{min_amountLessThan}
+    </if>
+    <if test="min_amountLessEqual != null"> 
+      and `min_amount` <![CDATA[ <= ]]> #{min_amountLessEqual}
+    </if>
+    <if test="min_amountNotEquals != null and min_amountNotEquals != ''"> 
+      and `min_amount` <![CDATA[ <> ]]> #{min_amountNotEquals}
+    </if>
+    <if test="min_amountIns != null">
+      <foreach collection="min_amountIns" item="obj" open="and (" close=")" separator="or">
+        `min_amount` = #{obj}
+      </foreach>
+    </if>
+    <if test="min_amountNotIns != null">
+      <foreach collection="min_amountNotIns" item="obj" open="and (" close=")" separator="and">
+        `min_amount` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="max_amount != null">
+      and `max_amount` = #{max_amount}
+    </if>
+    <if test="max_amountGreaterThan != null"> 
+      and `max_amount` <![CDATA[ > ]]> #{max_amountGreaterThan}
+    </if>
+    <if test="max_amountGreaterEqual != null"> 
+      and `max_amount` <![CDATA[ >= ]]> #{max_amountGreaterEqual}
+    </if>
+    <if test="max_amountLessThan != null"> 
+      and `max_amount` <![CDATA[ < ]]> #{max_amountLessThan}
+    </if>
+    <if test="max_amountLessEqual != null"> 
+      and `max_amount` <![CDATA[ <= ]]> #{max_amountLessEqual}
+    </if>
+    <if test="max_amountNotEquals != null and max_amountNotEquals != ''"> 
+      and `max_amount` <![CDATA[ <> ]]> #{max_amountNotEquals}
+    </if>
+    <if test="max_amountIns != null">
+      <foreach collection="max_amountIns" item="obj" open="and (" close=")" separator="or">
+        `max_amount` = #{obj}
+      </foreach>
+    </if>
+    <if test="max_amountNotIns != null">
+      <foreach collection="max_amountNotIns" item="obj" open="and (" close=")" separator="and">
+        `max_amount` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="send_start_date != null">
+      and `send_start_date` = #{send_start_date}
+    </if>
+    <if test="send_start_dateGreaterThan != null"> 
+      and `send_start_date` <![CDATA[ > ]]> #{send_start_dateGreaterThan}
+    </if>
+    <if test="send_start_dateGreaterEqual != null"> 
+      and `send_start_date` <![CDATA[ >= ]]> #{send_start_dateGreaterEqual}
+    </if>
+    <if test="send_start_dateLessThan != null"> 
+      and `send_start_date` <![CDATA[ < ]]> #{send_start_dateLessThan}
+    </if>
+    <if test="send_start_dateLessEqual != null"> 
+      and `send_start_date` <![CDATA[ <= ]]> #{send_start_dateLessEqual}
+    </if>
+    <if test="send_start_dateNotEquals != null and send_start_dateNotEquals != ''"> 
+      and `send_start_date` <![CDATA[ <> ]]> #{send_start_dateNotEquals}
+    </if>
+    <if test="send_start_dateIns != null">
+      <foreach collection="send_start_dateIns" item="obj" open="and (" close=")" separator="or">
+        `send_start_date` = #{obj}
+      </foreach>
+    </if>
+    <if test="send_start_dateNotIns != null">
+      <foreach collection="send_start_dateNotIns" item="obj" open="and (" close=")" separator="and">
+        `send_start_date` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="send_end_date != null">
+      and `send_end_date` = #{send_end_date}
+    </if>
+    <if test="send_end_dateGreaterThan != null"> 
+      and `send_end_date` <![CDATA[ > ]]> #{send_end_dateGreaterThan}
+    </if>
+    <if test="send_end_dateGreaterEqual != null"> 
+      and `send_end_date` <![CDATA[ >= ]]> #{send_end_dateGreaterEqual}
+    </if>
+    <if test="send_end_dateLessThan != null"> 
+      and `send_end_date` <![CDATA[ < ]]> #{send_end_dateLessThan}
+    </if>
+    <if test="send_end_dateLessEqual != null"> 
+      and `send_end_date` <![CDATA[ <= ]]> #{send_end_dateLessEqual}
+    </if>
+    <if test="send_end_dateNotEquals != null and send_end_dateNotEquals != ''"> 
+      and `send_end_date` <![CDATA[ <> ]]> #{send_end_dateNotEquals}
+    </if>
+    <if test="send_end_dateIns != null">
+      <foreach collection="send_end_dateIns" item="obj" open="and (" close=")" separator="or">
+        `send_end_date` = #{obj}
+      </foreach>
+    </if>
+    <if test="send_end_dateNotIns != null">
+      <foreach collection="send_end_dateNotIns" item="obj" open="and (" close=")" separator="and">
+        `send_end_date` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="use_start_date != null">
+      and `use_start_date` = #{use_start_date}
+    </if>
+    <if test="use_start_dateGreaterThan != null"> 
+      and `use_start_date` <![CDATA[ > ]]> #{use_start_dateGreaterThan}
+    </if>
+    <if test="use_start_dateGreaterEqual != null"> 
+      and `use_start_date` <![CDATA[ >= ]]> #{use_start_dateGreaterEqual}
+    </if>
+    <if test="use_start_dateLessThan != null"> 
+      and `use_start_date` <![CDATA[ < ]]> #{use_start_dateLessThan}
+    </if>
+    <if test="use_start_dateLessEqual != null"> 
+      and `use_start_date` <![CDATA[ <= ]]> #{use_start_dateLessEqual}
+    </if>
+    <if test="use_start_dateNotEquals != null and use_start_dateNotEquals != ''"> 
+      and `use_start_date` <![CDATA[ <> ]]> #{use_start_dateNotEquals}
+    </if>
+    <if test="use_start_dateIns != null">
+      <foreach collection="use_start_dateIns" item="obj" open="and (" close=")" separator="or">
+        `use_start_date` = #{obj}
+      </foreach>
+    </if>
+    <if test="use_start_dateNotIns != null">
+      <foreach collection="use_start_dateNotIns" item="obj" open="and (" close=")" separator="and">
+        `use_start_date` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="use_end_date != null">
+      and `use_end_date` = #{use_end_date}
+    </if>
+    <if test="use_end_dateGreaterThan != null"> 
+      and `use_end_date` <![CDATA[ > ]]> #{use_end_dateGreaterThan}
+    </if>
+    <if test="use_end_dateGreaterEqual != null"> 
+      and `use_end_date` <![CDATA[ >= ]]> #{use_end_dateGreaterEqual}
+    </if>
+    <if test="use_end_dateLessThan != null"> 
+      and `use_end_date` <![CDATA[ < ]]> #{use_end_dateLessThan}
+    </if>
+    <if test="use_end_dateLessEqual != null"> 
+      and `use_end_date` <![CDATA[ <= ]]> #{use_end_dateLessEqual}
+    </if>
+    <if test="use_end_dateNotEquals != null and use_end_dateNotEquals != ''"> 
+      and `use_end_date` <![CDATA[ <> ]]> #{use_end_dateNotEquals}
+    </if>
+    <if test="use_end_dateIns != null">
+      <foreach collection="use_end_dateIns" item="obj" open="and (" close=")" separator="or">
+        `use_end_date` = #{obj}
+      </foreach>
+    </if>
+    <if test="use_end_dateNotIns != null">
+      <foreach collection="use_end_dateNotIns" item="obj" open="and (" close=")" separator="and">
+        `use_end_date` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="min_goods_amount != null">
+      and `min_goods_amount` = #{min_goods_amount}
+    </if>
+    <if test="min_goods_amountGreaterThan != null"> 
+      and `min_goods_amount` <![CDATA[ > ]]> #{min_goods_amountGreaterThan}
+    </if>
+    <if test="min_goods_amountGreaterEqual != null"> 
+      and `min_goods_amount` <![CDATA[ >= ]]> #{min_goods_amountGreaterEqual}
+    </if>
+    <if test="min_goods_amountLessThan != null"> 
+      and `min_goods_amount` <![CDATA[ < ]]> #{min_goods_amountLessThan}
+    </if>
+    <if test="min_goods_amountLessEqual != null"> 
+      and `min_goods_amount` <![CDATA[ <= ]]> #{min_goods_amountLessEqual}
+    </if>
+    <if test="min_goods_amountNotEquals != null and min_goods_amountNotEquals != ''"> 
+      and `min_goods_amount` <![CDATA[ <> ]]> #{min_goods_amountNotEquals}
+    </if>
+    <if test="min_goods_amountIns != null">
+      <foreach collection="min_goods_amountIns" item="obj" open="and (" close=")" separator="or">
+        `min_goods_amount` = #{obj}
+      </foreach>
+    </if>
+    <if test="min_goods_amountNotIns != null">
+      <foreach collection="min_goods_amountNotIns" item="obj" open="and (" close=")" separator="and">
+        `min_goods_amount` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Coupon">
+    select
+      <include refid="columns" />
+    from `nideshop_coupon`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

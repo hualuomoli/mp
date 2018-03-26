@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.RegionQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `parent_id` as "parent_id",
+    `name` as "name",
+    `type` as "type",
+    `agency_id` as "agency_id"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="parent_id != null">
+      and `parent_id` = #{parent_id}
+    </if>
+    <if test="parent_idGreaterThan != null"> 
+      and `parent_id` <![CDATA[ > ]]> #{parent_idGreaterThan}
+    </if>
+    <if test="parent_idGreaterEqual != null"> 
+      and `parent_id` <![CDATA[ >= ]]> #{parent_idGreaterEqual}
+    </if>
+    <if test="parent_idLessThan != null"> 
+      and `parent_id` <![CDATA[ < ]]> #{parent_idLessThan}
+    </if>
+    <if test="parent_idLessEqual != null"> 
+      and `parent_id` <![CDATA[ <= ]]> #{parent_idLessEqual}
+    </if>
+    <if test="parent_idNotEquals != null and parent_idNotEquals != ''"> 
+      and `parent_id` <![CDATA[ <> ]]> #{parent_idNotEquals}
+    </if>
+    <if test="parent_idIns != null">
+      <foreach collection="parent_idIns" item="obj" open="and (" close=")" separator="or">
+        `parent_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="parent_idNotIns != null">
+      <foreach collection="parent_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `parent_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="name != null and name != ''">
+      and `name` = #{name}
+    </if>
+    <if test="nameLeftLike != null and nameLeftLike != ''"> 
+      and `name` like CONCAT(#{nameLeftLike}, '%')
+    </if>
+    <if test="nameRightLike != null and nameRightLike != ''"> 
+      and `name` like CONCAT('%', #{nameRightLike})
+    </if>
+    <if test="nameLike != null and nameLike != ''"> 
+      and `name` like CONCAT('%', #{nameLike}, '%')
+    </if>
+    <if test="nameNotEquals != null and nameNotEquals != ''"> 
+      and `name` <![CDATA[ <> ]]> #{nameNotEquals}
+    </if>
+    <if test="nameIns != null">
+      <foreach collection="nameIns" item="obj" open="and (" close=")" separator="or">
+        `name` = #{obj}
+      </foreach>
+    </if>
+    <if test="nameNotIns != null">
+      <foreach collection="nameNotIns" item="obj" open="and (" close=")" separator="and">
+        `name` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="type != null">
+      and `type` = #{type}
+    </if>
+    <if test="typeGreaterThan != null"> 
+      and `type` <![CDATA[ > ]]> #{typeGreaterThan}
+    </if>
+    <if test="typeGreaterEqual != null"> 
+      and `type` <![CDATA[ >= ]]> #{typeGreaterEqual}
+    </if>
+    <if test="typeLessThan != null"> 
+      and `type` <![CDATA[ < ]]> #{typeLessThan}
+    </if>
+    <if test="typeLessEqual != null"> 
+      and `type` <![CDATA[ <= ]]> #{typeLessEqual}
+    </if>
+    <if test="typeNotEquals != null and typeNotEquals != ''"> 
+      and `type` <![CDATA[ <> ]]> #{typeNotEquals}
+    </if>
+    <if test="typeIns != null">
+      <foreach collection="typeIns" item="obj" open="and (" close=")" separator="or">
+        `type` = #{obj}
+      </foreach>
+    </if>
+    <if test="typeNotIns != null">
+      <foreach collection="typeNotIns" item="obj" open="and (" close=")" separator="and">
+        `type` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="agency_id != null">
+      and `agency_id` = #{agency_id}
+    </if>
+    <if test="agency_idGreaterThan != null"> 
+      and `agency_id` <![CDATA[ > ]]> #{agency_idGreaterThan}
+    </if>
+    <if test="agency_idGreaterEqual != null"> 
+      and `agency_id` <![CDATA[ >= ]]> #{agency_idGreaterEqual}
+    </if>
+    <if test="agency_idLessThan != null"> 
+      and `agency_id` <![CDATA[ < ]]> #{agency_idLessThan}
+    </if>
+    <if test="agency_idLessEqual != null"> 
+      and `agency_id` <![CDATA[ <= ]]> #{agency_idLessEqual}
+    </if>
+    <if test="agency_idNotEquals != null and agency_idNotEquals != ''"> 
+      and `agency_id` <![CDATA[ <> ]]> #{agency_idNotEquals}
+    </if>
+    <if test="agency_idIns != null">
+      <foreach collection="agency_idIns" item="obj" open="and (" close=")" separator="or">
+        `agency_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="agency_idNotIns != null">
+      <foreach collection="agency_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `agency_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Region">
+    select
+      <include refid="columns" />
+    from `nideshop_region`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

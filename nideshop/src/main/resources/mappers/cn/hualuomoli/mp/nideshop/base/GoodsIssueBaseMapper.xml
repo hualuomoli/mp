@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.GoodsIssueBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `goods_id` as "goods_id",
+    `question` as "question",
+    `answer` as "answer"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="goods_id != null and goods_id != ''"> 
+      and `goods_id` = #{goods_id}
+    </if>
+    <if test="question != null and question != ''"> 
+      and `question` = #{question}
+    </if>
+    <if test="answer != null and answer != ''"> 
+      and `answer` = #{answer}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.GoodsIssue">
+    select 
+      <include refid="columns" />
+    from `nideshop_goods_issue`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_goods_issue` (
+      `id`,
+      `goods_id`,
+      `question`,
+      `answer`
+    ) values (
+      #{id},
+      #{goods_id},
+      #{question},
+      #{answer}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_goods_issue` (
+      `id`,
+      `goods_id`,
+      `question`,
+      `answer`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.goods_id},
+      #{obj.question},
+      #{obj.answer}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_goods_issue`
+    <set>
+        `goods_id` = #{goods_id},
+        `question` = #{question},
+        `answer` = #{answer},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_goods_issue`
+    <set>
+      <if test="goods_id != null"> 
+        `goods_id` = #{goods_id},
+      </if>
+      <if test="question != null"> 
+        `question` = #{question},
+      </if>
+      <if test="answer != null"> 
+        `answer` = #{answer},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_goods_issue` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_goods_issue`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.GoodsIssue">
+    select
+      <include refid="columns" />
+    from `nideshop_goods_issue`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

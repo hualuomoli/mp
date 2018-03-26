@@ -1,0 +1,844 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.OrderQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `order_sn` as "order_sn",
+    `user_id` as "user_id",
+    `order_status` as "order_status",
+    `shipping_status` as "shipping_status",
+    `pay_status` as "pay_status",
+    `consignee` as "consignee",
+    `country` as "country",
+    `province` as "province",
+    `city` as "city",
+    `district` as "district",
+    `address` as "address",
+    `mobile` as "mobile",
+    `postscript` as "postscript",
+    `shipping_fee` as "shipping_fee",
+    `pay_name` as "pay_name",
+    `pay_id` as "pay_id",
+    `actual_price` as "actual_price",
+    `integral` as "integral",
+    `integral_money` as "integral_money",
+    `order_price` as "order_price",
+    `goods_price` as "goods_price",
+    `add_time` as "add_time",
+    `confirm_time` as "confirm_time",
+    `pay_time` as "pay_time",
+    `freight_price` as "freight_price",
+    `coupon_id` as "coupon_id",
+    `parent_id` as "parent_id",
+    `coupon_price` as "coupon_price",
+    `callback_status` as "callback_status"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="order_sn != null and order_sn != ''">
+      and `order_sn` = #{order_sn}
+    </if>
+    <if test="order_snLeftLike != null and order_snLeftLike != ''"> 
+      and `order_sn` like CONCAT(#{order_snLeftLike}, '%')
+    </if>
+    <if test="order_snRightLike != null and order_snRightLike != ''"> 
+      and `order_sn` like CONCAT('%', #{order_snRightLike})
+    </if>
+    <if test="order_snLike != null and order_snLike != ''"> 
+      and `order_sn` like CONCAT('%', #{order_snLike}, '%')
+    </if>
+    <if test="order_snNotEquals != null and order_snNotEquals != ''"> 
+      and `order_sn` <![CDATA[ <> ]]> #{order_snNotEquals}
+    </if>
+    <if test="order_snIns != null">
+      <foreach collection="order_snIns" item="obj" open="and (" close=")" separator="or">
+        `order_sn` = #{obj}
+      </foreach>
+    </if>
+    <if test="order_snNotIns != null">
+      <foreach collection="order_snNotIns" item="obj" open="and (" close=")" separator="and">
+        `order_sn` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="user_id != null">
+      and `user_id` = #{user_id}
+    </if>
+    <if test="user_idGreaterThan != null"> 
+      and `user_id` <![CDATA[ > ]]> #{user_idGreaterThan}
+    </if>
+    <if test="user_idGreaterEqual != null"> 
+      and `user_id` <![CDATA[ >= ]]> #{user_idGreaterEqual}
+    </if>
+    <if test="user_idLessThan != null"> 
+      and `user_id` <![CDATA[ < ]]> #{user_idLessThan}
+    </if>
+    <if test="user_idLessEqual != null"> 
+      and `user_id` <![CDATA[ <= ]]> #{user_idLessEqual}
+    </if>
+    <if test="user_idNotEquals != null and user_idNotEquals != ''"> 
+      and `user_id` <![CDATA[ <> ]]> #{user_idNotEquals}
+    </if>
+    <if test="user_idIns != null">
+      <foreach collection="user_idIns" item="obj" open="and (" close=")" separator="or">
+        `user_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="user_idNotIns != null">
+      <foreach collection="user_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `user_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="order_status != null">
+      and `order_status` = #{order_status}
+    </if>
+    <if test="order_statusGreaterThan != null"> 
+      and `order_status` <![CDATA[ > ]]> #{order_statusGreaterThan}
+    </if>
+    <if test="order_statusGreaterEqual != null"> 
+      and `order_status` <![CDATA[ >= ]]> #{order_statusGreaterEqual}
+    </if>
+    <if test="order_statusLessThan != null"> 
+      and `order_status` <![CDATA[ < ]]> #{order_statusLessThan}
+    </if>
+    <if test="order_statusLessEqual != null"> 
+      and `order_status` <![CDATA[ <= ]]> #{order_statusLessEqual}
+    </if>
+    <if test="order_statusNotEquals != null and order_statusNotEquals != ''"> 
+      and `order_status` <![CDATA[ <> ]]> #{order_statusNotEquals}
+    </if>
+    <if test="order_statusIns != null">
+      <foreach collection="order_statusIns" item="obj" open="and (" close=")" separator="or">
+        `order_status` = #{obj}
+      </foreach>
+    </if>
+    <if test="order_statusNotIns != null">
+      <foreach collection="order_statusNotIns" item="obj" open="and (" close=")" separator="and">
+        `order_status` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="shipping_status != null">
+      and `shipping_status` = #{shipping_status}
+    </if>
+    <if test="shipping_statusGreaterThan != null"> 
+      and `shipping_status` <![CDATA[ > ]]> #{shipping_statusGreaterThan}
+    </if>
+    <if test="shipping_statusGreaterEqual != null"> 
+      and `shipping_status` <![CDATA[ >= ]]> #{shipping_statusGreaterEqual}
+    </if>
+    <if test="shipping_statusLessThan != null"> 
+      and `shipping_status` <![CDATA[ < ]]> #{shipping_statusLessThan}
+    </if>
+    <if test="shipping_statusLessEqual != null"> 
+      and `shipping_status` <![CDATA[ <= ]]> #{shipping_statusLessEqual}
+    </if>
+    <if test="shipping_statusNotEquals != null and shipping_statusNotEquals != ''"> 
+      and `shipping_status` <![CDATA[ <> ]]> #{shipping_statusNotEquals}
+    </if>
+    <if test="shipping_statusIns != null">
+      <foreach collection="shipping_statusIns" item="obj" open="and (" close=")" separator="or">
+        `shipping_status` = #{obj}
+      </foreach>
+    </if>
+    <if test="shipping_statusNotIns != null">
+      <foreach collection="shipping_statusNotIns" item="obj" open="and (" close=")" separator="and">
+        `shipping_status` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="pay_status != null">
+      and `pay_status` = #{pay_status}
+    </if>
+    <if test="pay_statusGreaterThan != null"> 
+      and `pay_status` <![CDATA[ > ]]> #{pay_statusGreaterThan}
+    </if>
+    <if test="pay_statusGreaterEqual != null"> 
+      and `pay_status` <![CDATA[ >= ]]> #{pay_statusGreaterEqual}
+    </if>
+    <if test="pay_statusLessThan != null"> 
+      and `pay_status` <![CDATA[ < ]]> #{pay_statusLessThan}
+    </if>
+    <if test="pay_statusLessEqual != null"> 
+      and `pay_status` <![CDATA[ <= ]]> #{pay_statusLessEqual}
+    </if>
+    <if test="pay_statusNotEquals != null and pay_statusNotEquals != ''"> 
+      and `pay_status` <![CDATA[ <> ]]> #{pay_statusNotEquals}
+    </if>
+    <if test="pay_statusIns != null">
+      <foreach collection="pay_statusIns" item="obj" open="and (" close=")" separator="or">
+        `pay_status` = #{obj}
+      </foreach>
+    </if>
+    <if test="pay_statusNotIns != null">
+      <foreach collection="pay_statusNotIns" item="obj" open="and (" close=")" separator="and">
+        `pay_status` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="consignee != null and consignee != ''">
+      and `consignee` = #{consignee}
+    </if>
+    <if test="consigneeLeftLike != null and consigneeLeftLike != ''"> 
+      and `consignee` like CONCAT(#{consigneeLeftLike}, '%')
+    </if>
+    <if test="consigneeRightLike != null and consigneeRightLike != ''"> 
+      and `consignee` like CONCAT('%', #{consigneeRightLike})
+    </if>
+    <if test="consigneeLike != null and consigneeLike != ''"> 
+      and `consignee` like CONCAT('%', #{consigneeLike}, '%')
+    </if>
+    <if test="consigneeNotEquals != null and consigneeNotEquals != ''"> 
+      and `consignee` <![CDATA[ <> ]]> #{consigneeNotEquals}
+    </if>
+    <if test="consigneeIns != null">
+      <foreach collection="consigneeIns" item="obj" open="and (" close=")" separator="or">
+        `consignee` = #{obj}
+      </foreach>
+    </if>
+    <if test="consigneeNotIns != null">
+      <foreach collection="consigneeNotIns" item="obj" open="and (" close=")" separator="and">
+        `consignee` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="country != null">
+      and `country` = #{country}
+    </if>
+    <if test="countryGreaterThan != null"> 
+      and `country` <![CDATA[ > ]]> #{countryGreaterThan}
+    </if>
+    <if test="countryGreaterEqual != null"> 
+      and `country` <![CDATA[ >= ]]> #{countryGreaterEqual}
+    </if>
+    <if test="countryLessThan != null"> 
+      and `country` <![CDATA[ < ]]> #{countryLessThan}
+    </if>
+    <if test="countryLessEqual != null"> 
+      and `country` <![CDATA[ <= ]]> #{countryLessEqual}
+    </if>
+    <if test="countryNotEquals != null and countryNotEquals != ''"> 
+      and `country` <![CDATA[ <> ]]> #{countryNotEquals}
+    </if>
+    <if test="countryIns != null">
+      <foreach collection="countryIns" item="obj" open="and (" close=")" separator="or">
+        `country` = #{obj}
+      </foreach>
+    </if>
+    <if test="countryNotIns != null">
+      <foreach collection="countryNotIns" item="obj" open="and (" close=")" separator="and">
+        `country` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="province != null">
+      and `province` = #{province}
+    </if>
+    <if test="provinceGreaterThan != null"> 
+      and `province` <![CDATA[ > ]]> #{provinceGreaterThan}
+    </if>
+    <if test="provinceGreaterEqual != null"> 
+      and `province` <![CDATA[ >= ]]> #{provinceGreaterEqual}
+    </if>
+    <if test="provinceLessThan != null"> 
+      and `province` <![CDATA[ < ]]> #{provinceLessThan}
+    </if>
+    <if test="provinceLessEqual != null"> 
+      and `province` <![CDATA[ <= ]]> #{provinceLessEqual}
+    </if>
+    <if test="provinceNotEquals != null and provinceNotEquals != ''"> 
+      and `province` <![CDATA[ <> ]]> #{provinceNotEquals}
+    </if>
+    <if test="provinceIns != null">
+      <foreach collection="provinceIns" item="obj" open="and (" close=")" separator="or">
+        `province` = #{obj}
+      </foreach>
+    </if>
+    <if test="provinceNotIns != null">
+      <foreach collection="provinceNotIns" item="obj" open="and (" close=")" separator="and">
+        `province` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="city != null">
+      and `city` = #{city}
+    </if>
+    <if test="cityGreaterThan != null"> 
+      and `city` <![CDATA[ > ]]> #{cityGreaterThan}
+    </if>
+    <if test="cityGreaterEqual != null"> 
+      and `city` <![CDATA[ >= ]]> #{cityGreaterEqual}
+    </if>
+    <if test="cityLessThan != null"> 
+      and `city` <![CDATA[ < ]]> #{cityLessThan}
+    </if>
+    <if test="cityLessEqual != null"> 
+      and `city` <![CDATA[ <= ]]> #{cityLessEqual}
+    </if>
+    <if test="cityNotEquals != null and cityNotEquals != ''"> 
+      and `city` <![CDATA[ <> ]]> #{cityNotEquals}
+    </if>
+    <if test="cityIns != null">
+      <foreach collection="cityIns" item="obj" open="and (" close=")" separator="or">
+        `city` = #{obj}
+      </foreach>
+    </if>
+    <if test="cityNotIns != null">
+      <foreach collection="cityNotIns" item="obj" open="and (" close=")" separator="and">
+        `city` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="district != null">
+      and `district` = #{district}
+    </if>
+    <if test="districtGreaterThan != null"> 
+      and `district` <![CDATA[ > ]]> #{districtGreaterThan}
+    </if>
+    <if test="districtGreaterEqual != null"> 
+      and `district` <![CDATA[ >= ]]> #{districtGreaterEqual}
+    </if>
+    <if test="districtLessThan != null"> 
+      and `district` <![CDATA[ < ]]> #{districtLessThan}
+    </if>
+    <if test="districtLessEqual != null"> 
+      and `district` <![CDATA[ <= ]]> #{districtLessEqual}
+    </if>
+    <if test="districtNotEquals != null and districtNotEquals != ''"> 
+      and `district` <![CDATA[ <> ]]> #{districtNotEquals}
+    </if>
+    <if test="districtIns != null">
+      <foreach collection="districtIns" item="obj" open="and (" close=")" separator="or">
+        `district` = #{obj}
+      </foreach>
+    </if>
+    <if test="districtNotIns != null">
+      <foreach collection="districtNotIns" item="obj" open="and (" close=")" separator="and">
+        `district` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="address != null and address != ''">
+      and `address` = #{address}
+    </if>
+    <if test="addressLeftLike != null and addressLeftLike != ''"> 
+      and `address` like CONCAT(#{addressLeftLike}, '%')
+    </if>
+    <if test="addressRightLike != null and addressRightLike != ''"> 
+      and `address` like CONCAT('%', #{addressRightLike})
+    </if>
+    <if test="addressLike != null and addressLike != ''"> 
+      and `address` like CONCAT('%', #{addressLike}, '%')
+    </if>
+    <if test="addressNotEquals != null and addressNotEquals != ''"> 
+      and `address` <![CDATA[ <> ]]> #{addressNotEquals}
+    </if>
+    <if test="addressIns != null">
+      <foreach collection="addressIns" item="obj" open="and (" close=")" separator="or">
+        `address` = #{obj}
+      </foreach>
+    </if>
+    <if test="addressNotIns != null">
+      <foreach collection="addressNotIns" item="obj" open="and (" close=")" separator="and">
+        `address` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="mobile != null and mobile != ''">
+      and `mobile` = #{mobile}
+    </if>
+    <if test="mobileLeftLike != null and mobileLeftLike != ''"> 
+      and `mobile` like CONCAT(#{mobileLeftLike}, '%')
+    </if>
+    <if test="mobileRightLike != null and mobileRightLike != ''"> 
+      and `mobile` like CONCAT('%', #{mobileRightLike})
+    </if>
+    <if test="mobileLike != null and mobileLike != ''"> 
+      and `mobile` like CONCAT('%', #{mobileLike}, '%')
+    </if>
+    <if test="mobileNotEquals != null and mobileNotEquals != ''"> 
+      and `mobile` <![CDATA[ <> ]]> #{mobileNotEquals}
+    </if>
+    <if test="mobileIns != null">
+      <foreach collection="mobileIns" item="obj" open="and (" close=")" separator="or">
+        `mobile` = #{obj}
+      </foreach>
+    </if>
+    <if test="mobileNotIns != null">
+      <foreach collection="mobileNotIns" item="obj" open="and (" close=")" separator="and">
+        `mobile` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="postscript != null and postscript != ''">
+      and `postscript` = #{postscript}
+    </if>
+    <if test="postscriptLeftLike != null and postscriptLeftLike != ''"> 
+      and `postscript` like CONCAT(#{postscriptLeftLike}, '%')
+    </if>
+    <if test="postscriptRightLike != null and postscriptRightLike != ''"> 
+      and `postscript` like CONCAT('%', #{postscriptRightLike})
+    </if>
+    <if test="postscriptLike != null and postscriptLike != ''"> 
+      and `postscript` like CONCAT('%', #{postscriptLike}, '%')
+    </if>
+    <if test="postscriptNotEquals != null and postscriptNotEquals != ''"> 
+      and `postscript` <![CDATA[ <> ]]> #{postscriptNotEquals}
+    </if>
+    <if test="postscriptIns != null">
+      <foreach collection="postscriptIns" item="obj" open="and (" close=")" separator="or">
+        `postscript` = #{obj}
+      </foreach>
+    </if>
+    <if test="postscriptNotIns != null">
+      <foreach collection="postscriptNotIns" item="obj" open="and (" close=")" separator="and">
+        `postscript` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="shipping_fee != null">
+      and `shipping_fee` = #{shipping_fee}
+    </if>
+    <if test="shipping_feeGreaterThan != null"> 
+      and `shipping_fee` <![CDATA[ > ]]> #{shipping_feeGreaterThan}
+    </if>
+    <if test="shipping_feeGreaterEqual != null"> 
+      and `shipping_fee` <![CDATA[ >= ]]> #{shipping_feeGreaterEqual}
+    </if>
+    <if test="shipping_feeLessThan != null"> 
+      and `shipping_fee` <![CDATA[ < ]]> #{shipping_feeLessThan}
+    </if>
+    <if test="shipping_feeLessEqual != null"> 
+      and `shipping_fee` <![CDATA[ <= ]]> #{shipping_feeLessEqual}
+    </if>
+    <if test="shipping_feeNotEquals != null and shipping_feeNotEquals != ''"> 
+      and `shipping_fee` <![CDATA[ <> ]]> #{shipping_feeNotEquals}
+    </if>
+    <if test="shipping_feeIns != null">
+      <foreach collection="shipping_feeIns" item="obj" open="and (" close=")" separator="or">
+        `shipping_fee` = #{obj}
+      </foreach>
+    </if>
+    <if test="shipping_feeNotIns != null">
+      <foreach collection="shipping_feeNotIns" item="obj" open="and (" close=")" separator="and">
+        `shipping_fee` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="pay_name != null and pay_name != ''">
+      and `pay_name` = #{pay_name}
+    </if>
+    <if test="pay_nameLeftLike != null and pay_nameLeftLike != ''"> 
+      and `pay_name` like CONCAT(#{pay_nameLeftLike}, '%')
+    </if>
+    <if test="pay_nameRightLike != null and pay_nameRightLike != ''"> 
+      and `pay_name` like CONCAT('%', #{pay_nameRightLike})
+    </if>
+    <if test="pay_nameLike != null and pay_nameLike != ''"> 
+      and `pay_name` like CONCAT('%', #{pay_nameLike}, '%')
+    </if>
+    <if test="pay_nameNotEquals != null and pay_nameNotEquals != ''"> 
+      and `pay_name` <![CDATA[ <> ]]> #{pay_nameNotEquals}
+    </if>
+    <if test="pay_nameIns != null">
+      <foreach collection="pay_nameIns" item="obj" open="and (" close=")" separator="or">
+        `pay_name` = #{obj}
+      </foreach>
+    </if>
+    <if test="pay_nameNotIns != null">
+      <foreach collection="pay_nameNotIns" item="obj" open="and (" close=")" separator="and">
+        `pay_name` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="pay_id != null">
+      and `pay_id` = #{pay_id}
+    </if>
+    <if test="pay_idGreaterThan != null"> 
+      and `pay_id` <![CDATA[ > ]]> #{pay_idGreaterThan}
+    </if>
+    <if test="pay_idGreaterEqual != null"> 
+      and `pay_id` <![CDATA[ >= ]]> #{pay_idGreaterEqual}
+    </if>
+    <if test="pay_idLessThan != null"> 
+      and `pay_id` <![CDATA[ < ]]> #{pay_idLessThan}
+    </if>
+    <if test="pay_idLessEqual != null"> 
+      and `pay_id` <![CDATA[ <= ]]> #{pay_idLessEqual}
+    </if>
+    <if test="pay_idNotEquals != null and pay_idNotEquals != ''"> 
+      and `pay_id` <![CDATA[ <> ]]> #{pay_idNotEquals}
+    </if>
+    <if test="pay_idIns != null">
+      <foreach collection="pay_idIns" item="obj" open="and (" close=")" separator="or">
+        `pay_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="pay_idNotIns != null">
+      <foreach collection="pay_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `pay_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="actual_price != null">
+      and `actual_price` = #{actual_price}
+    </if>
+    <if test="actual_priceGreaterThan != null"> 
+      and `actual_price` <![CDATA[ > ]]> #{actual_priceGreaterThan}
+    </if>
+    <if test="actual_priceGreaterEqual != null"> 
+      and `actual_price` <![CDATA[ >= ]]> #{actual_priceGreaterEqual}
+    </if>
+    <if test="actual_priceLessThan != null"> 
+      and `actual_price` <![CDATA[ < ]]> #{actual_priceLessThan}
+    </if>
+    <if test="actual_priceLessEqual != null"> 
+      and `actual_price` <![CDATA[ <= ]]> #{actual_priceLessEqual}
+    </if>
+    <if test="actual_priceNotEquals != null and actual_priceNotEquals != ''"> 
+      and `actual_price` <![CDATA[ <> ]]> #{actual_priceNotEquals}
+    </if>
+    <if test="actual_priceIns != null">
+      <foreach collection="actual_priceIns" item="obj" open="and (" close=")" separator="or">
+        `actual_price` = #{obj}
+      </foreach>
+    </if>
+    <if test="actual_priceNotIns != null">
+      <foreach collection="actual_priceNotIns" item="obj" open="and (" close=")" separator="and">
+        `actual_price` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="integral != null">
+      and `integral` = #{integral}
+    </if>
+    <if test="integralGreaterThan != null"> 
+      and `integral` <![CDATA[ > ]]> #{integralGreaterThan}
+    </if>
+    <if test="integralGreaterEqual != null"> 
+      and `integral` <![CDATA[ >= ]]> #{integralGreaterEqual}
+    </if>
+    <if test="integralLessThan != null"> 
+      and `integral` <![CDATA[ < ]]> #{integralLessThan}
+    </if>
+    <if test="integralLessEqual != null"> 
+      and `integral` <![CDATA[ <= ]]> #{integralLessEqual}
+    </if>
+    <if test="integralNotEquals != null and integralNotEquals != ''"> 
+      and `integral` <![CDATA[ <> ]]> #{integralNotEquals}
+    </if>
+    <if test="integralIns != null">
+      <foreach collection="integralIns" item="obj" open="and (" close=")" separator="or">
+        `integral` = #{obj}
+      </foreach>
+    </if>
+    <if test="integralNotIns != null">
+      <foreach collection="integralNotIns" item="obj" open="and (" close=")" separator="and">
+        `integral` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="integral_money != null">
+      and `integral_money` = #{integral_money}
+    </if>
+    <if test="integral_moneyGreaterThan != null"> 
+      and `integral_money` <![CDATA[ > ]]> #{integral_moneyGreaterThan}
+    </if>
+    <if test="integral_moneyGreaterEqual != null"> 
+      and `integral_money` <![CDATA[ >= ]]> #{integral_moneyGreaterEqual}
+    </if>
+    <if test="integral_moneyLessThan != null"> 
+      and `integral_money` <![CDATA[ < ]]> #{integral_moneyLessThan}
+    </if>
+    <if test="integral_moneyLessEqual != null"> 
+      and `integral_money` <![CDATA[ <= ]]> #{integral_moneyLessEqual}
+    </if>
+    <if test="integral_moneyNotEquals != null and integral_moneyNotEquals != ''"> 
+      and `integral_money` <![CDATA[ <> ]]> #{integral_moneyNotEquals}
+    </if>
+    <if test="integral_moneyIns != null">
+      <foreach collection="integral_moneyIns" item="obj" open="and (" close=")" separator="or">
+        `integral_money` = #{obj}
+      </foreach>
+    </if>
+    <if test="integral_moneyNotIns != null">
+      <foreach collection="integral_moneyNotIns" item="obj" open="and (" close=")" separator="and">
+        `integral_money` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="order_price != null">
+      and `order_price` = #{order_price}
+    </if>
+    <if test="order_priceGreaterThan != null"> 
+      and `order_price` <![CDATA[ > ]]> #{order_priceGreaterThan}
+    </if>
+    <if test="order_priceGreaterEqual != null"> 
+      and `order_price` <![CDATA[ >= ]]> #{order_priceGreaterEqual}
+    </if>
+    <if test="order_priceLessThan != null"> 
+      and `order_price` <![CDATA[ < ]]> #{order_priceLessThan}
+    </if>
+    <if test="order_priceLessEqual != null"> 
+      and `order_price` <![CDATA[ <= ]]> #{order_priceLessEqual}
+    </if>
+    <if test="order_priceNotEquals != null and order_priceNotEquals != ''"> 
+      and `order_price` <![CDATA[ <> ]]> #{order_priceNotEquals}
+    </if>
+    <if test="order_priceIns != null">
+      <foreach collection="order_priceIns" item="obj" open="and (" close=")" separator="or">
+        `order_price` = #{obj}
+      </foreach>
+    </if>
+    <if test="order_priceNotIns != null">
+      <foreach collection="order_priceNotIns" item="obj" open="and (" close=")" separator="and">
+        `order_price` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="goods_price != null">
+      and `goods_price` = #{goods_price}
+    </if>
+    <if test="goods_priceGreaterThan != null"> 
+      and `goods_price` <![CDATA[ > ]]> #{goods_priceGreaterThan}
+    </if>
+    <if test="goods_priceGreaterEqual != null"> 
+      and `goods_price` <![CDATA[ >= ]]> #{goods_priceGreaterEqual}
+    </if>
+    <if test="goods_priceLessThan != null"> 
+      and `goods_price` <![CDATA[ < ]]> #{goods_priceLessThan}
+    </if>
+    <if test="goods_priceLessEqual != null"> 
+      and `goods_price` <![CDATA[ <= ]]> #{goods_priceLessEqual}
+    </if>
+    <if test="goods_priceNotEquals != null and goods_priceNotEquals != ''"> 
+      and `goods_price` <![CDATA[ <> ]]> #{goods_priceNotEquals}
+    </if>
+    <if test="goods_priceIns != null">
+      <foreach collection="goods_priceIns" item="obj" open="and (" close=")" separator="or">
+        `goods_price` = #{obj}
+      </foreach>
+    </if>
+    <if test="goods_priceNotIns != null">
+      <foreach collection="goods_priceNotIns" item="obj" open="and (" close=")" separator="and">
+        `goods_price` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="add_time != null">
+      and `add_time` = #{add_time}
+    </if>
+    <if test="add_timeGreaterThan != null"> 
+      and `add_time` <![CDATA[ > ]]> #{add_timeGreaterThan}
+    </if>
+    <if test="add_timeGreaterEqual != null"> 
+      and `add_time` <![CDATA[ >= ]]> #{add_timeGreaterEqual}
+    </if>
+    <if test="add_timeLessThan != null"> 
+      and `add_time` <![CDATA[ < ]]> #{add_timeLessThan}
+    </if>
+    <if test="add_timeLessEqual != null"> 
+      and `add_time` <![CDATA[ <= ]]> #{add_timeLessEqual}
+    </if>
+    <if test="add_timeNotEquals != null and add_timeNotEquals != ''"> 
+      and `add_time` <![CDATA[ <> ]]> #{add_timeNotEquals}
+    </if>
+    <if test="add_timeIns != null">
+      <foreach collection="add_timeIns" item="obj" open="and (" close=")" separator="or">
+        `add_time` = #{obj}
+      </foreach>
+    </if>
+    <if test="add_timeNotIns != null">
+      <foreach collection="add_timeNotIns" item="obj" open="and (" close=")" separator="and">
+        `add_time` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="confirm_time != null">
+      and `confirm_time` = #{confirm_time}
+    </if>
+    <if test="confirm_timeGreaterThan != null"> 
+      and `confirm_time` <![CDATA[ > ]]> #{confirm_timeGreaterThan}
+    </if>
+    <if test="confirm_timeGreaterEqual != null"> 
+      and `confirm_time` <![CDATA[ >= ]]> #{confirm_timeGreaterEqual}
+    </if>
+    <if test="confirm_timeLessThan != null"> 
+      and `confirm_time` <![CDATA[ < ]]> #{confirm_timeLessThan}
+    </if>
+    <if test="confirm_timeLessEqual != null"> 
+      and `confirm_time` <![CDATA[ <= ]]> #{confirm_timeLessEqual}
+    </if>
+    <if test="confirm_timeNotEquals != null and confirm_timeNotEquals != ''"> 
+      and `confirm_time` <![CDATA[ <> ]]> #{confirm_timeNotEquals}
+    </if>
+    <if test="confirm_timeIns != null">
+      <foreach collection="confirm_timeIns" item="obj" open="and (" close=")" separator="or">
+        `confirm_time` = #{obj}
+      </foreach>
+    </if>
+    <if test="confirm_timeNotIns != null">
+      <foreach collection="confirm_timeNotIns" item="obj" open="and (" close=")" separator="and">
+        `confirm_time` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="pay_time != null">
+      and `pay_time` = #{pay_time}
+    </if>
+    <if test="pay_timeGreaterThan != null"> 
+      and `pay_time` <![CDATA[ > ]]> #{pay_timeGreaterThan}
+    </if>
+    <if test="pay_timeGreaterEqual != null"> 
+      and `pay_time` <![CDATA[ >= ]]> #{pay_timeGreaterEqual}
+    </if>
+    <if test="pay_timeLessThan != null"> 
+      and `pay_time` <![CDATA[ < ]]> #{pay_timeLessThan}
+    </if>
+    <if test="pay_timeLessEqual != null"> 
+      and `pay_time` <![CDATA[ <= ]]> #{pay_timeLessEqual}
+    </if>
+    <if test="pay_timeNotEquals != null and pay_timeNotEquals != ''"> 
+      and `pay_time` <![CDATA[ <> ]]> #{pay_timeNotEquals}
+    </if>
+    <if test="pay_timeIns != null">
+      <foreach collection="pay_timeIns" item="obj" open="and (" close=")" separator="or">
+        `pay_time` = #{obj}
+      </foreach>
+    </if>
+    <if test="pay_timeNotIns != null">
+      <foreach collection="pay_timeNotIns" item="obj" open="and (" close=")" separator="and">
+        `pay_time` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="freight_price != null">
+      and `freight_price` = #{freight_price}
+    </if>
+    <if test="freight_priceGreaterThan != null"> 
+      and `freight_price` <![CDATA[ > ]]> #{freight_priceGreaterThan}
+    </if>
+    <if test="freight_priceGreaterEqual != null"> 
+      and `freight_price` <![CDATA[ >= ]]> #{freight_priceGreaterEqual}
+    </if>
+    <if test="freight_priceLessThan != null"> 
+      and `freight_price` <![CDATA[ < ]]> #{freight_priceLessThan}
+    </if>
+    <if test="freight_priceLessEqual != null"> 
+      and `freight_price` <![CDATA[ <= ]]> #{freight_priceLessEqual}
+    </if>
+    <if test="freight_priceNotEquals != null and freight_priceNotEquals != ''"> 
+      and `freight_price` <![CDATA[ <> ]]> #{freight_priceNotEquals}
+    </if>
+    <if test="freight_priceIns != null">
+      <foreach collection="freight_priceIns" item="obj" open="and (" close=")" separator="or">
+        `freight_price` = #{obj}
+      </foreach>
+    </if>
+    <if test="freight_priceNotIns != null">
+      <foreach collection="freight_priceNotIns" item="obj" open="and (" close=")" separator="and">
+        `freight_price` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="coupon_id != null">
+      and `coupon_id` = #{coupon_id}
+    </if>
+    <if test="coupon_idGreaterThan != null"> 
+      and `coupon_id` <![CDATA[ > ]]> #{coupon_idGreaterThan}
+    </if>
+    <if test="coupon_idGreaterEqual != null"> 
+      and `coupon_id` <![CDATA[ >= ]]> #{coupon_idGreaterEqual}
+    </if>
+    <if test="coupon_idLessThan != null"> 
+      and `coupon_id` <![CDATA[ < ]]> #{coupon_idLessThan}
+    </if>
+    <if test="coupon_idLessEqual != null"> 
+      and `coupon_id` <![CDATA[ <= ]]> #{coupon_idLessEqual}
+    </if>
+    <if test="coupon_idNotEquals != null and coupon_idNotEquals != ''"> 
+      and `coupon_id` <![CDATA[ <> ]]> #{coupon_idNotEquals}
+    </if>
+    <if test="coupon_idIns != null">
+      <foreach collection="coupon_idIns" item="obj" open="and (" close=")" separator="or">
+        `coupon_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="coupon_idNotIns != null">
+      <foreach collection="coupon_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `coupon_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="parent_id != null">
+      and `parent_id` = #{parent_id}
+    </if>
+    <if test="parent_idGreaterThan != null"> 
+      and `parent_id` <![CDATA[ > ]]> #{parent_idGreaterThan}
+    </if>
+    <if test="parent_idGreaterEqual != null"> 
+      and `parent_id` <![CDATA[ >= ]]> #{parent_idGreaterEqual}
+    </if>
+    <if test="parent_idLessThan != null"> 
+      and `parent_id` <![CDATA[ < ]]> #{parent_idLessThan}
+    </if>
+    <if test="parent_idLessEqual != null"> 
+      and `parent_id` <![CDATA[ <= ]]> #{parent_idLessEqual}
+    </if>
+    <if test="parent_idNotEquals != null and parent_idNotEquals != ''"> 
+      and `parent_id` <![CDATA[ <> ]]> #{parent_idNotEquals}
+    </if>
+    <if test="parent_idIns != null">
+      <foreach collection="parent_idIns" item="obj" open="and (" close=")" separator="or">
+        `parent_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="parent_idNotIns != null">
+      <foreach collection="parent_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `parent_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="coupon_price != null">
+      and `coupon_price` = #{coupon_price}
+    </if>
+    <if test="coupon_priceGreaterThan != null"> 
+      and `coupon_price` <![CDATA[ > ]]> #{coupon_priceGreaterThan}
+    </if>
+    <if test="coupon_priceGreaterEqual != null"> 
+      and `coupon_price` <![CDATA[ >= ]]> #{coupon_priceGreaterEqual}
+    </if>
+    <if test="coupon_priceLessThan != null"> 
+      and `coupon_price` <![CDATA[ < ]]> #{coupon_priceLessThan}
+    </if>
+    <if test="coupon_priceLessEqual != null"> 
+      and `coupon_price` <![CDATA[ <= ]]> #{coupon_priceLessEqual}
+    </if>
+    <if test="coupon_priceNotEquals != null and coupon_priceNotEquals != ''"> 
+      and `coupon_price` <![CDATA[ <> ]]> #{coupon_priceNotEquals}
+    </if>
+    <if test="coupon_priceIns != null">
+      <foreach collection="coupon_priceIns" item="obj" open="and (" close=")" separator="or">
+        `coupon_price` = #{obj}
+      </foreach>
+    </if>
+    <if test="coupon_priceNotIns != null">
+      <foreach collection="coupon_priceNotIns" item="obj" open="and (" close=")" separator="and">
+        `coupon_price` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="callback_status != null and callback_status != ''">
+      and `callback_status` = #{callback_status}
+    </if>
+    <if test="callback_statusLeftLike != null and callback_statusLeftLike != ''"> 
+      and `callback_status` like CONCAT(#{callback_statusLeftLike}, '%')
+    </if>
+    <if test="callback_statusRightLike != null and callback_statusRightLike != ''"> 
+      and `callback_status` like CONCAT('%', #{callback_statusRightLike})
+    </if>
+    <if test="callback_statusLike != null and callback_statusLike != ''"> 
+      and `callback_status` like CONCAT('%', #{callback_statusLike}, '%')
+    </if>
+    <if test="callback_statusNotEquals != null and callback_statusNotEquals != ''"> 
+      and `callback_status` <![CDATA[ <> ]]> #{callback_statusNotEquals}
+    </if>
+    <if test="callback_statusIns != null">
+      <foreach collection="callback_statusIns" item="obj" open="and (" close=")" separator="or">
+        `callback_status` = #{obj}
+      </foreach>
+    </if>
+    <if test="callback_statusNotIns != null">
+      <foreach collection="callback_statusNotIns" item="obj" open="and (" close=")" separator="and">
+        `callback_status` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Order">
+    select
+      <include refid="columns" />
+    from `nideshop_order`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

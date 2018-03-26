@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.UserCouponBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `coupon_id` as "coupon_id",
+    `coupon_number` as "coupon_number",
+    `user_id` as "user_id",
+    `used_time` as "used_time",
+    `order_id` as "order_id"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="coupon_id != null"> 
+      and `coupon_id` = #{coupon_id}
+    </if>
+    <if test="coupon_number != null and coupon_number != ''"> 
+      and `coupon_number` = #{coupon_number}
+    </if>
+    <if test="user_id != null"> 
+      and `user_id` = #{user_id}
+    </if>
+    <if test="used_time != null"> 
+      and `used_time` = #{used_time}
+    </if>
+    <if test="order_id != null"> 
+      and `order_id` = #{order_id}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.UserCoupon">
+    select 
+      <include refid="columns" />
+    from `nideshop_user_coupon`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_user_coupon` (
+      `id`,
+      `coupon_id`,
+      `coupon_number`,
+      `user_id`,
+      `used_time`,
+      `order_id`
+    ) values (
+      #{id},
+      #{coupon_id},
+      #{coupon_number},
+      #{user_id},
+      #{used_time},
+      #{order_id}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_user_coupon` (
+      `id`,
+      `coupon_id`,
+      `coupon_number`,
+      `user_id`,
+      `used_time`,
+      `order_id`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.coupon_id},
+      #{obj.coupon_number},
+      #{obj.user_id},
+      #{obj.used_time},
+      #{obj.order_id}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_user_coupon`
+    <set>
+        `coupon_id` = #{coupon_id},
+        `coupon_number` = #{coupon_number},
+        `user_id` = #{user_id},
+        `used_time` = #{used_time},
+        `order_id` = #{order_id},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_user_coupon`
+    <set>
+      <if test="coupon_id != null"> 
+        `coupon_id` = #{coupon_id},
+      </if>
+      <if test="coupon_number != null"> 
+        `coupon_number` = #{coupon_number},
+      </if>
+      <if test="user_id != null"> 
+        `user_id` = #{user_id},
+      </if>
+      <if test="used_time != null"> 
+        `used_time` = #{used_time},
+      </if>
+      <if test="order_id != null"> 
+        `order_id` = #{order_id},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_user_coupon` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_user_coupon`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.UserCoupon">
+    select
+      <include refid="columns" />
+    from `nideshop_user_coupon`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

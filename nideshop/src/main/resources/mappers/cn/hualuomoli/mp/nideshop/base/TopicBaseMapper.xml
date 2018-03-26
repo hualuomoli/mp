@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.TopicBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `title` as "title",
+    `content` as "content",
+    `avatar` as "avatar",
+    `item_pic_url` as "item_pic_url",
+    `subtitle` as "subtitle",
+    `topic_category_id` as "topic_category_id",
+    `price_info` as "price_info",
+    `read_count` as "read_count",
+    `scene_pic_url` as "scene_pic_url",
+    `topic_template_id` as "topic_template_id",
+    `topic_tag_id` as "topic_tag_id",
+    `sort_order` as "sort_order",
+    `is_show` as "is_show"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="title != null and title != ''"> 
+      and `title` = #{title}
+    </if>
+    <if test="content != null and content != ''"> 
+      and `content` = #{content}
+    </if>
+    <if test="avatar != null and avatar != ''"> 
+      and `avatar` = #{avatar}
+    </if>
+    <if test="item_pic_url != null and item_pic_url != ''"> 
+      and `item_pic_url` = #{item_pic_url}
+    </if>
+    <if test="subtitle != null and subtitle != ''"> 
+      and `subtitle` = #{subtitle}
+    </if>
+    <if test="topic_category_id != null"> 
+      and `topic_category_id` = #{topic_category_id}
+    </if>
+    <if test="price_info != null"> 
+      and `price_info` = #{price_info}
+    </if>
+    <if test="read_count != null and read_count != ''"> 
+      and `read_count` = #{read_count}
+    </if>
+    <if test="scene_pic_url != null and scene_pic_url != ''"> 
+      and `scene_pic_url` = #{scene_pic_url}
+    </if>
+    <if test="topic_template_id != null"> 
+      and `topic_template_id` = #{topic_template_id}
+    </if>
+    <if test="topic_tag_id != null"> 
+      and `topic_tag_id` = #{topic_tag_id}
+    </if>
+    <if test="sort_order != null"> 
+      and `sort_order` = #{sort_order}
+    </if>
+    <if test="is_show != null"> 
+      and `is_show` = #{is_show}
+    </if>
+  </sql>
+  
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_topic` (
+      `id`,
+      `title`,
+      `content`,
+      `avatar`,
+      `item_pic_url`,
+      `subtitle`,
+      `topic_category_id`,
+      `price_info`,
+      `read_count`,
+      `scene_pic_url`,
+      `topic_template_id`,
+      `topic_tag_id`,
+      `sort_order`,
+      `is_show`
+    ) values (
+      #{id},
+      #{title},
+      #{content},
+      #{avatar},
+      #{item_pic_url},
+      #{subtitle},
+      #{topic_category_id},
+      #{price_info},
+      #{read_count},
+      #{scene_pic_url},
+      #{topic_template_id},
+      #{topic_tag_id},
+      #{sort_order},
+      #{is_show}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_topic` (
+      `id`,
+      `title`,
+      `content`,
+      `avatar`,
+      `item_pic_url`,
+      `subtitle`,
+      `topic_category_id`,
+      `price_info`,
+      `read_count`,
+      `scene_pic_url`,
+      `topic_template_id`,
+      `topic_tag_id`,
+      `sort_order`,
+      `is_show`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.title},
+      #{obj.content},
+      #{obj.avatar},
+      #{obj.item_pic_url},
+      #{obj.subtitle},
+      #{obj.topic_category_id},
+      #{obj.price_info},
+      #{obj.read_count},
+      #{obj.scene_pic_url},
+      #{obj.topic_template_id},
+      #{obj.topic_tag_id},
+      #{obj.sort_order},
+      #{obj.is_show}
+    </foreach>
+  </insert>
+  
+
+
+  
+  
+
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Topic">
+    select
+      <include refid="columns" />
+    from `nideshop_topic`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

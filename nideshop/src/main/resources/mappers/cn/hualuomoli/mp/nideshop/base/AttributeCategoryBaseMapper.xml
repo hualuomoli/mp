@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.AttributeCategoryBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `name` as "name",
+    `enabled` as "enabled"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="name != null and name != ''"> 
+      and `name` = #{name}
+    </if>
+    <if test="enabled != null"> 
+      and `enabled` = #{enabled}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.AttributeCategory">
+    select 
+      <include refid="columns" />
+    from `nideshop_attribute_category`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_attribute_category` (
+      `id`,
+      `name`,
+      `enabled`
+    ) values (
+      #{id},
+      #{name},
+      #{enabled}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_attribute_category` (
+      `id`,
+      `name`,
+      `enabled`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.name},
+      #{obj.enabled}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_attribute_category`
+    <set>
+        `name` = #{name},
+        `enabled` = #{enabled},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_attribute_category`
+    <set>
+      <if test="name != null"> 
+        `name` = #{name},
+      </if>
+      <if test="enabled != null"> 
+        `enabled` = #{enabled},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_attribute_category` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_attribute_category`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.AttributeCategory">
+    select
+      <include refid="columns" />
+    from `nideshop_attribute_category`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

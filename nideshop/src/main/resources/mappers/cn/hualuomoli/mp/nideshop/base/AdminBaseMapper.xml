@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.AdminBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `username` as "username",
+    `password` as "password",
+    `password_salt` as "password_salt",
+    `last_login_ip` as "last_login_ip",
+    `last_login_time` as "last_login_time",
+    `add_time` as "add_time",
+    `update_time` as "update_time",
+    `avatar` as "avatar",
+    `admin_role_id` as "admin_role_id"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="username != null and username != ''"> 
+      and `username` = #{username}
+    </if>
+    <if test="password != null and password != ''"> 
+      and `password` = #{password}
+    </if>
+    <if test="password_salt != null and password_salt != ''"> 
+      and `password_salt` = #{password_salt}
+    </if>
+    <if test="last_login_ip != null and last_login_ip != ''"> 
+      and `last_login_ip` = #{last_login_ip}
+    </if>
+    <if test="last_login_time != null"> 
+      and `last_login_time` = #{last_login_time}
+    </if>
+    <if test="add_time != null"> 
+      and `add_time` = #{add_time}
+    </if>
+    <if test="update_time != null"> 
+      and `update_time` = #{update_time}
+    </if>
+    <if test="avatar != null and avatar != ''"> 
+      and `avatar` = #{avatar}
+    </if>
+    <if test="admin_role_id != null"> 
+      and `admin_role_id` = #{admin_role_id}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.Admin">
+    select 
+      <include refid="columns" />
+    from `nideshop_admin`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_admin` (
+      `id`,
+      `username`,
+      `password`,
+      `password_salt`,
+      `last_login_ip`,
+      `last_login_time`,
+      `add_time`,
+      `update_time`,
+      `avatar`,
+      `admin_role_id`
+    ) values (
+      #{id},
+      #{username},
+      #{password},
+      #{password_salt},
+      #{last_login_ip},
+      #{last_login_time},
+      #{add_time},
+      #{update_time},
+      #{avatar},
+      #{admin_role_id}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_admin` (
+      `id`,
+      `username`,
+      `password`,
+      `password_salt`,
+      `last_login_ip`,
+      `last_login_time`,
+      `add_time`,
+      `update_time`,
+      `avatar`,
+      `admin_role_id`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.username},
+      #{obj.password},
+      #{obj.password_salt},
+      #{obj.last_login_ip},
+      #{obj.last_login_time},
+      #{obj.add_time},
+      #{obj.update_time},
+      #{obj.avatar},
+      #{obj.admin_role_id}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_admin`
+    <set>
+        `username` = #{username},
+        `password` = #{password},
+        `password_salt` = #{password_salt},
+        `last_login_ip` = #{last_login_ip},
+        `last_login_time` = #{last_login_time},
+        `add_time` = #{add_time},
+        `update_time` = #{update_time},
+        `avatar` = #{avatar},
+        `admin_role_id` = #{admin_role_id},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_admin`
+    <set>
+      <if test="username != null"> 
+        `username` = #{username},
+      </if>
+      <if test="password != null"> 
+        `password` = #{password},
+      </if>
+      <if test="password_salt != null"> 
+        `password_salt` = #{password_salt},
+      </if>
+      <if test="last_login_ip != null"> 
+        `last_login_ip` = #{last_login_ip},
+      </if>
+      <if test="last_login_time != null"> 
+        `last_login_time` = #{last_login_time},
+      </if>
+      <if test="add_time != null"> 
+        `add_time` = #{add_time},
+      </if>
+      <if test="update_time != null"> 
+        `update_time` = #{update_time},
+      </if>
+      <if test="avatar != null"> 
+        `avatar` = #{avatar},
+      </if>
+      <if test="admin_role_id != null"> 
+        `admin_role_id` = #{admin_role_id},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_admin` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_admin`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Admin">
+    select
+      <include refid="columns" />
+    from `nideshop_admin`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

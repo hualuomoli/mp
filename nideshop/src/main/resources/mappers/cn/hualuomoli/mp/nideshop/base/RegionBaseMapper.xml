@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.RegionBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `parent_id` as "parent_id",
+    `name` as "name",
+    `type` as "type",
+    `agency_id` as "agency_id"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="parent_id != null"> 
+      and `parent_id` = #{parent_id}
+    </if>
+    <if test="name != null and name != ''"> 
+      and `name` = #{name}
+    </if>
+    <if test="type != null"> 
+      and `type` = #{type}
+    </if>
+    <if test="agency_id != null"> 
+      and `agency_id` = #{agency_id}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.Region">
+    select 
+      <include refid="columns" />
+    from `nideshop_region`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_region` (
+      `id`,
+      `parent_id`,
+      `name`,
+      `type`,
+      `agency_id`
+    ) values (
+      #{id},
+      #{parent_id},
+      #{name},
+      #{type},
+      #{agency_id}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_region` (
+      `id`,
+      `parent_id`,
+      `name`,
+      `type`,
+      `agency_id`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.parent_id},
+      #{obj.name},
+      #{obj.type},
+      #{obj.agency_id}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_region`
+    <set>
+        `parent_id` = #{parent_id},
+        `name` = #{name},
+        `type` = #{type},
+        `agency_id` = #{agency_id},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_region`
+    <set>
+      <if test="parent_id != null"> 
+        `parent_id` = #{parent_id},
+      </if>
+      <if test="name != null"> 
+        `name` = #{name},
+      </if>
+      <if test="type != null"> 
+        `type` = #{type},
+      </if>
+      <if test="agency_id != null"> 
+        `agency_id` = #{agency_id},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_region` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_region`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Region">
+    select
+      <include refid="columns" />
+    from `nideshop_region`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.CategoryBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `name` as "name",
+    `keywords` as "keywords",
+    `front_desc` as "front_desc",
+    `parent_id` as "parent_id",
+    `sort_order` as "sort_order",
+    `show_index` as "show_index",
+    `is_show` as "is_show",
+    `banner_url` as "banner_url",
+    `icon_url` as "icon_url",
+    `img_url` as "img_url",
+    `wap_banner_url` as "wap_banner_url",
+    `level` as "level",
+    `type` as "type",
+    `front_name` as "front_name"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="name != null and name != ''"> 
+      and `name` = #{name}
+    </if>
+    <if test="keywords != null and keywords != ''"> 
+      and `keywords` = #{keywords}
+    </if>
+    <if test="front_desc != null and front_desc != ''"> 
+      and `front_desc` = #{front_desc}
+    </if>
+    <if test="parent_id != null"> 
+      and `parent_id` = #{parent_id}
+    </if>
+    <if test="sort_order != null"> 
+      and `sort_order` = #{sort_order}
+    </if>
+    <if test="show_index != null"> 
+      and `show_index` = #{show_index}
+    </if>
+    <if test="is_show != null"> 
+      and `is_show` = #{is_show}
+    </if>
+    <if test="banner_url != null and banner_url != ''"> 
+      and `banner_url` = #{banner_url}
+    </if>
+    <if test="icon_url != null and icon_url != ''"> 
+      and `icon_url` = #{icon_url}
+    </if>
+    <if test="img_url != null and img_url != ''"> 
+      and `img_url` = #{img_url}
+    </if>
+    <if test="wap_banner_url != null and wap_banner_url != ''"> 
+      and `wap_banner_url` = #{wap_banner_url}
+    </if>
+    <if test="level != null and level != ''"> 
+      and `level` = #{level}
+    </if>
+    <if test="type != null"> 
+      and `type` = #{type}
+    </if>
+    <if test="front_name != null and front_name != ''"> 
+      and `front_name` = #{front_name}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.Category">
+    select 
+      <include refid="columns" />
+    from `nideshop_category`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_category` (
+      `id`,
+      `name`,
+      `keywords`,
+      `front_desc`,
+      `parent_id`,
+      `sort_order`,
+      `show_index`,
+      `is_show`,
+      `banner_url`,
+      `icon_url`,
+      `img_url`,
+      `wap_banner_url`,
+      `level`,
+      `type`,
+      `front_name`
+    ) values (
+      #{id},
+      #{name},
+      #{keywords},
+      #{front_desc},
+      #{parent_id},
+      #{sort_order},
+      #{show_index},
+      #{is_show},
+      #{banner_url},
+      #{icon_url},
+      #{img_url},
+      #{wap_banner_url},
+      #{level},
+      #{type},
+      #{front_name}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_category` (
+      `id`,
+      `name`,
+      `keywords`,
+      `front_desc`,
+      `parent_id`,
+      `sort_order`,
+      `show_index`,
+      `is_show`,
+      `banner_url`,
+      `icon_url`,
+      `img_url`,
+      `wap_banner_url`,
+      `level`,
+      `type`,
+      `front_name`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.name},
+      #{obj.keywords},
+      #{obj.front_desc},
+      #{obj.parent_id},
+      #{obj.sort_order},
+      #{obj.show_index},
+      #{obj.is_show},
+      #{obj.banner_url},
+      #{obj.icon_url},
+      #{obj.img_url},
+      #{obj.wap_banner_url},
+      #{obj.level},
+      #{obj.type},
+      #{obj.front_name}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_category`
+    <set>
+        `name` = #{name},
+        `keywords` = #{keywords},
+        `front_desc` = #{front_desc},
+        `parent_id` = #{parent_id},
+        `sort_order` = #{sort_order},
+        `show_index` = #{show_index},
+        `is_show` = #{is_show},
+        `banner_url` = #{banner_url},
+        `icon_url` = #{icon_url},
+        `img_url` = #{img_url},
+        `wap_banner_url` = #{wap_banner_url},
+        `level` = #{level},
+        `type` = #{type},
+        `front_name` = #{front_name},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_category`
+    <set>
+      <if test="name != null"> 
+        `name` = #{name},
+      </if>
+      <if test="keywords != null"> 
+        `keywords` = #{keywords},
+      </if>
+      <if test="front_desc != null"> 
+        `front_desc` = #{front_desc},
+      </if>
+      <if test="parent_id != null"> 
+        `parent_id` = #{parent_id},
+      </if>
+      <if test="sort_order != null"> 
+        `sort_order` = #{sort_order},
+      </if>
+      <if test="show_index != null"> 
+        `show_index` = #{show_index},
+      </if>
+      <if test="is_show != null"> 
+        `is_show` = #{is_show},
+      </if>
+      <if test="banner_url != null"> 
+        `banner_url` = #{banner_url},
+      </if>
+      <if test="icon_url != null"> 
+        `icon_url` = #{icon_url},
+      </if>
+      <if test="img_url != null"> 
+        `img_url` = #{img_url},
+      </if>
+      <if test="wap_banner_url != null"> 
+        `wap_banner_url` = #{wap_banner_url},
+      </if>
+      <if test="level != null"> 
+        `level` = #{level},
+      </if>
+      <if test="type != null"> 
+        `type` = #{type},
+      </if>
+      <if test="front_name != null"> 
+        `front_name` = #{front_name},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_category` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_category`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Category">
+    select
+      <include refid="columns" />
+    from `nideshop_category`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

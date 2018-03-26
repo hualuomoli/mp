@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.AdPositionBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `name` as "name",
+    `width` as "width",
+    `height` as "height",
+    `desc` as "desc"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="name != null and name != ''"> 
+      and `name` = #{name}
+    </if>
+    <if test="width != null"> 
+      and `width` = #{width}
+    </if>
+    <if test="height != null"> 
+      and `height` = #{height}
+    </if>
+    <if test="desc != null and desc != ''"> 
+      and `desc` = #{desc}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.AdPosition">
+    select 
+      <include refid="columns" />
+    from `nideshop_ad_position`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_ad_position` (
+      `id`,
+      `name`,
+      `width`,
+      `height`,
+      `desc`
+    ) values (
+      #{id},
+      #{name},
+      #{width},
+      #{height},
+      #{desc}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_ad_position` (
+      `id`,
+      `name`,
+      `width`,
+      `height`,
+      `desc`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.name},
+      #{obj.width},
+      #{obj.height},
+      #{obj.desc}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_ad_position`
+    <set>
+        `name` = #{name},
+        `width` = #{width},
+        `height` = #{height},
+        `desc` = #{desc},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_ad_position`
+    <set>
+      <if test="name != null"> 
+        `name` = #{name},
+      </if>
+      <if test="width != null"> 
+        `width` = #{width},
+      </if>
+      <if test="height != null"> 
+        `height` = #{height},
+      </if>
+      <if test="desc != null"> 
+        `desc` = #{desc},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_ad_position` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_ad_position`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.AdPosition">
+    select
+      <include refid="columns" />
+    from `nideshop_ad_position`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

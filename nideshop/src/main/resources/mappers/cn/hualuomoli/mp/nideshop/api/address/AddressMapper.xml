@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.api.address.mapper.AddressMapper">
+  
+  <select id="find" resultType="cn.hualuomoli.mp.nideshop.api.address.entity.ApiAddress">
+    SELECT
+      r1.`name` AS "province_name",
+      r2.`name` AS "city_name",
+      r3.`name` AS "district_name",
+      concat(r1.`name`, r2.`name`, r3.`name`) AS "full_region"
+    FROM nideshop_address a
+    INNER JOIN nideshop_region r1 ON a.province_id = r1.id
+    INNER JOIN nideshop_region r2 ON a.city_id = r2.id
+    INNER JOIN nideshop_region r3 ON a.district_id = r3.id
+    where 1 = 1
+    <if test="addressId != null">
+      and a.id = #{addressId}
+    </if>
+    <if test="currentUserId != null">
+      and a.user_id = #{currentUserId}
+    </if>
+  </select>
+  
+  <update id="removeDefault">
+    update nideshop_address 
+    set is_default = #{nomalValue} 
+    where 1 = 1 
+    and is_default = #{defaultValue}
+  </update>
+
+</mapper>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.BrandBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `name` as "name",
+    `list_pic_url` as "list_pic_url",
+    `simple_desc` as "simple_desc",
+    `pic_url` as "pic_url",
+    `sort_order` as "sort_order",
+    `is_show` as "is_show",
+    `floor_price` as "floor_price",
+    `app_list_pic_url` as "app_list_pic_url",
+    `is_new` as "is_new",
+    `new_pic_url` as "new_pic_url",
+    `new_sort_order` as "new_sort_order"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="name != null and name != ''"> 
+      and `name` = #{name}
+    </if>
+    <if test="list_pic_url != null and list_pic_url != ''"> 
+      and `list_pic_url` = #{list_pic_url}
+    </if>
+    <if test="simple_desc != null and simple_desc != ''"> 
+      and `simple_desc` = #{simple_desc}
+    </if>
+    <if test="pic_url != null and pic_url != ''"> 
+      and `pic_url` = #{pic_url}
+    </if>
+    <if test="sort_order != null"> 
+      and `sort_order` = #{sort_order}
+    </if>
+    <if test="is_show != null"> 
+      and `is_show` = #{is_show}
+    </if>
+    <if test="floor_price != null"> 
+      and `floor_price` = #{floor_price}
+    </if>
+    <if test="app_list_pic_url != null and app_list_pic_url != ''"> 
+      and `app_list_pic_url` = #{app_list_pic_url}
+    </if>
+    <if test="is_new != null"> 
+      and `is_new` = #{is_new}
+    </if>
+    <if test="new_pic_url != null and new_pic_url != ''"> 
+      and `new_pic_url` = #{new_pic_url}
+    </if>
+    <if test="new_sort_order != null"> 
+      and `new_sort_order` = #{new_sort_order}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.Brand">
+    select 
+      <include refid="columns" />
+    from `nideshop_brand`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_brand` (
+      `id`,
+      `name`,
+      `list_pic_url`,
+      `simple_desc`,
+      `pic_url`,
+      `sort_order`,
+      `is_show`,
+      `floor_price`,
+      `app_list_pic_url`,
+      `is_new`,
+      `new_pic_url`,
+      `new_sort_order`
+    ) values (
+      #{id},
+      #{name},
+      #{list_pic_url},
+      #{simple_desc},
+      #{pic_url},
+      #{sort_order},
+      #{is_show},
+      #{floor_price},
+      #{app_list_pic_url},
+      #{is_new},
+      #{new_pic_url},
+      #{new_sort_order}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_brand` (
+      `id`,
+      `name`,
+      `list_pic_url`,
+      `simple_desc`,
+      `pic_url`,
+      `sort_order`,
+      `is_show`,
+      `floor_price`,
+      `app_list_pic_url`,
+      `is_new`,
+      `new_pic_url`,
+      `new_sort_order`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.name},
+      #{obj.list_pic_url},
+      #{obj.simple_desc},
+      #{obj.pic_url},
+      #{obj.sort_order},
+      #{obj.is_show},
+      #{obj.floor_price},
+      #{obj.app_list_pic_url},
+      #{obj.is_new},
+      #{obj.new_pic_url},
+      #{obj.new_sort_order}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_brand`
+    <set>
+        `name` = #{name},
+        `list_pic_url` = #{list_pic_url},
+        `simple_desc` = #{simple_desc},
+        `pic_url` = #{pic_url},
+        `sort_order` = #{sort_order},
+        `is_show` = #{is_show},
+        `floor_price` = #{floor_price},
+        `app_list_pic_url` = #{app_list_pic_url},
+        `is_new` = #{is_new},
+        `new_pic_url` = #{new_pic_url},
+        `new_sort_order` = #{new_sort_order},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_brand`
+    <set>
+      <if test="name != null"> 
+        `name` = #{name},
+      </if>
+      <if test="list_pic_url != null"> 
+        `list_pic_url` = #{list_pic_url},
+      </if>
+      <if test="simple_desc != null"> 
+        `simple_desc` = #{simple_desc},
+      </if>
+      <if test="pic_url != null"> 
+        `pic_url` = #{pic_url},
+      </if>
+      <if test="sort_order != null"> 
+        `sort_order` = #{sort_order},
+      </if>
+      <if test="is_show != null"> 
+        `is_show` = #{is_show},
+      </if>
+      <if test="floor_price != null"> 
+        `floor_price` = #{floor_price},
+      </if>
+      <if test="app_list_pic_url != null"> 
+        `app_list_pic_url` = #{app_list_pic_url},
+      </if>
+      <if test="is_new != null"> 
+        `is_new` = #{is_new},
+      </if>
+      <if test="new_pic_url != null"> 
+        `new_pic_url` = #{new_pic_url},
+      </if>
+      <if test="new_sort_order != null"> 
+        `new_sort_order` = #{new_sort_order},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_brand` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_brand`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Brand">
+    select
+      <include refid="columns" />
+    from `nideshop_brand`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

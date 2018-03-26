@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.GoodsSpecificationQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `goods_id` as "goods_id",
+    `specification_id` as "specification_id",
+    `value` as "value",
+    `pic_url` as "pic_url"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="goods_id != null">
+      and `goods_id` = #{goods_id}
+    </if>
+    <if test="goods_idGreaterThan != null"> 
+      and `goods_id` <![CDATA[ > ]]> #{goods_idGreaterThan}
+    </if>
+    <if test="goods_idGreaterEqual != null"> 
+      and `goods_id` <![CDATA[ >= ]]> #{goods_idGreaterEqual}
+    </if>
+    <if test="goods_idLessThan != null"> 
+      and `goods_id` <![CDATA[ < ]]> #{goods_idLessThan}
+    </if>
+    <if test="goods_idLessEqual != null"> 
+      and `goods_id` <![CDATA[ <= ]]> #{goods_idLessEqual}
+    </if>
+    <if test="goods_idNotEquals != null and goods_idNotEquals != ''"> 
+      and `goods_id` <![CDATA[ <> ]]> #{goods_idNotEquals}
+    </if>
+    <if test="goods_idIns != null">
+      <foreach collection="goods_idIns" item="obj" open="and (" close=")" separator="or">
+        `goods_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="goods_idNotIns != null">
+      <foreach collection="goods_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `goods_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="specification_id != null">
+      and `specification_id` = #{specification_id}
+    </if>
+    <if test="specification_idGreaterThan != null"> 
+      and `specification_id` <![CDATA[ > ]]> #{specification_idGreaterThan}
+    </if>
+    <if test="specification_idGreaterEqual != null"> 
+      and `specification_id` <![CDATA[ >= ]]> #{specification_idGreaterEqual}
+    </if>
+    <if test="specification_idLessThan != null"> 
+      and `specification_id` <![CDATA[ < ]]> #{specification_idLessThan}
+    </if>
+    <if test="specification_idLessEqual != null"> 
+      and `specification_id` <![CDATA[ <= ]]> #{specification_idLessEqual}
+    </if>
+    <if test="specification_idNotEquals != null and specification_idNotEquals != ''"> 
+      and `specification_id` <![CDATA[ <> ]]> #{specification_idNotEquals}
+    </if>
+    <if test="specification_idIns != null">
+      <foreach collection="specification_idIns" item="obj" open="and (" close=")" separator="or">
+        `specification_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="specification_idNotIns != null">
+      <foreach collection="specification_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `specification_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="value != null and value != ''">
+      and `value` = #{value}
+    </if>
+    <if test="valueLeftLike != null and valueLeftLike != ''"> 
+      and `value` like CONCAT(#{valueLeftLike}, '%')
+    </if>
+    <if test="valueRightLike != null and valueRightLike != ''"> 
+      and `value` like CONCAT('%', #{valueRightLike})
+    </if>
+    <if test="valueLike != null and valueLike != ''"> 
+      and `value` like CONCAT('%', #{valueLike}, '%')
+    </if>
+    <if test="valueNotEquals != null and valueNotEquals != ''"> 
+      and `value` <![CDATA[ <> ]]> #{valueNotEquals}
+    </if>
+    <if test="valueIns != null">
+      <foreach collection="valueIns" item="obj" open="and (" close=")" separator="or">
+        `value` = #{obj}
+      </foreach>
+    </if>
+    <if test="valueNotIns != null">
+      <foreach collection="valueNotIns" item="obj" open="and (" close=")" separator="and">
+        `value` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="pic_url != null and pic_url != ''">
+      and `pic_url` = #{pic_url}
+    </if>
+    <if test="pic_urlLeftLike != null and pic_urlLeftLike != ''"> 
+      and `pic_url` like CONCAT(#{pic_urlLeftLike}, '%')
+    </if>
+    <if test="pic_urlRightLike != null and pic_urlRightLike != ''"> 
+      and `pic_url` like CONCAT('%', #{pic_urlRightLike})
+    </if>
+    <if test="pic_urlLike != null and pic_urlLike != ''"> 
+      and `pic_url` like CONCAT('%', #{pic_urlLike}, '%')
+    </if>
+    <if test="pic_urlNotEquals != null and pic_urlNotEquals != ''"> 
+      and `pic_url` <![CDATA[ <> ]]> #{pic_urlNotEquals}
+    </if>
+    <if test="pic_urlIns != null">
+      <foreach collection="pic_urlIns" item="obj" open="and (" close=")" separator="or">
+        `pic_url` = #{obj}
+      </foreach>
+    </if>
+    <if test="pic_urlNotIns != null">
+      <foreach collection="pic_urlNotIns" item="obj" open="and (" close=")" separator="and">
+        `pic_url` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.GoodsSpecification">
+    select
+      <include refid="columns" />
+    from `nideshop_goods_specification`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

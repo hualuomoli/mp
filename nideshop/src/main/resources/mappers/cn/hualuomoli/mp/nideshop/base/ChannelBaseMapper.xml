@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.ChannelBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `name` as "name",
+    `url` as "url",
+    `icon_url` as "icon_url",
+    `sort_order` as "sort_order"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="name != null and name != ''"> 
+      and `name` = #{name}
+    </if>
+    <if test="url != null and url != ''"> 
+      and `url` = #{url}
+    </if>
+    <if test="icon_url != null and icon_url != ''"> 
+      and `icon_url` = #{icon_url}
+    </if>
+    <if test="sort_order != null"> 
+      and `sort_order` = #{sort_order}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.Channel">
+    select 
+      <include refid="columns" />
+    from `nideshop_channel`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_channel` (
+      `id`,
+      `name`,
+      `url`,
+      `icon_url`,
+      `sort_order`
+    ) values (
+      #{id},
+      #{name},
+      #{url},
+      #{icon_url},
+      #{sort_order}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_channel` (
+      `id`,
+      `name`,
+      `url`,
+      `icon_url`,
+      `sort_order`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.name},
+      #{obj.url},
+      #{obj.icon_url},
+      #{obj.sort_order}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_channel`
+    <set>
+        `name` = #{name},
+        `url` = #{url},
+        `icon_url` = #{icon_url},
+        `sort_order` = #{sort_order},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_channel`
+    <set>
+      <if test="name != null"> 
+        `name` = #{name},
+      </if>
+      <if test="url != null"> 
+        `url` = #{url},
+      </if>
+      <if test="icon_url != null"> 
+        `icon_url` = #{icon_url},
+      </if>
+      <if test="sort_order != null"> 
+        `sort_order` = #{sort_order},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_channel` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_channel`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Channel">
+    select
+      <include refid="columns" />
+    from `nideshop_channel`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

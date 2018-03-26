@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.UserBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `username` as "username",
+    `password` as "password",
+    `gender` as "gender",
+    `birthday` as "birthday",
+    `register_time` as "register_time",
+    `last_login_time` as "last_login_time",
+    `last_login_ip` as "last_login_ip",
+    `user_level_id` as "user_level_id",
+    `nickname` as "nickname",
+    `mobile` as "mobile",
+    `register_ip` as "register_ip",
+    `avatar` as "avatar",
+    `weixin_openid` as "weixin_openid"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="username != null and username != ''"> 
+      and `username` = #{username}
+    </if>
+    <if test="password != null and password != ''"> 
+      and `password` = #{password}
+    </if>
+    <if test="gender != null"> 
+      and `gender` = #{gender}
+    </if>
+    <if test="birthday != null"> 
+      and `birthday` = #{birthday}
+    </if>
+    <if test="register_time != null"> 
+      and `register_time` = #{register_time}
+    </if>
+    <if test="last_login_time != null"> 
+      and `last_login_time` = #{last_login_time}
+    </if>
+    <if test="last_login_ip != null and last_login_ip != ''"> 
+      and `last_login_ip` = #{last_login_ip}
+    </if>
+    <if test="user_level_id != null"> 
+      and `user_level_id` = #{user_level_id}
+    </if>
+    <if test="nickname != null and nickname != ''"> 
+      and `nickname` = #{nickname}
+    </if>
+    <if test="mobile != null and mobile != ''"> 
+      and `mobile` = #{mobile}
+    </if>
+    <if test="register_ip != null and register_ip != ''"> 
+      and `register_ip` = #{register_ip}
+    </if>
+    <if test="avatar != null and avatar != ''"> 
+      and `avatar` = #{avatar}
+    </if>
+    <if test="weixin_openid != null and weixin_openid != ''"> 
+      and `weixin_openid` = #{weixin_openid}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.User">
+    select 
+      <include refid="columns" />
+    from `nideshop_user`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_user` (
+      `id`,
+      `username`,
+      `password`,
+      `gender`,
+      `birthday`,
+      `register_time`,
+      `last_login_time`,
+      `last_login_ip`,
+      `user_level_id`,
+      `nickname`,
+      `mobile`,
+      `register_ip`,
+      `avatar`,
+      `weixin_openid`
+    ) values (
+      #{id},
+      #{username},
+      #{password},
+      #{gender},
+      #{birthday},
+      #{register_time},
+      #{last_login_time},
+      #{last_login_ip},
+      #{user_level_id},
+      #{nickname},
+      #{mobile},
+      #{register_ip},
+      #{avatar},
+      #{weixin_openid}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_user` (
+      `id`,
+      `username`,
+      `password`,
+      `gender`,
+      `birthday`,
+      `register_time`,
+      `last_login_time`,
+      `last_login_ip`,
+      `user_level_id`,
+      `nickname`,
+      `mobile`,
+      `register_ip`,
+      `avatar`,
+      `weixin_openid`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.username},
+      #{obj.password},
+      #{obj.gender},
+      #{obj.birthday},
+      #{obj.register_time},
+      #{obj.last_login_time},
+      #{obj.last_login_ip},
+      #{obj.user_level_id},
+      #{obj.nickname},
+      #{obj.mobile},
+      #{obj.register_ip},
+      #{obj.avatar},
+      #{obj.weixin_openid}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_user`
+    <set>
+        `username` = #{username},
+        `password` = #{password},
+        `gender` = #{gender},
+        `birthday` = #{birthday},
+        `register_time` = #{register_time},
+        `last_login_time` = #{last_login_time},
+        `last_login_ip` = #{last_login_ip},
+        `user_level_id` = #{user_level_id},
+        `nickname` = #{nickname},
+        `mobile` = #{mobile},
+        `register_ip` = #{register_ip},
+        `avatar` = #{avatar},
+        `weixin_openid` = #{weixin_openid},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_user`
+    <set>
+      <if test="username != null"> 
+        `username` = #{username},
+      </if>
+      <if test="password != null"> 
+        `password` = #{password},
+      </if>
+      <if test="gender != null"> 
+        `gender` = #{gender},
+      </if>
+      <if test="birthday != null"> 
+        `birthday` = #{birthday},
+      </if>
+      <if test="register_time != null"> 
+        `register_time` = #{register_time},
+      </if>
+      <if test="last_login_time != null"> 
+        `last_login_time` = #{last_login_time},
+      </if>
+      <if test="last_login_ip != null"> 
+        `last_login_ip` = #{last_login_ip},
+      </if>
+      <if test="user_level_id != null"> 
+        `user_level_id` = #{user_level_id},
+      </if>
+      <if test="nickname != null"> 
+        `nickname` = #{nickname},
+      </if>
+      <if test="mobile != null"> 
+        `mobile` = #{mobile},
+      </if>
+      <if test="register_ip != null"> 
+        `register_ip` = #{register_ip},
+      </if>
+      <if test="avatar != null"> 
+        `avatar` = #{avatar},
+      </if>
+      <if test="weixin_openid != null"> 
+        `weixin_openid` = #{weixin_openid},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_user` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_user`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.User">
+    select
+      <include refid="columns" />
+    from `nideshop_user`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

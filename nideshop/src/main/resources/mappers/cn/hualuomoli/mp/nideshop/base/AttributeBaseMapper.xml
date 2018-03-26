@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.AttributeBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `attribute_category_id` as "attribute_category_id",
+    `name` as "name",
+    `input_type` as "input_type",
+    `values` as "values",
+    `sort_order` as "sort_order"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="attribute_category_id != null"> 
+      and `attribute_category_id` = #{attribute_category_id}
+    </if>
+    <if test="name != null and name != ''"> 
+      and `name` = #{name}
+    </if>
+    <if test="input_type != null"> 
+      and `input_type` = #{input_type}
+    </if>
+    <if test="values != null and values != ''"> 
+      and `values` = #{values}
+    </if>
+    <if test="sort_order != null"> 
+      and `sort_order` = #{sort_order}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.Attribute">
+    select 
+      <include refid="columns" />
+    from `nideshop_attribute`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_attribute` (
+      `id`,
+      `attribute_category_id`,
+      `name`,
+      `input_type`,
+      `values`,
+      `sort_order`
+    ) values (
+      #{id},
+      #{attribute_category_id},
+      #{name},
+      #{input_type},
+      #{values},
+      #{sort_order}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_attribute` (
+      `id`,
+      `attribute_category_id`,
+      `name`,
+      `input_type`,
+      `values`,
+      `sort_order`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.attribute_category_id},
+      #{obj.name},
+      #{obj.input_type},
+      #{obj.values},
+      #{obj.sort_order}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_attribute`
+    <set>
+        `attribute_category_id` = #{attribute_category_id},
+        `name` = #{name},
+        `input_type` = #{input_type},
+        `values` = #{values},
+        `sort_order` = #{sort_order},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_attribute`
+    <set>
+      <if test="attribute_category_id != null"> 
+        `attribute_category_id` = #{attribute_category_id},
+      </if>
+      <if test="name != null"> 
+        `name` = #{name},
+      </if>
+      <if test="input_type != null"> 
+        `input_type` = #{input_type},
+      </if>
+      <if test="values != null"> 
+        `values` = #{values},
+      </if>
+      <if test="sort_order != null"> 
+        `sort_order` = #{sort_order},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_attribute` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_attribute`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Attribute">
+    select
+      <include refid="columns" />
+    from `nideshop_attribute`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

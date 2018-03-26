@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.mapper.OrderExpressBaseMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `order_id` as "order_id",
+    `shipper_id` as "shipper_id",
+    `shipper_name` as "shipper_name",
+    `shipper_code` as "shipper_code",
+    `logistic_code` as "logistic_code",
+    `traces` as "traces",
+    `is_finish` as "is_finish",
+    `request_count` as "request_count",
+    `request_time` as "request_time",
+    `add_time` as "add_time",
+    `update_time` as "update_time"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="id != null"> 
+      and `id` = #{id}
+    </if>
+    <if test="order_id != null"> 
+      and `order_id` = #{order_id}
+    </if>
+    <if test="shipper_id != null"> 
+      and `shipper_id` = #{shipper_id}
+    </if>
+    <if test="shipper_name != null and shipper_name != ''"> 
+      and `shipper_name` = #{shipper_name}
+    </if>
+    <if test="shipper_code != null and shipper_code != ''"> 
+      and `shipper_code` = #{shipper_code}
+    </if>
+    <if test="logistic_code != null and logistic_code != ''"> 
+      and `logistic_code` = #{logistic_code}
+    </if>
+    <if test="traces != null and traces != ''"> 
+      and `traces` = #{traces}
+    </if>
+    <if test="is_finish != null"> 
+      and `is_finish` = #{is_finish}
+    </if>
+    <if test="request_count != null"> 
+      and `request_count` = #{request_count}
+    </if>
+    <if test="request_time != null"> 
+      and `request_time` = #{request_time}
+    </if>
+    <if test="add_time != null"> 
+      and `add_time` = #{add_time}
+    </if>
+    <if test="update_time != null"> 
+      and `update_time` = #{update_time}
+    </if>
+  </sql>
+  
+  <!-- 根据主键id查询 -->
+  <select id="get" resultType="cn.hualuomoli.mp.nideshop.base.entity.OrderExpress">
+    select 
+      <include refid="columns" />
+    from `nideshop_order_express`
+    where `id` =  #{id}
+  </select>
+  
+  <!-- 添加 -->
+  <insert id="insert">
+    insert into `nideshop_order_express` (
+      `id`,
+      `order_id`,
+      `shipper_id`,
+      `shipper_name`,
+      `shipper_code`,
+      `logistic_code`,
+      `traces`,
+      `is_finish`,
+      `request_count`,
+      `request_time`,
+      `add_time`,
+      `update_time`
+    ) values (
+      #{id},
+      #{order_id},
+      #{shipper_id},
+      #{shipper_name},
+      #{shipper_code},
+      #{logistic_code},
+      #{traces},
+      #{is_finish},
+      #{request_count},
+      #{request_time},
+      #{add_time},
+      #{update_time}
+    )
+  </insert>
+
+  <!-- 批量添加 -->
+  <insert id="batchInsert">
+    insert into `nideshop_order_express` (
+      `id`,
+      `order_id`,
+      `shipper_id`,
+      `shipper_name`,
+      `shipper_code`,
+      `logistic_code`,
+      `traces`,
+      `is_finish`,
+      `request_count`,
+      `request_time`,
+      `add_time`,
+      `update_time`
+    ) 
+    <foreach collection="list" item="obj" separator="union all">
+    select
+      #{obj.id},
+      #{obj.order_id},
+      #{obj.shipper_id},
+      #{obj.shipper_name},
+      #{obj.shipper_code},
+      #{obj.logistic_code},
+      #{obj.traces},
+      #{obj.is_finish},
+      #{obj.request_count},
+      #{obj.request_time},
+      #{obj.add_time},
+      #{obj.update_time}
+    </foreach>
+  </insert>
+  
+  <!-- 根据主键修改全部信息 -->
+  <update id="update">
+    update `nideshop_order_express`
+    <set>
+        `order_id` = #{order_id},
+        `shipper_id` = #{shipper_id},
+        `shipper_name` = #{shipper_name},
+        `shipper_code` = #{shipper_code},
+        `logistic_code` = #{logistic_code},
+        `traces` = #{traces},
+        `is_finish` = #{is_finish},
+        `request_count` = #{request_count},
+        `request_time` = #{request_time},
+        `add_time` = #{add_time},
+        `update_time` = #{update_time},
+    </set>
+    where id =  #{id}
+  </update>
+
+  <!-- 根据主键id修改 -->
+  <update id="updateById">
+    update `nideshop_order_express`
+    <set>
+      <if test="order_id != null"> 
+        `order_id` = #{order_id},
+      </if>
+      <if test="shipper_id != null"> 
+        `shipper_id` = #{shipper_id},
+      </if>
+      <if test="shipper_name != null"> 
+        `shipper_name` = #{shipper_name},
+      </if>
+      <if test="shipper_code != null"> 
+        `shipper_code` = #{shipper_code},
+      </if>
+      <if test="logistic_code != null"> 
+        `logistic_code` = #{logistic_code},
+      </if>
+      <if test="traces != null"> 
+        `traces` = #{traces},
+      </if>
+      <if test="is_finish != null"> 
+        `is_finish` = #{is_finish},
+      </if>
+      <if test="request_count != null"> 
+        `request_count` = #{request_count},
+      </if>
+      <if test="request_time != null"> 
+        `request_time` = #{request_time},
+      </if>
+      <if test="add_time != null"> 
+        `add_time` = #{add_time},
+      </if>
+      <if test="update_time != null"> 
+        `update_time` = #{update_time},
+      </if>
+    </set>
+    where id =  #{id}
+  </update>
+
+  
+  <!-- 根据主键id删除 -->
+  <delete id="delete">
+    delete from `nideshop_order_express` where id =  #{id}
+  </delete>
+  
+
+  <!-- 根据主键id数组删除 -->
+  <delete id="deleteByArray">
+    delete from `nideshop_order_express`
+    <where>
+      <foreach collection="ids" item="id" separator="or">
+        id =  #{id}
+      </foreach>
+      </where>
+  </delete>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.OrderExpress">
+    select
+      <include refid="columns" />
+    from `nideshop_order_express`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

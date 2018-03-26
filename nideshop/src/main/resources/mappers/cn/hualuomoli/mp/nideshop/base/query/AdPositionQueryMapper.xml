@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.AdPositionQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `name` as "name",
+    `width` as "width",
+    `height` as "height",
+    `desc` as "desc"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="name != null and name != ''">
+      and `name` = #{name}
+    </if>
+    <if test="nameLeftLike != null and nameLeftLike != ''"> 
+      and `name` like CONCAT(#{nameLeftLike}, '%')
+    </if>
+    <if test="nameRightLike != null and nameRightLike != ''"> 
+      and `name` like CONCAT('%', #{nameRightLike})
+    </if>
+    <if test="nameLike != null and nameLike != ''"> 
+      and `name` like CONCAT('%', #{nameLike}, '%')
+    </if>
+    <if test="nameNotEquals != null and nameNotEquals != ''"> 
+      and `name` <![CDATA[ <> ]]> #{nameNotEquals}
+    </if>
+    <if test="nameIns != null">
+      <foreach collection="nameIns" item="obj" open="and (" close=")" separator="or">
+        `name` = #{obj}
+      </foreach>
+    </if>
+    <if test="nameNotIns != null">
+      <foreach collection="nameNotIns" item="obj" open="and (" close=")" separator="and">
+        `name` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="width != null">
+      and `width` = #{width}
+    </if>
+    <if test="widthGreaterThan != null"> 
+      and `width` <![CDATA[ > ]]> #{widthGreaterThan}
+    </if>
+    <if test="widthGreaterEqual != null"> 
+      and `width` <![CDATA[ >= ]]> #{widthGreaterEqual}
+    </if>
+    <if test="widthLessThan != null"> 
+      and `width` <![CDATA[ < ]]> #{widthLessThan}
+    </if>
+    <if test="widthLessEqual != null"> 
+      and `width` <![CDATA[ <= ]]> #{widthLessEqual}
+    </if>
+    <if test="widthNotEquals != null and widthNotEquals != ''"> 
+      and `width` <![CDATA[ <> ]]> #{widthNotEquals}
+    </if>
+    <if test="widthIns != null">
+      <foreach collection="widthIns" item="obj" open="and (" close=")" separator="or">
+        `width` = #{obj}
+      </foreach>
+    </if>
+    <if test="widthNotIns != null">
+      <foreach collection="widthNotIns" item="obj" open="and (" close=")" separator="and">
+        `width` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="height != null">
+      and `height` = #{height}
+    </if>
+    <if test="heightGreaterThan != null"> 
+      and `height` <![CDATA[ > ]]> #{heightGreaterThan}
+    </if>
+    <if test="heightGreaterEqual != null"> 
+      and `height` <![CDATA[ >= ]]> #{heightGreaterEqual}
+    </if>
+    <if test="heightLessThan != null"> 
+      and `height` <![CDATA[ < ]]> #{heightLessThan}
+    </if>
+    <if test="heightLessEqual != null"> 
+      and `height` <![CDATA[ <= ]]> #{heightLessEqual}
+    </if>
+    <if test="heightNotEquals != null and heightNotEquals != ''"> 
+      and `height` <![CDATA[ <> ]]> #{heightNotEquals}
+    </if>
+    <if test="heightIns != null">
+      <foreach collection="heightIns" item="obj" open="and (" close=")" separator="or">
+        `height` = #{obj}
+      </foreach>
+    </if>
+    <if test="heightNotIns != null">
+      <foreach collection="heightNotIns" item="obj" open="and (" close=")" separator="and">
+        `height` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="desc != null and desc != ''">
+      and `desc` = #{desc}
+    </if>
+    <if test="descLeftLike != null and descLeftLike != ''"> 
+      and `desc` like CONCAT(#{descLeftLike}, '%')
+    </if>
+    <if test="descRightLike != null and descRightLike != ''"> 
+      and `desc` like CONCAT('%', #{descRightLike})
+    </if>
+    <if test="descLike != null and descLike != ''"> 
+      and `desc` like CONCAT('%', #{descLike}, '%')
+    </if>
+    <if test="descNotEquals != null and descNotEquals != ''"> 
+      and `desc` <![CDATA[ <> ]]> #{descNotEquals}
+    </if>
+    <if test="descIns != null">
+      <foreach collection="descIns" item="obj" open="and (" close=")" separator="or">
+        `desc` = #{obj}
+      </foreach>
+    </if>
+    <if test="descNotIns != null">
+      <foreach collection="descNotIns" item="obj" open="and (" close=")" separator="and">
+        `desc` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.AdPosition">
+    select
+      <include refid="columns" />
+    from `nideshop_ad_position`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

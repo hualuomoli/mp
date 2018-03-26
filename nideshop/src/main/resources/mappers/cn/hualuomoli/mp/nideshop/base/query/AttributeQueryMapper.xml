@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.AttributeQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `attribute_category_id` as "attribute_category_id",
+    `name` as "name",
+    `input_type` as "input_type",
+    `values` as "values",
+    `sort_order` as "sort_order"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="attribute_category_id != null">
+      and `attribute_category_id` = #{attribute_category_id}
+    </if>
+    <if test="attribute_category_idGreaterThan != null"> 
+      and `attribute_category_id` <![CDATA[ > ]]> #{attribute_category_idGreaterThan}
+    </if>
+    <if test="attribute_category_idGreaterEqual != null"> 
+      and `attribute_category_id` <![CDATA[ >= ]]> #{attribute_category_idGreaterEqual}
+    </if>
+    <if test="attribute_category_idLessThan != null"> 
+      and `attribute_category_id` <![CDATA[ < ]]> #{attribute_category_idLessThan}
+    </if>
+    <if test="attribute_category_idLessEqual != null"> 
+      and `attribute_category_id` <![CDATA[ <= ]]> #{attribute_category_idLessEqual}
+    </if>
+    <if test="attribute_category_idNotEquals != null and attribute_category_idNotEquals != ''"> 
+      and `attribute_category_id` <![CDATA[ <> ]]> #{attribute_category_idNotEquals}
+    </if>
+    <if test="attribute_category_idIns != null">
+      <foreach collection="attribute_category_idIns" item="obj" open="and (" close=")" separator="or">
+        `attribute_category_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="attribute_category_idNotIns != null">
+      <foreach collection="attribute_category_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `attribute_category_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="name != null and name != ''">
+      and `name` = #{name}
+    </if>
+    <if test="nameLeftLike != null and nameLeftLike != ''"> 
+      and `name` like CONCAT(#{nameLeftLike}, '%')
+    </if>
+    <if test="nameRightLike != null and nameRightLike != ''"> 
+      and `name` like CONCAT('%', #{nameRightLike})
+    </if>
+    <if test="nameLike != null and nameLike != ''"> 
+      and `name` like CONCAT('%', #{nameLike}, '%')
+    </if>
+    <if test="nameNotEquals != null and nameNotEquals != ''"> 
+      and `name` <![CDATA[ <> ]]> #{nameNotEquals}
+    </if>
+    <if test="nameIns != null">
+      <foreach collection="nameIns" item="obj" open="and (" close=")" separator="or">
+        `name` = #{obj}
+      </foreach>
+    </if>
+    <if test="nameNotIns != null">
+      <foreach collection="nameNotIns" item="obj" open="and (" close=")" separator="and">
+        `name` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="input_type != null">
+      and `input_type` = #{input_type}
+    </if>
+    <if test="input_typeGreaterThan != null"> 
+      and `input_type` <![CDATA[ > ]]> #{input_typeGreaterThan}
+    </if>
+    <if test="input_typeGreaterEqual != null"> 
+      and `input_type` <![CDATA[ >= ]]> #{input_typeGreaterEqual}
+    </if>
+    <if test="input_typeLessThan != null"> 
+      and `input_type` <![CDATA[ < ]]> #{input_typeLessThan}
+    </if>
+    <if test="input_typeLessEqual != null"> 
+      and `input_type` <![CDATA[ <= ]]> #{input_typeLessEqual}
+    </if>
+    <if test="input_typeNotEquals != null and input_typeNotEquals != ''"> 
+      and `input_type` <![CDATA[ <> ]]> #{input_typeNotEquals}
+    </if>
+    <if test="input_typeIns != null">
+      <foreach collection="input_typeIns" item="obj" open="and (" close=")" separator="or">
+        `input_type` = #{obj}
+      </foreach>
+    </if>
+    <if test="input_typeNotIns != null">
+      <foreach collection="input_typeNotIns" item="obj" open="and (" close=")" separator="and">
+        `input_type` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="values != null and values != ''">
+      and `values` = #{values}
+    </if>
+    <if test="valuesLeftLike != null and valuesLeftLike != ''"> 
+      and `values` like CONCAT(#{valuesLeftLike}, '%')
+    </if>
+    <if test="valuesRightLike != null and valuesRightLike != ''"> 
+      and `values` like CONCAT('%', #{valuesRightLike})
+    </if>
+    <if test="valuesLike != null and valuesLike != ''"> 
+      and `values` like CONCAT('%', #{valuesLike}, '%')
+    </if>
+    <if test="valuesNotEquals != null and valuesNotEquals != ''"> 
+      and `values` <![CDATA[ <> ]]> #{valuesNotEquals}
+    </if>
+    <if test="valuesIns != null">
+      <foreach collection="valuesIns" item="obj" open="and (" close=")" separator="or">
+        `values` = #{obj}
+      </foreach>
+    </if>
+    <if test="valuesNotIns != null">
+      <foreach collection="valuesNotIns" item="obj" open="and (" close=")" separator="and">
+        `values` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="sort_order != null">
+      and `sort_order` = #{sort_order}
+    </if>
+    <if test="sort_orderGreaterThan != null"> 
+      and `sort_order` <![CDATA[ > ]]> #{sort_orderGreaterThan}
+    </if>
+    <if test="sort_orderGreaterEqual != null"> 
+      and `sort_order` <![CDATA[ >= ]]> #{sort_orderGreaterEqual}
+    </if>
+    <if test="sort_orderLessThan != null"> 
+      and `sort_order` <![CDATA[ < ]]> #{sort_orderLessThan}
+    </if>
+    <if test="sort_orderLessEqual != null"> 
+      and `sort_order` <![CDATA[ <= ]]> #{sort_orderLessEqual}
+    </if>
+    <if test="sort_orderNotEquals != null and sort_orderNotEquals != ''"> 
+      and `sort_order` <![CDATA[ <> ]]> #{sort_orderNotEquals}
+    </if>
+    <if test="sort_orderIns != null">
+      <foreach collection="sort_orderIns" item="obj" open="and (" close=")" separator="or">
+        `sort_order` = #{obj}
+      </foreach>
+    </if>
+    <if test="sort_orderNotIns != null">
+      <foreach collection="sort_orderNotIns" item="obj" open="and (" close=")" separator="and">
+        `sort_order` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.Attribute">
+    select
+      <include refid="columns" />
+    from `nideshop_attribute`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

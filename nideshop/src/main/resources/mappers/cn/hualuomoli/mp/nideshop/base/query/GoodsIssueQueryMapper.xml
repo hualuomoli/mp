@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.GoodsIssueQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `goods_id` as "goods_id",
+    `question` as "question",
+    `answer` as "answer"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="goods_id != null and goods_id != ''">
+      and `goods_id` = #{goods_id}
+    </if>
+    <if test="goods_idLeftLike != null and goods_idLeftLike != ''"> 
+      and `goods_id` like CONCAT(#{goods_idLeftLike}, '%')
+    </if>
+    <if test="goods_idRightLike != null and goods_idRightLike != ''"> 
+      and `goods_id` like CONCAT('%', #{goods_idRightLike})
+    </if>
+    <if test="goods_idLike != null and goods_idLike != ''"> 
+      and `goods_id` like CONCAT('%', #{goods_idLike}, '%')
+    </if>
+    <if test="goods_idNotEquals != null and goods_idNotEquals != ''"> 
+      and `goods_id` <![CDATA[ <> ]]> #{goods_idNotEquals}
+    </if>
+    <if test="goods_idIns != null">
+      <foreach collection="goods_idIns" item="obj" open="and (" close=")" separator="or">
+        `goods_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="goods_idNotIns != null">
+      <foreach collection="goods_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `goods_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="question != null and question != ''">
+      and `question` = #{question}
+    </if>
+    <if test="questionLeftLike != null and questionLeftLike != ''"> 
+      and `question` like CONCAT(#{questionLeftLike}, '%')
+    </if>
+    <if test="questionRightLike != null and questionRightLike != ''"> 
+      and `question` like CONCAT('%', #{questionRightLike})
+    </if>
+    <if test="questionLike != null and questionLike != ''"> 
+      and `question` like CONCAT('%', #{questionLike}, '%')
+    </if>
+    <if test="questionNotEquals != null and questionNotEquals != ''"> 
+      and `question` <![CDATA[ <> ]]> #{questionNotEquals}
+    </if>
+    <if test="questionIns != null">
+      <foreach collection="questionIns" item="obj" open="and (" close=")" separator="or">
+        `question` = #{obj}
+      </foreach>
+    </if>
+    <if test="questionNotIns != null">
+      <foreach collection="questionNotIns" item="obj" open="and (" close=")" separator="and">
+        `question` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="answer != null and answer != ''">
+      and `answer` = #{answer}
+    </if>
+    <if test="answerLeftLike != null and answerLeftLike != ''"> 
+      and `answer` like CONCAT(#{answerLeftLike}, '%')
+    </if>
+    <if test="answerRightLike != null and answerRightLike != ''"> 
+      and `answer` like CONCAT('%', #{answerRightLike})
+    </if>
+    <if test="answerLike != null and answerLike != ''"> 
+      and `answer` like CONCAT('%', #{answerLike}, '%')
+    </if>
+    <if test="answerNotEquals != null and answerNotEquals != ''"> 
+      and `answer` <![CDATA[ <> ]]> #{answerNotEquals}
+    </if>
+    <if test="answerIns != null">
+      <foreach collection="answerIns" item="obj" open="and (" close=")" separator="or">
+        `answer` = #{obj}
+      </foreach>
+    </if>
+    <if test="answerNotIns != null">
+      <foreach collection="answerNotIns" item="obj" open="and (" close=")" separator="and">
+        `answer` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.GoodsIssue">
+    select
+      <include refid="columns" />
+    from `nideshop_goods_issue`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>

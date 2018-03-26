@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hualuomoli.mp.nideshop.base.query.mapper.SearchHistoryQueryMapper">
+
+  <!-- 返回的列 -->
+  <sql id="columns">
+    `id` as "id",
+    `keyword` as "keyword",
+    `from` as "from",
+    `add_time` as "add_time",
+    `user_id` as "user_id"
+  </sql>
+  
+  <!-- 查询的列 -->
+  <sql id="querys">
+    <if test="keyword != null and keyword != ''">
+      and `keyword` = #{keyword}
+    </if>
+    <if test="keywordLeftLike != null and keywordLeftLike != ''"> 
+      and `keyword` like CONCAT(#{keywordLeftLike}, '%')
+    </if>
+    <if test="keywordRightLike != null and keywordRightLike != ''"> 
+      and `keyword` like CONCAT('%', #{keywordRightLike})
+    </if>
+    <if test="keywordLike != null and keywordLike != ''"> 
+      and `keyword` like CONCAT('%', #{keywordLike}, '%')
+    </if>
+    <if test="keywordNotEquals != null and keywordNotEquals != ''"> 
+      and `keyword` <![CDATA[ <> ]]> #{keywordNotEquals}
+    </if>
+    <if test="keywordIns != null">
+      <foreach collection="keywordIns" item="obj" open="and (" close=")" separator="or">
+        `keyword` = #{obj}
+      </foreach>
+    </if>
+    <if test="keywordNotIns != null">
+      <foreach collection="keywordNotIns" item="obj" open="and (" close=")" separator="and">
+        `keyword` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="from != null and from != ''">
+      and `from` = #{from}
+    </if>
+    <if test="fromLeftLike != null and fromLeftLike != ''"> 
+      and `from` like CONCAT(#{fromLeftLike}, '%')
+    </if>
+    <if test="fromRightLike != null and fromRightLike != ''"> 
+      and `from` like CONCAT('%', #{fromRightLike})
+    </if>
+    <if test="fromLike != null and fromLike != ''"> 
+      and `from` like CONCAT('%', #{fromLike}, '%')
+    </if>
+    <if test="fromNotEquals != null and fromNotEquals != ''"> 
+      and `from` <![CDATA[ <> ]]> #{fromNotEquals}
+    </if>
+    <if test="fromIns != null">
+      <foreach collection="fromIns" item="obj" open="and (" close=")" separator="or">
+        `from` = #{obj}
+      </foreach>
+    </if>
+    <if test="fromNotIns != null">
+      <foreach collection="fromNotIns" item="obj" open="and (" close=")" separator="and">
+        `from` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="add_time != null">
+      and `add_time` = #{add_time}
+    </if>
+    <if test="add_timeGreaterThan != null"> 
+      and `add_time` <![CDATA[ > ]]> #{add_timeGreaterThan}
+    </if>
+    <if test="add_timeGreaterEqual != null"> 
+      and `add_time` <![CDATA[ >= ]]> #{add_timeGreaterEqual}
+    </if>
+    <if test="add_timeLessThan != null"> 
+      and `add_time` <![CDATA[ < ]]> #{add_timeLessThan}
+    </if>
+    <if test="add_timeLessEqual != null"> 
+      and `add_time` <![CDATA[ <= ]]> #{add_timeLessEqual}
+    </if>
+    <if test="add_timeNotEquals != null and add_timeNotEquals != ''"> 
+      and `add_time` <![CDATA[ <> ]]> #{add_timeNotEquals}
+    </if>
+    <if test="add_timeIns != null">
+      <foreach collection="add_timeIns" item="obj" open="and (" close=")" separator="or">
+        `add_time` = #{obj}
+      </foreach>
+    </if>
+    <if test="add_timeNotIns != null">
+      <foreach collection="add_timeNotIns" item="obj" open="and (" close=")" separator="and">
+        `add_time` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+    <if test="user_id != null">
+      and `user_id` = #{user_id}
+    </if>
+    <if test="user_idGreaterThan != null"> 
+      and `user_id` <![CDATA[ > ]]> #{user_idGreaterThan}
+    </if>
+    <if test="user_idGreaterEqual != null"> 
+      and `user_id` <![CDATA[ >= ]]> #{user_idGreaterEqual}
+    </if>
+    <if test="user_idLessThan != null"> 
+      and `user_id` <![CDATA[ < ]]> #{user_idLessThan}
+    </if>
+    <if test="user_idLessEqual != null"> 
+      and `user_id` <![CDATA[ <= ]]> #{user_idLessEqual}
+    </if>
+    <if test="user_idNotEquals != null and user_idNotEquals != ''"> 
+      and `user_id` <![CDATA[ <> ]]> #{user_idNotEquals}
+    </if>
+    <if test="user_idIns != null">
+      <foreach collection="user_idIns" item="obj" open="and (" close=")" separator="or">
+        `user_id` = #{obj}
+      </foreach>
+    </if>
+    <if test="user_idNotIns != null">
+      <foreach collection="user_idNotIns" item="obj" open="and (" close=")" separator="and">
+        `user_id` <![CDATA[ <> ]]> #{obj}
+      </foreach>
+    </if>
+  </sql>
+  
+  <!-- 查询列表 -->
+  <select id="findList" resultType="cn.hualuomoli.mp.nideshop.base.entity.SearchHistory">
+    select
+      <include refid="columns" />
+    from `nideshop_search_history`
+    <where>
+      <include refid="querys" />
+    </where>
+  </select>
+  
+</mapper>
